@@ -12,7 +12,8 @@
                 <div class="menu-inner">
                     <nav>
                         <ul class="metismenu" id="menu">
-                            <li class="active">
+                       
+                            <li class=" <c:if test="${page_name eq 'index'}">active</c:if>">
                                 <a href="/" aria-expanded="true"><i class="ti-dashboard"></i><span>홈</span></a>
                                 <!-- ul class="collapse">
                                     <li><a href="index.html">SEO dashboard</a></li>
@@ -21,12 +22,12 @@
                                 </ul-->
                             </li>
                             
-
-							<li>
+${page_name}
+							<li class="<c:if test="${page_name == 'user_regist' || page_name == 'user_list'}">active</c:if>">
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-user"></i><span>사용자 관리</span></a>
                                 <ul class="collapse">
-                                    <li><a href="#">사용자 등록</a></li>
-                                    <li><a href="#">사용자 수정/삭제</a></li>
+                                    <li class="<c:if test="${page_name eq 'user_regist'}">active</c:if>"><a href="user_regist">사용자 등록</a></li>
+                                    <li class="<c:if test="${page_name eq 'user_list'}">active</c:if>"><a href="user_manage">사용자 수정/삭제</a></li>
                                 </ul>
                             </li>                            
                             

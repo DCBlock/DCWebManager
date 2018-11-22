@@ -30,6 +30,7 @@ public class LoginController {
         if(user_id.equals("admin") && user_pw.equals("1234")) {
         	session.setAttribute("user_id", user_id);
         	session.setAttribute("is_login", "true");
+        	session.setAttribute("user_name", "이태호");
         	
             retMap.put("result", "success");
             retMap.put("msg", "로그인에 성공하였습니다.");        	

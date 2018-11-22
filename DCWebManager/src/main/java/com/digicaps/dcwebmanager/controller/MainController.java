@@ -28,8 +28,12 @@ public class MainController {
 			user_id = session.getAttribute("user_id").toString();
 			is_login = session.getAttribute("is_login").toString();			
 		}
-		if(is_login.equals("true"))
+		if(is_login.equals("true")) {
 			resultPage = "index";
+			model.addAttribute("page_name","index");
+			model.addAttribute("user_name",session.getAttribute("user_name").toString());
+			
+		}
 		else
 			resultPage = "login";
 		mav.setViewName(resultPage);		
