@@ -5,7 +5,7 @@
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
-                    <a href="/"><img src="img/digicap_logo.png" style=""/><!-- img src="assets/images/icon/logo.png" alt="logo"--></a>
+                    <h5 style="color:white;">D Cafe web manager</h5><a href="/"><!-- img src="img/digicap_logo.png" style=""/--><!-- img src="assets/images/icon/logo.png" alt="logo"--></a>
                 </div>
             </div>
             <div class="main-menu">
@@ -21,8 +21,6 @@
                                     <li><a href="index3.html">ICO dashboard</a></li>
                                 </ul-->
                             </li>
-                            
-${page_name}
 							<li class="<c:if test="${page_name == 'user_regist' || page_name == 'user_list'}">active</c:if>">
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-user"></i><span>사용자 관리</span></a>
                                 <ul class="collapse">
@@ -31,12 +29,11 @@ ${page_name}
                                 </ul>
                             </li>                            
                             
-							<li>
+							<li class="<c:if test="${page_name == 'menu_manage' || page_name == 'cancel_order_manage'}">active</c:if>">
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-pencil-alt"></i><span>카페 관리</span></a>
                                 <ul class="collapse">
-                                    <li><a href="#">카테고리/메뉴 관리</a></li>
-                                    <li><a href="#">사용자 수정/삭제</a></li>
-                                    <li><a href="#">취소주문 관리</a></li>                                    
+                                    <li class="<c:if test="${page_name eq 'menu_manage'}">active</c:if>"><a href="menu_manage">카테고리/메뉴 관리</a></li>
+                                    <li class="<c:if test="${page_name eq 'cancel_order_manage'}">active</c:if>"><a href="cancel_order_manage">취소주문 관리</a></li>                                    
 
                                 </ul>
                             </li>

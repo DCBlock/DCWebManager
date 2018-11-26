@@ -58,10 +58,10 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">사용자 수정/삭제</h4>
+                            <h4 class="page-title pull-left">취소주문 관리</h4>
                             <ul class="breadcrumbs pull-left">
-                                <li><a href="/">사용자 관리</a></li>
-                                <li><span>사용자 수정/삭제</span></li>
+                                <li><a href="/">카페 관리</a></li>
+                                <li><span>취소주문 관리</span></li>
                             </ul>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                 <div class="card mt-5">
                     <div class="card-body">
                         <div class="d-flex justify-content-between mb-5">
-                            <h4 class="header-title mb-0">사용자 수정/삭제</h4>
+                            <h4 class="header-title mb-0">취소주문 관리</h4>
                             <!-- select class="custome-select border-0 pr-3">
                                 <option selected="">Last 7 Days</option>
                                 <option value="0">Last 7 Days</option>
@@ -264,6 +264,7 @@
 		                                            <div class="modal-body">
 		                                                <br/>
 														<h5 id="">완료되었습니다.</h5>
+														<br/>
 		                                            </div>
 		                                            <div class="modal-footer">
 		                                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="">확인</button>

@@ -119,10 +119,19 @@
 					                         <label for="example-text-input">RFCard ID</label>
 					                         <input class="form-control" type="text" id="rfcard_id" disabled>
 					                     </div>
-					                     <div class="form-group">
+					                     <!-- div class="form-group">
 					                         <label for="example-text-input">회사명</label>
 					                         <input class="form-control" type="text" id="company_name">
-					                     </div>
+					                     </div-->
+					                     
+                                        <div class="form-group">
+                                            <label class="col-form-label">회사명</label>
+                                            <select class="custom-select" id="company_name">
+                                                <option selected="selected" value="DigiCAP">DigiCAP</option>
+                                                <option value="Covision">Covision</option>
+                                            </select>
+                                        </div>
+                                        					                     
 					                     <div class="form-group">
 					                         <label for="example-text-input">이름</label>
 					                         <input class="form-control" type="text" id="user_name">
