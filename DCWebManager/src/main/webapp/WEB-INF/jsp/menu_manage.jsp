@@ -30,6 +30,49 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <!-- modernizr css -->
+    
+    
+      <style>
+		ul{
+		   list-style:none;
+		   
+		}
+		.moving_item{
+			color: black;
+			font-size: 12px;
+			border: 1px solid gray;
+			padding : 10px;
+			margin : 3px;
+			background-color:white;
+		}
+		.moving_item:hover{
+			color: black;
+			font-size: 12px;
+			background-color:#ECE0F8;
+			border: 0px solid gray;
+			padding : 10px;
+			margin : 3px;
+		}
+		
+		
+		.item_input:focus{
+			background-color: #333942;
+			color: white;
+		}
+		
+		
+		.header_item{
+			font-weight: bold;
+			background-color: #fff;
+			color:black; 
+			border:0px solid white;
+			text-align:center;
+				font-size: 12px;
+		}
+
+  </style>
+    
+    
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
@@ -91,9 +134,9 @@
 	                    <div class="col-12 mt-5">
 	                        <div class="card">
 	                            <div class="card-body">
-									<button type="button" class="btn btn-flat btn-info mb-3">카테고리 편집</button>
-									<button type="button" class="btn btn-flat btn-info mb-3">메뉴 추가</button>
-									<button type="button" class="btn btn-flat btn-info mb-3" data-toggle="modal" data-target="#modal_menu_info_modify" >메뉴 편집</button>
+									<button type="button" class="btn btn-flat btn-info mb-3" data-toggle="modal" data-target="#modal_category_info_create">카테고리 추가</button>
+									<button type="button" class="btn btn-flat btn-info mb-3" data-toggle="modal" data-target="#modal_category_info_modify">카테고리 수정</button>
+									
 										
 									<div id="category" class="according accordion-s2">
 	                                    <div class="card">
@@ -102,7 +145,12 @@
 	                                        </div>
 	                                        <div id="accordion21" class="collapse show" data-parent="#category">
 	                                            <div class="card-body">
-	                                            
+		                                            <button type="button" class="btn btn-flat btn-info btn-xs mb-3" data-toggle="modal" data-target="#modal_menu_info_create">메뉴 추가</button>
+	                                            	<!-- button type="button" class="btn btn-flat btn-info mb-3" data-toggle="modal" data-target="#modal_menu_info_modify" >메뉴 수정</button-->
+	                                            	
+	                                            	
+	                                            	<button type="button" class="btn btn-flat btn-info btn-xs mb-3" data-toggle="modal" data-target="#modal_menu_info_modify">메뉴 수정</button>
+											                                
 													<div class="single-table">
 					                                    <div class="table-responsive">
 					                                        <table class="table text-center">
@@ -129,23 +177,66 @@
    						                                                <td>Regular/Large</td>
   						                                                <td>Ice/Hot</td>
 						                                                <td>
-						                                                	<button type="button" class="btn btn-flat btn-warning btn-xs mb-3"  data-toggle="modal" data-target="#modal_menu_info_modify" onclick="open_user_modify_modal('code', 'category', 'name_kr', 'name_en', 'price', 'dc_digicap', 'dc_covision', 'opt_type', 'opt_size');">수정</button>
-											                                
-					                                            	
-					
-						                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_user_info_delete" onclick="open_user_delete_modal(1, '이태호');">삭제</button>	                                                	
-						                                                	
+						                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_menu_info_delete">삭제</button>
 						                                                </td>
 						                                            </tr>
-					
-					
-					
-					
+						                                            <tr>
+						                                                <th scope="row">아메리카노</th>
+						                                                <td>Americano</td>
+						                                                <td>2500</td>
+						                                                <td>1000</td>
+   						                                                <td>500</td>
+   						                                                <td>Regular/Large</td>
+  						                                                <td>Ice/Hot</td>
+						                                                <td>
+						                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_menu_info_delete">삭제</button>
+						                                                </td>
+						                                            </tr>					
+						                                            <tr>
+						                                                <th scope="row">아메리카노</th>
+						                                                <td>Americano</td>
+						                                                <td>2500</td>
+						                                                <td>1000</td>
+   						                                                <td>500</td>
+   						                                                <td>Regular/Large</td>
+  						                                                <td>Ice/Hot</td>
+						                                                <td>
+						                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_menu_info_delete">삭제</button>
+						                                                </td>
+						                                            </tr>					
+						                                            <tr>
+						                                                <th scope="row">아메리카노</th>
+						                                                <td>Americano</td>
+						                                                <td>2500</td>
+						                                                <td>1000</td>
+   						                                                <td>500</td>
+   						                                                <td>Regular/Large</td>
+  						                                                <td>Ice/Hot</td>
+						                                                <td>
+						                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_menu_info_delete">삭제</button>
+						                                                </td>
+						                                            </tr>					
+						                                            <tr>
+						                                                <th scope="row">아메리카노</th>
+						                                                <td>Americano</td>
+						                                                <td>2500</td>
+						                                                <td>1000</td>
+   						                                                <td>500</td>
+   						                                                <td>Regular/Large</td>
+  						                                                <td>Ice/Hot</td>
+						                                                <td>
+						                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_menu_info_delete">삭제</button>
+						                                                </td>
+						                                            </tr>
+						                                            
+						                                            
+						                                            					
 						                                        </tbody>
 					                                        </table>
 					                                    </div>
 					                                </div>
-
+	                                            	<!-- button type="button" class="btn btn-flat btn-danger mb-3"  data-toggle="modal" data-target="#modal_menu_info_modify" onclick="">이 카테고리 삭제</button-->
+													<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_category_info_delete">이 카테고리 삭제</button>
 
 	                                            </div>
 	                                        </div>
@@ -185,121 +276,347 @@
             
             
             
-
+										<!-- 
+										
+											- 라우팅 작업 시 유의사항 : 
+											- jsp단에서 이 페이지를 컨트롤 할 때, 이하 모달의 갯수를 카테고리 갯수만큼 만든다
+											- 모달의 id를 통해 카테고리 버튼과 매핑시킨다
+											- 수정완료를 누러서 수정요청 데이터를 보낼 때는 데이터수집 함수에 item_list_in_a_catefory1 item_list_in_a_catefory2 와 같은 식으로 고유 클래스명을 보내준다..
+											- 그럼 데이터수집 함수는 item_list_in_a_catefory{num}의 항목을 모두 받아 반복문을 돌며 데이터를 수집하여 정형화 한다.
+											- 변경이 완료돼면 새로고침.
+										
+										 -->
 						                <!-- 메뉴 수정 모달 시작 -->
 		                                <div class="modal fade bd-example-modal-lg" id="modal_menu_info_modify">
 		                                    <div class="modal-dialog modal-lg" role="document">
 		                                        <div class="modal-content">
 		                                            <div id="modal-header" class="modal-header">
-		                                                <h5 class="modal-title">사용자 정보 수정</h5>
+		                                                <h5 class="modal-title">메뉴 정보 수정</h5>
 		                                                <!-- button type="button" class="close" data-dismiss="modal" onclick="rfcard_register_modal_close();"><span>&times;</span></button-->
 		                                            </div>
 		                                            <div class="modal-body">
 
 														<!-- 제품 수정필드 목록이 들어가야 합니다. -->
-														<div class="market-status-table mt-12">
-						                                    <div class="table-responsive">
-						                                        <table class="dbkit-table">
-						                                            <tr class="heading-td">
-						                                                <td class="mv-icon">Logo</td>
-						                                                <td class="coin-name">Coin Name</td>
-						                                                <td class="buy">Buy</td>
-						                                                <td class="sell">Sells</td>
-						                                                <td class="trends">Trends</td>
-						                                                <td class="attachments">Attachments</td>
-						                                                <td class="stats-chart">Stats</td>
-						                                            </tr>
-						                                            <tr>
-						                                                <td class="mv-icon"><img src="assets/images/icon/market-value/icon1.png" alt="icon">
-						                                                </td>
-						                                                <td class="coin-name">Dashcoin</td>
-						                                                <td class="buy">30% <img src="assets/images/icon/market-value/triangle-down.png" alt="icon"></td>
-						                                                <td class="sell">20% <img src="assets/images/icon/market-value/triangle-up.png" alt="icon"></td>
-						                                                <td class="trends"><img src="assets/images/icon/market-value/trends-up-icon.png" alt="icon"></td>
-						                                                <td class="attachments">$ 56746,857</td>
-						                                                <td class="stats-chart">
-						                                                    <canvas id="mvaluechart"></canvas>
-						                                                </td>
-						                                            </tr>
-						                                            <tr>
-						                                                <td class="mv-icon">
-						                                                    <div class="mv-icon"><img src="assets/images/icon/market-value/icon2.png" alt="icon"></div>
-						                                                </td>
-						                                                <td class="coin-name">LiteCoin</td>
-						                                                <td class="buy">30% <img src="assets/images/icon/market-value/triangle-down.png" alt="icon"></td>
-						                                                <td class="sell">20% <img src="assets/images/icon/market-value/triangle-up.png" alt="icon"></td>
-						                                                <td class="trends"><img src="assets/images/icon/market-value/trends-down-icon.png" alt="icon"></td>
-						                                                <td class="attachments">$ 56746,857</td>
-						                                                <td class="stats-chart">
-						                                                    <canvas id="mvaluechart2"></canvas>
-						                                                </td>
-						                                            </tr>
-						                                            <tr>
-						                                                <td class="mv-icon">
-						                                                    <div class="mv-icon"><img src="assets/images/icon/market-value/icon3.png" alt="icon"></div>
-						                                                </td>
-						                                                <td class="coin-name">Euthorium</td>
-						                                                <td class="buy">30% <img src="assets/images/icon/market-value/triangle-down.png" alt="icon"></td>
-						                                                <td class="sell">20% <img src="assets/images/icon/market-value/triangle-up.png" alt="icon"></td>
-						                                                <td class="trends"><img src="assets/images/icon/market-value/trends-up-icon.png" alt="icon"></td>
-						                                                <td class="attachments">$ 56746,857</td>
-						                                                <td class="stats-chart">
-						                                                    <canvas id="mvaluechart3"></canvas>
-						                                                </td>
-						                                            </tr>
-						                                            <tr>
-						                                                <td class="mv-icon">
-						                                                    <div class="mv-icon"><img src="assets/images/icon/market-value/icon4.png" alt="icon"></div>
-						                                                </td>
-						                                                <td class="coin-name">Bitcoindash</td>
-						                                                <td class="buy">30% <img src="assets/images/icon/market-value/triangle-down.png" alt="icon"></td>
-						                                                <td class="sell">20% <img src="assets/images/icon/market-value/triangle-up.png" alt="icon"></td>
-						                                                <td class="trends"><img src="assets/images/icon/market-value/trends-up-icon.png" alt="icon"></td>
-						                                                <td class="attachments">$ 56746,857</td>
-						                                                <td class="stats-chart">
-						                                                    <canvas id="mvaluechart4"></canvas>
-						                                                </td>
-						                                            </tr>
-						                                        </table>
-						                                    </div>
-						                                </div>
-
-
-<!-- 제품 수정필드 목록 끝 -->														
+														
+														<div id="modal_alert" class="alert alert-primary" role="alert">
+                                      				    	<strong>Information</strong> 항목을 드래그하여 순서를 변경 할 수 있습니다.
+                                       					</div>
+														<ul id="sortable" class="item_list_in_a_catefory">
+															<li class="ui-state-default moving_item">
+																<i class="ti-arrows-vertical"></i>　
+																<input type="text" class="item_input" value="아메리카노" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
+																<input type="text" class="item_input" value="Americano" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
+																<input type="text" class="item_input" value="2500" size="8" onmouseover="alert_editor('제품가격');"/>　
+																<input type="text" class="item_input" value="1000" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
+																<input type="text" class="item_input" value="500" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
+										                        <select class="item_input" onmouseover="alert_editor('사이즈 선택');">
+										                  	    	<option selected="selected" value="0">Regular</option>
+										                        	<option value="1">Small</option>
+										                        </select>　
+									                            <select class="item_input" onmouseover="alert_editor('음료옵션 선택');">
+										                        	<option selected="selected" value="2">Both</option>
+										                        	<option value="1">Ice</option>
+										                            <option value="0">Hot</option>
+										                        </select>　
+															</li>
+														  
+														  
+														  
+															<li class="ui-state-default moving_item">
+																<i class="ti-arrows-vertical"></i>　
+																<input type="text" class="item_input" value="라떼" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
+																<input type="text" class="item_input" value="Americano" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
+																<input type="text" class="item_input" value="2500" size="8" onmouseover="alert_editor('제품가격');"/>　
+																<input type="text" class="item_input" value="1000" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
+																<input type="text" class="item_input" value="500" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
+										                        <select class="item_input" onmouseover="alert_editor('사이즈 선택');">
+										                  	    	<option selected="selected" value="0">Regular</option>
+										                        	<option value="1">Small</option>
+										                        </select>　
+									                            <select class="item_input" onmouseover="alert_editor('음료옵션 선택');">
+										                        	<option selected="selected" value="2">Both</option>
+										                        	<option value="1">Ice</option>
+										                            <option value="0">Hot</option>
+										                        </select>　
+															</li>
+															
+															
+															
+															
+															<li class="ui-state-default moving_item">
+																<i class="ti-arrows-vertical"></i>　
+																<input type="text" class="item_input" value="타로티" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
+																<input type="text" class="item_input" value="Americano" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
+																<input type="text" class="item_input" value="2500" size="8" onmouseover="alert_editor('제품가격');"/>　
+																<input type="text" class="item_input" value="1000" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
+																<input type="text" class="item_input" value="500" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
+										                        <select class="item_input" onmouseover="alert_editor('사이즈 선택');">
+										                  	    	<option selected="selected" value="0">Regular</option>
+										                        	<option value="1">Small</option>
+										                        </select>　
+									                            <select class="item_input" onmouseover="alert_editor('음료옵션 선택');">
+										                        	<option selected="selected" value="2">Both</option>
+										                        	<option value="1">Ice</option>
+										                            <option value="0">Hot</option>
+										                        </select>　
+															</li>															
+															<li class="ui-state-default moving_item">
+																<i class="ti-arrows-vertical"></i>　
+																<input type="text" class="item_input" value="히비스커스" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
+																<input type="text" class="item_input" value="Americano" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
+																<input type="text" class="item_input" value="2500" size="8" onmouseover="alert_editor('제품가격');"/>　
+																<input type="text" class="item_input" value="1000" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
+																<input type="text" class="item_input" value="500" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
+										                        <select class="item_input" onmouseover="alert_editor('사이즈 선택');">
+										                  	    	<option selected="selected" value="0">Regular</option>
+										                        	<option value="1">Small</option>
+										                        </select>　
+									                            <select class="item_input" onmouseover="alert_editor('음료옵션 선택');">
+										                        	<option selected="selected" value="2">Both</option>
+										                        	<option value="1">Ice</option>
+										                            <option value="0">Hot</option>
+										                        </select>　
+															</li>
+															<li class="ui-state-default moving_item">
+																<i class="ti-arrows-vertical"></i>　
+																<input type="text" class="item_input" value="아메리카노" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
+																<input type="text" class="item_input" value="Americano" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
+																<input type="text" class="item_input" value="2500" size="8" onmouseover="alert_editor('제품가격');"/>　
+																<input type="text" class="item_input" value="1000" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
+																<input type="text" class="item_input" value="500" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
+										                        <select class="item_input" onmouseover="alert_editor('사이즈 선택');">
+										                  	    	<option selected="selected" value="0">Regular</option>
+										                        	<option value="1">Small</option>
+										                        </select>　
+									                            <select class="item_input" onmouseover="alert_editor('음료옵션 선택');">
+										                        	<option selected="selected" value="2">Both</option>
+										                        	<option value="1">Ice</option>
+										                            <option value="0">Hot</option>
+										                        </select>　
+															</li>															
+															<li class="ui-state-default moving_item">
+																<i class="ti-arrows-vertical"></i>　
+																<input type="text" class="item_input" value="아메리카노" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
+																<input type="text" class="item_input" value="Americano" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
+																<input type="text" class="item_input" value="2500" size="8" onmouseover="alert_editor('제품가격');"/>　
+																<input type="text" class="item_input" value="1000" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
+																<input type="text" class="item_input" value="500" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
+										                        <select class="item_input" onmouseover="alert_editor('사이즈 선택');">
+										                  	    	<option selected="selected" value="0">Regular</option>
+										                        	<option value="1">Small</option>
+										                        </select>　
+									                            <select class="item_input" onmouseover="alert_editor('음료옵션 선택');">
+										                        	<option selected="selected" value="2">Both</option>
+										                        	<option value="1">Ice</option>
+										                            <option value="0">Hot</option>
+										                        </select>　
+															</li>																														
+															
+														</ul>
+														<!-- 제품 수정필드 목록 끝 -->														
 		                                            </div>
 		                                            <div class="modal-footer">
-			                                            <button type="button" class="btn btn-primary" onclick="confirm_modify();">Save changes</button>
-		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Close</button>
+			                                            <button type="button" class="btn btn-primary" onclick="">수정내용 저장</button>
+		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">취소</button>
 		                                                
 		                                            </div>
 		                                        </div>
 		                                    </div>
 		                                </div>
-		                                <!-- 회원정보 수정 모달 끝 -->
-						                                
-						                                
-						                <!-- 회원정보 삭제 모달 시작 -->
-		                                <div class="modal fade" id="modal_user_info_delete">
+		                                <!-- 메뉴 수정 모달 끝 -->
+		                                
+		                                
+		                                
+		                                
+						                <!-- 카테고리 수정 모달 시작  -->     
+		                                <div class="modal fade" id="modal_category_info_modify">
 		                                    <div class="modal-dialog modal-dialog-centered" role="document">
 		                                        <div class="modal-content">
 		                                            <div id="modal-header" class="modal-header">
-		                                                <h5 class="modal-title">사용자 삭제</h5>
+		                                                <h5 class="modal-title">카테고리 수정</h5>
 		                                                <!-- button type="button" class="close" data-dismiss="modal" onclick="rfcard_register_modal_close();"><span>&times;</span></button-->
 		                                            </div>
 		                                            <div class="modal-body">
-		                                                
-														<h5 id="delete_user_name">...님을 정말로 삭제하시겠습니까?</h5>
-														<input class="form-control" type="hidden" id="delete_user_index" value="" />
+
+														<div class="alert alert-primary" role="alert">
+                                      				    	<strong>Information</strong> 항목을 드래그하여 순서를 변경 할 수 있습니다.
+                                       					</div>
+
+														<ul id="sortable" class="item_list_in_a_catefory">
+															<li class="ui-state-default moving_item">
+																<i class="ti-arrows-vertical"></i>　
+																<input type="text" class="item_input" value="Coffee" size="12"/>
+															</li>																											
+															<li class="ui-state-default moving_item">
+																<i class="ti-arrows-vertical"></i>　
+																<input type="text" class="item_input" value="Cookie" size="12"/>
+															</li>																			
+															<li class="ui-state-default moving_item">
+																<i class="ti-arrows-vertical"></i>　
+																<input type="text" class="item_input" value="Drink" size="12"/>
+															</li>																			
+															
+															
+															
+														</ul>
+
+
 		                                            </div>
 		                                            <div class="modal-footer">
-			                                            <button type="button" class="btn btn-primary" onclick="confirm_delete();">OK</button>
+			                                            <button type="button" class="btn btn-primary">수정내용 저장</button>
 		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Cancel</button>
 		                                                
 		                                            </div>
 		                                        </div>
 		                                    </div>
 		                                </div>
-		                                <!-- 회원정보 삭제 모달 끝 -->						                                
+
+						                <!-- 카테고리 수정 모달 끝 -->
+						                
+						                
+						                
+						                                
+						                <!-- 메뉴 삭제 모달 시작 -->
+		                                <div class="modal fade" id="modal_menu_info_delete">
+		                                    <div class="modal-dialog modal-dialog-centered" role="document">
+		                                        <div class="modal-content">
+		                                            <div id="modal-header" class="modal-header">
+		                                                <h5 class="modal-title">메뉴 삭제</h5>
+		                                                <!-- button type="button" class="close" data-dismiss="modal" onclick="rfcard_register_modal_close();"><span>&times;</span></button-->
+		                                            </div>
+		                                            <div class="modal-body">
+		                                                
+														<h5>정말 해당 메뉴를 삭제하시겠습니까?</h5>
+														<input class="form-control" type="hidden" id="delete_user_index" value="" />
+		                                            </div>
+		                                            <div class="modal-footer">
+			                                            <button type="button" class="btn btn-primary" onclick="">OK</button>
+		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Cancel</button>
+		                                                
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                                <!-- 메뉴 삭제 모달 끝 -->						                                
+
+						                <!-- 카테고리 삭제 모달 시작 -->
+		                                <div class="modal fade" id="modal_category_info_delete">
+		                                    <div class="modal-dialog modal-dialog-centered" role="document">
+		                                        <div class="modal-content">
+		                                            <div id="modal-header" class="modal-header">
+		                                                <h5 class="modal-title">카테고리 삭제</h5>
+		                                                <!-- button type="button" class="close" data-dismiss="modal" onclick="rfcard_register_modal_close();"><span>&times;</span></button-->
+		                                            </div>
+		                                            <div class="modal-body">
+		                                                
+														<h5>정말 해당 카테고리를 삭제하시겠습니까? 카테고리를 삭제하면 이 카테고리에 속해있는 모든 메뉴도 자동 삭제됩니다.</h5>
+														<input class="form-control" type="hidden" id="delete_user_index" value="" />
+		                                            </div>
+		                                            <div class="modal-footer">
+			                                            <button type="button" class="btn btn-primary" onclick="">OK</button>
+		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Cancel</button>
+		                                                
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                                <!-- 카테고리 삭제 모달 끝 -->
+
+
+						                <!-- 메뉴 추가 모달 시작 -->
+		                                <div class="modal fade" id="modal_menu_info_create">
+		                                    <div class="modal-dialog modal-dialog-centered" role="document">
+		                                        <div class="modal-content">
+		                                            <div id="modal-header" class="modal-header">
+		                                                <h5 class="modal-title">메뉴 추가</h5>
+		                                                <!-- button type="button" class="close" data-dismiss="modal" onclick="rfcard_register_modal_close();"><span>&times;</span></button-->
+		                                            </div>
+		                                            <div class="modal-body">
+																			<input class="form-control" type="hidden" id="create_menu_category_code" value="">
+																			
+							                                                <div class="form-group">
+														                         <label for="example-text-input">제품명(국문)</label>
+														                         <input class="form-control" type="text" id="create_menu_name_kr">
+														                    </div>														                    
+														                    
+														                    <div class="form-group">
+														                         <label for="example-text-input">제품명(영문)</label>
+														                         <input class="form-control" type="text" id="create_menu_name_en">
+														                    </div>
+														                    
+														                    <div class="form-group">
+														                         <label for="example-text-input">가격</label>
+														                         <input class="form-control" type="text" id="create_menu_price">
+														                    </div>														                    
+
+														                    <div class="form-group">
+														                         <label for="example-text-input">디지캡 할인가</label>
+														                         <input class="form-control" type="text" id="create_menu_dc_digicap">
+														                    </div>														                    
+
+														                    <div class="form-group">
+														                         <label for="example-text-input">코비젼 할인가</label>
+														                         <input class="form-control" type="text" id="create_menu_dc_covision">
+														                    </div>														                    
+
+														                    
+							                                                <div class="form-group">
+									                                        	<label class="col-form-label">사이즈 옵션</label>
+										                                        <select class="custom-select" id="create_menu_size">
+										                                            <option selected="selected" value="0">Regular</option>
+										                                            <option value="1">Small</option>
+										                                        </select>
+										                                    </div>														                    
+														                    
+							                                                <div class="form-group">
+									                                        	<label class="col-form-label">음료 타입(Hot/Ice)</label>
+										                                        <select class="custom-select" id="create_menu_type">
+										                                            <option selected="selected" value="2">Both</option>
+										                                            <option value="1">Ice</option>
+										                                            <option value="0">Hot</option>
+										                                            
+										                                        </select>
+										                                    </div>			
+														
+		                                            </div>
+		                                            <div class="modal-footer">
+			                                            <button type="button" class="btn btn-primary" onclick="">추가</button>
+		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">취소</button>
+		                                                
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                                <!-- 메뉴 추가 모달 끝 -->
+
+
+						                <!-- 카테고리 추가 모달 시작 -->
+		                                <div class="modal fade" id="modal_category_info_create">
+		                                    <div class="modal-dialog modal-dialog-centered" role="document">
+		                                        <div class="modal-content">
+		                                            <div id="modal-header" class="modal-header">
+		                                                <h5 class="modal-title">카테고리 추가</h5>
+		                                                <!-- button type="button" class="close" data-dismiss="modal" onclick="rfcard_register_modal_close();"><span>&times;</span></button-->
+		                                            </div>
+		                                            <div class="modal-body">
+												
+																			
+							                                                <div class="form-group">
+														                         <label for="example-text-input">카테고리명</label>
+														                         <input class="form-control" type="text" id="create_menu_name_kr">
+														                    </div>														                    
+														                    		
+														
+		                                            </div>
+		                                            <div class="modal-footer">
+			                                            <button type="button" class="btn btn-primary" onclick="">추가</button>
+		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">취소</button>
+		                                                
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                                <!-- 카테고리 추가 모달 끝 -->
 						                                
 						                <!-- 완료 모달 -->
 		                                <div class="modal fade" id="ok_modal">
@@ -353,22 +670,8 @@
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/scripts.js"></script>
     <script>
-    function open_user_modify_modal(u_index, u_rfid, u_name, u_company_name, u_email, u_leave, u_regdate, u_updatedate){
-    	$("#modify_user_index").val(u_index);
-    	$("#modify_user_rfid").val(u_rfid);
-    	$("#modify_user_name").val(u_name);
-    	$("#modify_user_company_name").val(u_company_name);
-    	$("#modify_user_email").val(u_email);
-    	$("#modify_user_leave").val(u_leave);
-    	$("#modify_user_regdate").val(u_regdate);
-    	$("#modify_user_updatedate").val(u_updatedate);
-    }
     
-    function open_user_delete_modal(u_index, u_name){
-    	$("#delete_user_name").html(u_name + "님을 정말로 삭제하시겠습니까?");
-    	$("#delete_user_index").val(u_index);
-    }
-    
+
     function confirm_modify(){
     	$('#modal_user_info_modify').modal('hide');
     	$('#ok_modal').modal('show');
@@ -379,10 +682,28 @@
     	$('#modal_user_info_delete').modal('hide');
     }
     
+    function alert_editor(msg){
+    	
+    	$("#modal_alert").html(msg);
+    }
+    
     //$('#modal_rfcard_regist').modal('hide');
 
     
     </script>
+    
+	  <script>
+	  $( function() {
+	    //$( "#sortable" ).sortable();
+	    //$( "#sortable" ).disableSelection();
+	    
+	    $(".item_list_in_a_catefory").sortable();
+	    $(".item_list_in_a_catefory").disableSelection();
+	    
+	  } );
+	  </script>    
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </body>
 
 </html>
