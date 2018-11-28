@@ -39,10 +39,10 @@
                             </li>
 
 
-							<li>
+							<li class="<c:if test="${page_name == 'bill'}">active</c:if>">
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-pie-chart"></i><span>카페 통계</span></a>
                                 <ul class="collapse">
-                                    <li><a href="#">월말 공제 정산</a></li>
+                                    <li class="<c:if test="${page_name eq 'bill'}">active</c:if>"><a href="bill">월말 공제 정산</a></li>
                                     <li><a href="#">매출 통계</a></li>
                                 </ul>
                             </li>

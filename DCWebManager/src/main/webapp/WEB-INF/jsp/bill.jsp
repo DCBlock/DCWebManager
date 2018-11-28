@@ -99,68 +99,27 @@
                                         <table class="table text-center">
 <thead class="bg-light text-capitalize">
 	                                            <tr>
-	                                                <th scope="col">구매시간</th>
-	                                                <th scope="col">주문메뉴</th>
-	                                                <th scope="col">갯수</th>
-	                                                <th scope="col">가격</th>
-	                                                <th scope="col">할인가격</th>
-	                                                <th scope="col">사이즈</th>
-	                                                <th scope="col">종류</th>
-	                                                <th scope="col">상태</th>
-	                                                <th scope="col">취소요청시간</th>
-	                                                <th scope="col">취소완료시간</th>	 
-	                                                <th scope="col">업데이트시간</th>
+	                                                <th scope="col">회사</th>
+	                                                <th scope="col">직원명</th>
+	                                                <th scope="col">이메일</th>
+	                                                <th scope="col">구매금액</th>
+	                                                <th scope="col">할인금액</th>
+	                                                <th scope="col">청구액</th>
+	                                                <th scope="col">상세보기</th>
 	                                            </tr>
 	                                        </thead>
 	                                        <tbody>
 	                                            <tr>
-	                                                <th scope="row">2018-12-25 14:12:30</th>
-	                                                <td>아메리카노</td>
-	                                                <td>3</td>
-  	                                                <td>4500</td>
-	                                                <td>1500</td>
-  	                                                <td>Regular</td>
-	                                                <td>Ice</td>
-  	                                                <td><span class="badge badge-pill badge-warning">취소대기중</span></td>	
-	                                                <td><button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_order_cancel_modal" onclick="set_cancel_target('1');">취소승인</button></td>
-  	                                                <td>-</td>
+	                                                <th scope="row">DigiCAP</th>
+	                                                <td>정병옥</td>
+	                                                <td>bojung@digicaps.com</td>
+  	                                                <td>34234000</td>
+	                                                <td>10342000</td>
+  	                                                <td>25303000</td>
+	                                                <td><button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_detail_modal" onclick="request_detail_bill('1');">상세보기</button></td>
+
 	                                            </tr>
-	                                            <tr>
-	                                                <th scope="row">2018-12-25 14:12:30</th>
-	                                                <td>아메리카노</td>
-	                                                <td>3</td>
-  	                                                <td>4500</td>
-	                                                <td>1500</td>
-  	                                                <td>Regular</td>
-	                                                <td>Ice</td>
-  	                                                <td><span class="badge badge-pill badge-danger">취소됨</span></td>	
-	                                                <td>2018-12-25 23:10:44</td>
-  	                                                <td>2018-12-25 23:12:33</td>
-	                                            </tr>
-	                                            <tr>
-	                                                <th scope="row">2018-12-25 14:12:30</th>
-	                                                <td>아메리카노</td>
-	                                                <td>3</td>
-  	                                                <td>4500</td>
-	                                                <td>1500</td>
-  	                                                <td>Regular</td>
-	                                                <td>Ice</td>
-  	                                                <td><span class="badge badge-pill badge-danger">취소됨</span></td>	
-	                                                <td>2018-12-25 23:10:44</td>
-  	                                                <td>-</td>
-	                                         	</tr>
-	                                         	<tr>
-	                                                <th scope="row">2018-12-25 14:12:30</th>
-	                                                <td>아메리카노</td>
-	                                                <td>3</td>
-  	                                                <td>4500</td>
-	                                                <td>1500</td>
-  	                                                <td>Regular</td>
-	                                                <td>Ice</td>
-  	                                                <td><span class="badge badge-pill badge-warning">취소대기중</span></td>	
-	                                                <td><button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_order_cancel_modal" onclick="set_cancel_target('1');">취소승인</button></td>
-  	                                                <td>-</td>	                                         	
-	                                         	</tr>
+
 
 
 
@@ -186,21 +145,19 @@
 						                                
 						                                
 						                <!-- 회원정보 삭제 모달 시작 -->
-		                                <div class="modal fade" id="open_order_cancel_modal">
+		                                <div class="modal fade" id="open_detail_modal">
 		                                    <div class="modal-dialog modal-dialog-centered" role="document">
 		                                        <div class="modal-content">
 		                                            <div id="modal-header" class="modal-header">
-		                                                <h5 class="modal-title">주문취소</h5>
+		                                                <h5 class="modal-title">주문 상세보기</h5>
 		                                                <!-- button type="button" class="close" data-dismiss="modal" onclick="rfcard_register_modal_close();"><span>&times;</span></button-->
 		                                            </div>
 		                                            <div class="modal-body">
 		                                                
-														<h5 id="delete_user_name">주문을 취소 처리하시겠습니까?</h5>
+														<h5 id="delete_user_name">데이터를 받아오고 있습니다.</h5>
 		                                            </div>
 		                                            <div class="modal-footer">
-			                                            <button type="button" class="btn btn-primary" onclick="confirm_delete();">확인</button>
-		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">취소</button>
-		                                                
+			                                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="">확인</button>
 		                                            </div>
 		                                        </div>
 		                                    </div>
@@ -266,7 +223,7 @@
     function confirm_modify(){
     }
     
-    function set_cancel_target(tar){
+    function request_detail_bill(tar){
     	CANCEL_TARGET = tar;
     	alert(CANCEL_TARGET);
     }
