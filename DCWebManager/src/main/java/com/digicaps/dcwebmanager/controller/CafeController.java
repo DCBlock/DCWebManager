@@ -15,6 +15,7 @@ public class CafeController {
 	@RequestMapping(value = "/menu_manage")
     public ModelAndView userRegist(ModelMap model, HttpServletRequest request){
 		String resultPage = "menu_manage";
+		/*
 		HttpSession session = request.getSession(true);
 		String user_id;
 		String is_login = "";
@@ -29,6 +30,7 @@ public class CafeController {
 		}
 		else
 			resultPage = "login";
+		*/
 		mav.setViewName(resultPage);		
 		
 		
@@ -39,6 +41,7 @@ public class CafeController {
 	@RequestMapping(value = "/cancel_order_manage")
     public ModelAndView userManage(ModelMap model, HttpServletRequest request){
 		String resultPage = "cancel_order_manage";
+		/*
 		HttpSession session = request.getSession(true);
 		String user_id;
 		String is_login = "";
@@ -53,6 +56,8 @@ public class CafeController {
 		}
 		else
 			resultPage = "login";
+		*/
+		
 		mav.setViewName(resultPage);		
 		
 		

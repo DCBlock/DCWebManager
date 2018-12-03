@@ -16,6 +16,7 @@ public class UserController {
 	@RequestMapping(value = "/user_regist")
     public ModelAndView userRegist(ModelMap model, HttpServletRequest request){
 		String resultPage = "user_regist";
+		/*
 		HttpSession session = request.getSession(true);
 		String user_id;
 		String is_login = "";
@@ -30,6 +31,7 @@ public class UserController {
 		}
 		else
 			resultPage = "login";
+		 */
 		mav.setViewName(resultPage);		
 		
 		
@@ -40,6 +42,7 @@ public class UserController {
 	@RequestMapping(value = "/user_manage")
     public ModelAndView userManage(ModelMap model, HttpServletRequest request){
 		String resultPage = "user_list";
+		/*
 		HttpSession session = request.getSession(true);
 		String user_id;
 		String is_login = "";
@@ -54,6 +57,7 @@ public class UserController {
 		}
 		else
 			resultPage = "login";
+		*/
 		mav.setViewName(resultPage);		
 		
 		

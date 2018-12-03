@@ -22,7 +22,6 @@ public class MainController {
 		String user_id;
 		String is_login = "";
 		
-		//session.getAttribute("user_id") != null
 				
 		if(session.getAttribute("user_id") != null) {
 			user_id = session.getAttribute("user_id").toString();
