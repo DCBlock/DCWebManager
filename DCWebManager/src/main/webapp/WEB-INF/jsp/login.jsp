@@ -124,7 +124,7 @@
 					location.href="/";
                 
                 }else{
-					alert("로그인에 실패하였습니다.");	                	
+					alert("로그인에 실패하였습니다. : " + data.code + "");	                	
                 }
             }
         });

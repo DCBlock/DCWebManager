@@ -20,6 +20,11 @@ public class WebConfig extends WebMvcConfigurerAdapter{
                 .addPathPatterns("/**")
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/login_request")
+                .excludePathPatterns("/assets")	//뷰를 위한 리소스 자원에는 접근 가능
+                .excludePathPatterns("/assets/**")
+                .excludePathPatterns("/img")
+                .excludePathPatterns("/img/**")
+                
                 .excludePathPatterns("/");	// 홈 화면에서는 자체적으로 세션 검사를 하도록 한다.
     }
 }

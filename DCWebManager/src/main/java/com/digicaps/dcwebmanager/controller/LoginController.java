@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -21,14 +23,24 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.digicaps.dcwebmanager.dto.LoginInfo;
+import com.digicaps.dcwebmanager.dto.LoginSession;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import net.minidev.json.parser.JSONParser;
 
 @Controller
 public class LoginController {
 	ModelAndView mav = new ModelAndView();
-		
+
+	LoginSession LoginSession = new LoginSession();
+	
+    @Value("${user_api_server.address}")
+    String USER_API_SERVER_ADDRESS;
+	
 	@RequestMapping(value = "/login")
     public ModelAndView Login(ModelMap model, HttpServletRequest request){
 		String resultPage = "login";
@@ -75,9 +87,11 @@ public class LoginController {
         RestTemplate template = new RestTemplate();
     	Map<String, String> mvm = new HashMap<String, String>();
     	
-    	adminLoginInfo adminLoginInfo = new adminLoginInfo();	//이 VO는 하단에 의해 놓았음
-    	adminLoginInfo.setID(user_id);
-    	adminLoginInfo.setPassword(user_pw);
+    	LoginInfo LoginInfo = new LoginInfo();
+    	LoginInfo.setID(user_id);
+    	LoginInfo.setPassword(user_pw);
+    	
+    	//String LoginSession = new LoginSession();
 
 
     		
@@ -85,7 +99,7 @@ public class LoginController {
 		String tokenToJson = null;
 		template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 		try {
-			tokenToJson = new ObjectMapper().writeValueAsString(adminLoginInfo);
+			tokenToJson = new ObjectMapper().writeValueAsString(LoginInfo);
 			
 		} catch (JsonProcessingException e) {
 			// TODO : ErrorCode 정의 할 것
@@ -102,11 +116,49 @@ public class LoginController {
 		String result;
 		
 		try{
-			ResponseEntity<String> response = template.exchange("http://10.1.91.101:8090/api/login", HttpMethod.POST, entity, String.class);
+			ResponseEntity<String> response = template.exchange(USER_API_SERVER_ADDRESS + "/api/login", HttpMethod.POST, entity, String.class);
 			System.out.println("***** 응답 : " + response.getBody());
+			//LoginSession = gson.fromJson(response.getBody(), com.digicaps.dcwebmanager.dto.LoginSession.class);
+			//LoginSession.getAccessToken();
+			
+			ObjectMapper mapper = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>(); map = mapper.readValue(response.getBody(), new TypeReference<Map<String, String>>(){});
+
+			
+			///
+			/*
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse( response.getBody() );
+			JSONObject jsonObj = (JSONObject) obj;
+			*/
+			
+			//로그인 정상일 경우
+			if(map.get("access_token") != null) {
+				retMap.put("result", "success");
+
+				
+	        	session.setAttribute("user_id", user_id);
+	        	session.setAttribute("is_login", "true");
+				
+	        	session.setAttribute("access_token", map.get("access_token").toString());
+	        	session.setAttribute("expires_at", map.get("expires_at").toString());
+	        	session.setAttribute("token_type", map.get("token_type").toString());
+	        	System.out.println("** 로그인 결과 : " + map.get("access_token").toString() + ", " + map.get("expires_at").toString() + ", " + map.get("token_type").toString());
+	        	
+			}
+			//비정상일 경우
+			else {
+				retMap.put("result", "fail");
+				System.out.println("** 로그인에러 결과 : " + map.get("code").toString() + ", " + map.get("reason").toString());
+			}
+			
+			
 			res = 1;
 		}catch(HttpClientErrorException e){
 			res = 0;
+			
+			retMap.put("code", e.getStatusCode().toString());
+			retMap.put("result", "fail");
 			e.printStackTrace();
 		}
 		
