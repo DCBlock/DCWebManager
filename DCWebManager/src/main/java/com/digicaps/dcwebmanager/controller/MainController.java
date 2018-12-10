@@ -30,7 +30,7 @@ public class MainController {
 		if(is_login.equals("true")) {
 			resultPage = "index";
 			model.addAttribute("page_name","index");
-			model.addAttribute("user_name",session.getAttribute("user_name").toString());
+			model.addAttribute("user_name",session.getAttribute("user_id").toString());
 			
 		}
 		else

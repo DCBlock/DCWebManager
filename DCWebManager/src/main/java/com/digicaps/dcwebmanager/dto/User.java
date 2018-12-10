@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 public class User {
-	private String index;
+	private String uindex;
 	private String email;
 	private String rfid;
 	private String name;
@@ -17,7 +17,7 @@ public class User {
 		
 	}
 	
-	public User(@JsonProperty("index") String index, 
+	public User(@JsonProperty("index") String uindex, 
 			@JsonProperty("email") String email,
 			@JsonProperty("rfid") String rfid,
 			@JsonProperty("name") String name,
@@ -26,7 +26,7 @@ public class User {
 			@JsonProperty("regdate") String regdate,
 			@JsonProperty("updatedate") String updatedate) {
 		super();
-		this.index = index;
+		this.uindex = uindex;
 		this.email = email;
 		this.rfid = rfid;
 		this.name = name;
@@ -36,11 +36,11 @@ public class User {
 		this.updatedate = updatedate;
 	}
 
-	public String getIndex() {
-		return index;
+	public String getUindex() {
+		return uindex;
 	}
-	public void setIndex(String index) {
-		this.index = index;
+	public void setUindex(String index) {
+		this.uindex = uindex;
 	}
 
 	public String getEmail() {
@@ -97,7 +97,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [index=" + index + ", email=" + email + ", rfid="+rfid+", name="+name+", company="+company+", leave="+leave+", regdate="+regdate+", updatedate="+updatedate+"]";
+		return "User [uindex=" + uindex + ", email=" + email + ", rfid="+rfid+", name="+name+", company="+company+", leave="+leave+", regdate="+regdate+", updatedate="+updatedate+"]";
 	}
 
 }

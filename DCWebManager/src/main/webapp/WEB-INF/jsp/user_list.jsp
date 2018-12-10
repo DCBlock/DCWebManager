@@ -97,32 +97,59 @@
                                 <div class="single-table">
                                     <div class="table-responsive">
                                         <table class="table text-center">
-<thead class="bg-light text-capitalize">
+											<thead class="bg-light text-capitalize">
 	                                            <tr>
 	                                                <th scope="col">RFID</th>
 	                                                <th scope="col">회사명</th>
 	                                                <th scope="col">이름</th>
 	                                                <th scope="col">이메일</th>
+	                                                <th scrop="col">재직여부</th>
 	                                                <th scope="col">변경</th>
 	                                            </tr>
 	                                        </thead>
 	                                        <tbody>
-	                                            <tr>
-	                                                <th scope="row">1231222445</th>
-	                                                <td>디지캡</td>
-	                                                <td>이태호z</td>
-	                                                <td>thlee@digicaps.com</td>
-	                                                <td>
-	                                                	<button type="button" class="btn btn-flat btn-warning btn-xs mb-3"  data-toggle="modal" data-target="#modal_user_info_modify" onclick="open_user_modify_modal(1, '12345', '이태호', 'DigiCAP', 'thlee@digicaps.com', 'true', '2018-11-30', '2018-12-30');">수정</button>
-						                                
-                                            	
+												<c:forEach var="user_list" items="${user_list}" varStatus="status">
+												  <tr>
+													<th scope="row">${user_list.rfid}</th>
+	                                                <td>${user_list.company}</td>
+	                                                <td>${user_list.name}</td>
+	                                                <td>${user_list.email}</td>
+  	                                                <td>
+  	                                                <c:choose>
 
-	                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_user_info_delete" onclick="open_user_delete_modal(1, '이태호');">삭제</button>	                                                	
+
+
+													    <c:when test="${user_list.leave eq 'false'}">
+													        <span class="badge badge-success">재직중</span>
+													    </c:when>
+	
+													    <c:otherwise>
+													        <span class="badge badge-danger">퇴사</span>
+													    </c:otherwise>
+													</c:choose>
+
+  	                                                
+  	                                                </td>
+	                                                <td>
+	                                                	<button type="button" class="btn btn-flat btn-warning btn-xs mb-3"  data-toggle="modal" data-target="#modal_user_info_modify" onclick="open_user_modify_modal('${user_list.uindex}', '${user_list.rfid}', '${user_list.name}', '${user_list.company}', '${user_list.email}', '${user_list.leave}', '${user_list.regdate}', '${user_list.updatedate}');">수정</button>                         
+	                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_user_info_delete" onclick="open_user_delete_modal(1, '이태호');">삭제</button>
 	                                                	
 	                                                </td>
-	                                            </tr>
-
-	                                            <tr>
+	                                              </tr>
+												</c:forEach>
+												
+												
+												
+												<c:choose>
+												    <c:when test="${fn:length(user_list) eq 0}">
+												    	<tr>
+												    		<td colspan="6">마지막 페이지 입니다.</td>
+												        </tr>
+												    </c:when>
+												    <c:otherwise>
+												    </c:otherwise>
+												</c:choose>
+	                                            <!-- tr>
 	                                                <th scope="row">1231222445</th>
 	                                                <td>디지캡</td>
 	                                                <td>이태호z</td>
@@ -134,7 +161,7 @@
 														<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_user_info_delete" onclick="open_user_delete_modal(1, '이태호');">삭제</button>	                                                	
 	                                                	
 	                                                </td>
-	                                            </tr>
+	                                            </tr-->
 
 
 
@@ -143,8 +170,51 @@
                                         </table>
                                     </div>
                                 </div>
+	                                <br/>
 	                                
 	                                <!-- 테이블 샘플 끝 -->
+	                                <div style="float:right; margin-right:120px;">
+		                                <nav aria-label="Page navigation example">
+		                                    <ul class="pagination">
+		                                      	<c:choose>
+												    <c:when test="${page < 11}">
+			                                	    </c:when>
+	
+												    <c:otherwise>
+				                                        <li class="page-item">
+				                                            <a class="page-link" href="/user_manage?page=${pageStartPointCalcul - 1}" aria-label="Previous">
+				                                                <span aria-hidden="true">&laquo;</span>
+				                                                <span class="sr-only">Previous</span>
+				                                            </a>
+				                                        </li>
+		                                            </c:otherwise>
+												</c:choose>				
+
+		                                        <c:forEach var="page_counter" begin="${pageStartPointCalcul + 0}" end="${pageEndPointCalcul + 0}" step="1">
+  	                                                <c:choose>
+
+
+
+													    <c:when test="${page_counter eq page}">
+				                                	        <li class="page-item active"><a class="page-link" href="/user_manage?page=${page_counter}">${page_counter}</a></li>
+													    </c:when>
+	
+													    <c:otherwise>
+				                                	        <li class="page-item"><a class="page-link" href="/user_manage?page=${page_counter}">${page_counter}</a></li>
+													    </c:otherwise>
+													</c:choose>					
+												</c:forEach>
+
+		                                                                                
+		                                        <li class="page-item">
+		                                            <a class="page-link" href="/user_manage?page=${pageEndPointCalcul + 1}" aria-label="Next">
+		                                                <span aria-hidden="true">&raquo;</span>
+		                                                <span class="sr-only">Next</span>
+		                                            </a>
+		                                        </li>
+		                                    </ul>
+		                                </nav>
+	                                </div>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -176,7 +246,7 @@
 														                    
 							                                                <div class="form-group">
 														                         <label for="example-text-input">RF Card ID</label>
-														                         <input class="form-control" type="text" id="modify_user_rfid">
+														                         <input class="form-control" type="text" id="modify_user_rfid" disabled>
 														                    </div>														                    
 														                    
 														                    <div class="form-group">
@@ -220,8 +290,8 @@
 														
 		                                            </div>
 		                                            <div class="modal-footer">
-			                                            <button type="button" class="btn btn-primary" onclick="confirm_modify();">Save changes</button>
-		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Close</button>
+			                                            <button type="button" class="btn btn-primary" onclick="confirm_modify();">수정</button>
+		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">취소</button>
 		                                                
 		                                            </div>
 		                                        </div>
@@ -308,11 +378,16 @@
     	$("#modify_user_index").val(u_index);
     	$("#modify_user_rfid").val(u_rfid);
     	$("#modify_user_name").val(u_name);
-    	$("#modify_user_company_name").val(u_company_name);
+    	//$("#modify_user_company_name").val(u_company_name);
     	$("#modify_user_email").val(u_email);
     	$("#modify_user_leave").val(u_leave);
     	$("#modify_user_regdate").val(u_regdate);
     	$("#modify_user_updatedate").val(u_updatedate);
+    	if(u_company_name == 'DigiCAP' || u_company_name == 'digicap')
+	    	$("#modify_user_company_name").val("DigiCAP").prop("selected", true);
+    	else
+	    	$("#modify_user_company_name").val("Covision").prop("selected", true);
+
     }
     
     function open_user_delete_modal(u_index, u_name){
@@ -321,8 +396,35 @@
     }
     
     function confirm_modify(){
+        $.ajax({
+            url: "/user_modify",
+            type: "post",
+            data: {
+            	"index" : $("#modify_user_index").val(),
+            	"email"  : $("#modify_user_rfid").val(),
+            	"rfid" : $("#modify_user_name").val(),
+            	"name" : $("#modify_user_company_name").val(),
+            	"company" : $("#modify_user_email").val(),
+            	"leave" : $("#modify_user_leave").val()
+            },
+            dataType: "json",
+            error: function(xhr, ajaxOptions, thrownError){
+
+            },
+            success: function(data){
+                if(data.result == 'success') {
+  					alert("성공적으로 변경되었습니다.");
+  					location.href="/";
+                
+                }else{
+  					alert("서버 응답이 올바르지 않습니다.");	                	
+                }
+            }
+        });
+    	
+    	
     	$('#modal_user_info_modify').modal('hide');
-    	$('#ok_modal').modal('show');
+    	//$('#ok_modal').modal('show');
     }
     
     function confirm_delete(){

@@ -118,23 +118,15 @@ public class LoginController {
 		try{
 			ResponseEntity<String> response = template.exchange(USER_API_SERVER_ADDRESS + "/api/login", HttpMethod.POST, entity, String.class);
 			System.out.println("***** 응답 : " + response.getBody());
-			//LoginSession = gson.fromJson(response.getBody(), com.digicaps.dcwebmanager.dto.LoginSession.class);
-			//LoginSession.getAccessToken();
 			
 			ObjectMapper mapper = new ObjectMapper();
 			Map<String, Object> map = new HashMap<String, Object>(); map = mapper.readValue(response.getBody(), new TypeReference<Map<String, String>>(){});
 
-			
-			///
-			/*
-			JSONParser parser = new JSONParser();
-			Object obj = parser.parse( response.getBody() );
-			JSONObject jsonObj = (JSONObject) obj;
-			*/
+		
 			
 			//로그인 정상일 경우
 			if(map.get("access_token") != null) {
-				retMap.put("result", "success");
+				//retMap.put("result", "success");
 
 				
 	        	session.setAttribute("user_id", user_id);
@@ -144,12 +136,15 @@ public class LoginController {
 	        	session.setAttribute("expires_at", map.get("expires_at").toString());
 	        	session.setAttribute("token_type", map.get("token_type").toString());
 	        	System.out.println("** 로그인 결과 : " + map.get("access_token").toString() + ", " + map.get("expires_at").toString() + ", " + map.get("token_type").toString());
-	        	
+	            retMap.put("result", "success");
+	            retMap.put("msg", "로그인에 성공하였습니다.");   
 			}
 			//비정상일 경우
 			else {
 				retMap.put("result", "fail");
 				System.out.println("** 로그인에러 결과 : " + map.get("code").toString() + ", " + map.get("reason").toString());
+		        retMap.put("result", "fail");
+		        retMap.put("msg", "아이디 및 암호가 일치하지 않습니다.");    
 			}
 			
 			
@@ -165,7 +160,8 @@ public class LoginController {
         //////////////////////////////////////////////////////
         
         
-        
+        /*
+        //테스트용 레거시 코드 입니다.
         if(user_id.equals("admin") && user_pw.equals("abcd1234")) {
         	session.setAttribute("user_id", user_id);
         	session.setAttribute("is_login", "true");
@@ -178,7 +174,7 @@ public class LoginController {
 	        retMap.put("result", "fail");
 	        retMap.put("msg", "아이디 및 암호가 일치하지 않습니다.");    
         }
- 
+         */
         return ResponseEntity.ok(retMap);
     }
 
