@@ -16,8 +16,11 @@ public class AnalysisController {
     public ModelAndView userManage(ModelMap model, HttpServletRequest request){
 		String resultPage = "bill";
 		HttpSession session = request.getSession(true);
+		/*
+		
 		String user_id;
 		String is_login = "";
+		
 		if(session.getAttribute("user_id") != null) {
 			user_id = session.getAttribute("user_id").toString();
 			is_login = session.getAttribute("is_login").toString();			
@@ -29,6 +32,7 @@ public class AnalysisController {
 		}
 		else
 			resultPage = "login";
+		 */
 		mav.setViewName(resultPage);		
 		
 		

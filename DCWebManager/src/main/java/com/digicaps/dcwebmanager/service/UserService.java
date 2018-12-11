@@ -143,7 +143,7 @@ public class UserService {
 		RestTemplate template = new RestTemplate();
 		String responseString = new String();
 		responseString = template.getForObject(uri, String.class);
-		System.out.println("***전체목록 불러오기 : " + responseString);
+		//System.out.println("***전체목록 불러오기 : " + responseString);
 		
 		//Users부분 분리
 		/*
@@ -172,14 +172,14 @@ public class UserService {
 		try {
 			JSONParser jsonParser = new JSONParser();
 		    JSONObject jsonObj = (JSONObject) jsonParser.parse(responseString);
-		    JSONArray memberArray = (JSONArray) jsonObj.get("Users");
+		    //JSONArray memberArray = (JSONArray) jsonObj.get("Users");
 
 		    System.out.println("=====Users=====");
 		    
 		    try {
 				List<User> someClassList = objectMapper.readValue(jsonObj.get("Users").toString(), typeFactory.constructCollectionType(List.class, User.class));
 				for(int i = 0; i < someClassList.size(); i++) {
-					System.out.println("이게 돼나? 지금은 " + i + "번째");
+					//System.out.println("이게 돼나? 지금은 " + i + "번째");
 					if(null == someClassList.get(i))
 						break;
 					list.add(addUserObjectList(someClassList.get(i)));

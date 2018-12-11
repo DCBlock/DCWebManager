@@ -137,13 +137,13 @@
 									<button type="button" class="btn btn-flat btn-info mb-3" data-toggle="modal" data-target="#modal_category_info_create">카테고리 추가</button>
 									<button type="button" class="btn btn-flat btn-info mb-3" data-toggle="modal" data-target="#modal_category_info_modify">카테고리 수정</button>
 									
-										
+									<c:forEach items="${cate_list}" var="cate_list" varStatus="status">	
 									<div id="category" class="according accordion-s2">
 	                                    <div class="card">
 	                                        <div class="card-header">
-	                                            <a class="card-link" data-toggle="collapse" href="#accordion21">Coffee</a>
+	                                            <a class="card-link collapsed" data-toggle="collapse" href="#accordion${cate_list.code}">${cate_list.name}</a>
 	                                        </div>
-	                                        <div id="accordion21" class="collapse show" data-parent="#category">
+	                                        <div id="accordion${cate_list.code}" class="collapse" data-parent="#category">
 	                                            <div class="card-body">
 		                                            <button type="button" class="btn btn-flat btn-info btn-xs mb-3" data-toggle="modal" data-target="#modal_menu_info_create">메뉴 추가</button>
 	                                            	<!-- button type="button" class="btn btn-flat btn-info mb-3" data-toggle="modal" data-target="#modal_menu_info_modify" >메뉴 수정</button-->
@@ -153,6 +153,7 @@
 											                                
 													<div class="single-table">
 					                                    <div class="table-responsive">
+
 					                                        <table class="table text-center">
 																<thead class="bg-light text-capitalize">
 						                                            <tr>
@@ -168,67 +169,29 @@
 						                                            </tr>
 						                                        </thead>
 						                                        <tbody>
-						                                            <tr>
-						                                                <th scope="row">아메리카노</th>
-						                                                <td>Americano</td>
-						                                                <td>2500</td>
-						                                                <td>1000</td>
-   						                                                <td>500</td>
-   						                                                <td>Regular/Large</td>
-  						                                                <td>Ice/Hot</td>
-						                                                <td>
-						                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_menu_info_delete">삭제</button>
-						                                                </td>
-						                                            </tr>
-						                                            <tr>
-						                                                <th scope="row">아메리카노</th>
-						                                                <td>Americano</td>
-						                                                <td>2500</td>
-						                                                <td>1000</td>
-   						                                                <td>500</td>
-   						                                                <td>Regular/Large</td>
-  						                                                <td>Ice/Hot</td>
-						                                                <td>
-						                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_menu_info_delete">삭제</button>
-						                                                </td>
-						                                            </tr>					
-						                                            <tr>
-						                                                <th scope="row">아메리카노</th>
-						                                                <td>Americano</td>
-						                                                <td>2500</td>
-						                                                <td>1000</td>
-   						                                                <td>500</td>
-   						                                                <td>Regular/Large</td>
-  						                                                <td>Ice/Hot</td>
-						                                                <td>
-						                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_menu_info_delete">삭제</button>
-						                                                </td>
-						                                            </tr>					
-						                                            <tr>
-						                                                <th scope="row">아메리카노</th>
-						                                                <td>Americano</td>
-						                                                <td>2500</td>
-						                                                <td>1000</td>
-   						                                                <td>500</td>
-   						                                                <td>Regular/Large</td>
-  						                                                <td>Ice/Hot</td>
-						                                                <td>
-						                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_menu_info_delete">삭제</button>
-						                                                </td>
-						                                            </tr>					
-						                                            <tr>
-						                                                <th scope="row">아메리카노</th>
-						                                                <td>Americano</td>
-						                                                <td>2500</td>
-						                                                <td>1000</td>
-   						                                                <td>500</td>
-   						                                                <td>Regular/Large</td>
-  						                                                <td>Ice/Hot</td>
-						                                                <td>
-						                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_menu_info_delete">삭제</button>
-						                                                </td>
-						                                            </tr>
-						                                            
+						                                        <c:forEach items="${menu_list}" var="menu_list" varStatus="status">
+						                                          	<c:choose>
+																	    <c:when test="${cate_list.code eq menu_list.category}">
+								                                            <tr>
+								                                                <th scope="row">${menu_list.name_kr}</th>
+								                                                <td>${menu_list.name_en}</td>
+								                                                <td>${menu_list.price}</td>
+								                                                <td>${menu_list.dc_digicap}</td>
+		   						                                                <td>${menu_list.dc_covision}</td>
+		   						                                                <td>${menu_list.size}</td>
+		  						                                                <td>${menu_list.type}</td>
+								                                                <td>
+								                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_menu_info_delete">삭제</button>
+								                                                </td>
+								                                            </tr>
+																	    </c:when>
+					
+																	    <c:otherwise>
+																	    </c:otherwise>
+																	</c:choose>
+
+						                                         </c:forEach>
+
 						                                            
 						                                            					
 						                                        </tbody>
@@ -241,7 +204,13 @@
 	                                            </div>
 	                                        </div>
 	                                    </div>
-	                                    <div class="card">
+	                                    </div>
+	                                    <br/>
+	                                   
+	                                    </c:forEach>
+	                                    
+	                                    
+	                                    <!-- div class="card">
 	                                        <div class="card-header">
 	                                            <a class="collapsed card-link" data-toggle="collapse" href="#accordion22">Cookie</a>
 	                                        </div>
@@ -260,9 +229,17 @@
 	                                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo eaque porro alias assumenda accusamus incidunt odio molestiae maxime quo atque in et quaerat, vel unde aliquam aperiam quidem consectetur omnis dicta officiis? Dolorum, error dolorem!
 	                                            </div>
 	                                        </div>
-	                                    </div>
+	                                    </div-->
 	                                </div>
-
+									<br>
+									<br>
+									<br>
+									<br>
+									<br>
+									<br>
+									<br>
+									<br>
+									
 									
 	                            </div>
 	                        </div>
@@ -640,14 +617,15 @@
 		                                </div>
 		                                <!-- 회원정보 삭제 모달 끝 -->				
 		                                
-		                                						                                
+		      
+		                <!-- footer area start-->
+     	<jsp:include page="inc/inc_footer.jsp" />
+        <!-- footer area end-->                          						                                
         </div>
         <!-- main content area end -->
-        <!-- footer area start-->
-     	<jsp:include page="inc/inc_footer.jsp" />
-        
-        <!-- footer area end-->
-    </div>
+  
+
+
     <!-- page container area end -->
     
     <!-- offset area end -->
@@ -704,6 +682,11 @@
 	  </script>    
       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+  
+
+        
+        
 </body>
 
 </html>
