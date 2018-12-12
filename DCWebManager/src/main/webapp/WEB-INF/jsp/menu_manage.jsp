@@ -149,7 +149,7 @@
 	                                            	<!-- button type="button" class="btn btn-flat btn-info mb-3" data-toggle="modal" data-target="#modal_menu_info_modify" >메뉴 수정</button-->
 	                                            	
 	                                            	
-	                                            	<button type="button" class="btn btn-flat btn-info btn-xs mb-3" data-toggle="modal" data-target="#modal_menu_info_modify">메뉴 수정</button>
+	                                            	<button type="button" class="btn btn-flat btn-info btn-xs mb-3" data-toggle="modal" data-target="#modal_menu_info_modify${cate_list.code}">메뉴 수정</button>
 											                                
 													<div class="single-table">
 					                                    <div class="table-responsive">
@@ -264,12 +264,12 @@
 										
 										 -->
 						                <!-- 메뉴 수정 모달 시작 -->
-		                                <div class="modal fade bd-example-modal-lg" id="modal_menu_info_modify">
+						                <c:forEach items="${cate_list}" var="cate_list" varStatus="status">
+		                                <div class="modal fade bd-example-modal-lg" id="modal_menu_info_modify${cate_list.code}">
 		                                    <div class="modal-dialog modal-lg" role="document">
 		                                        <div class="modal-content">
 		                                            <div id="modal-header" class="modal-header">
 		                                                <h5 class="modal-title">메뉴 정보 수정</h5>
-		                                                <!-- button type="button" class="close" data-dismiss="modal" onclick="rfcard_register_modal_close();"><span>&times;</span></button-->
 		                                            </div>
 		                                            <div class="modal-body">
 
@@ -279,27 +279,66 @@
                                       				    	<strong>Information</strong> 항목을 드래그하여 순서를 변경 할 수 있습니다.
                                        					</div>
 														<ul id="sortable" class="item_list_in_a_catefory">
-															<li class="ui-state-default moving_item">
-																<i class="ti-arrows-vertical"></i>　
-																<input type="text" class="item_input" value="아메리카노" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
-																<input type="text" class="item_input" value="Americano" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
-																<input type="text" class="item_input" value="2500" size="8" onmouseover="alert_editor('제품가격');"/>　
-																<input type="text" class="item_input" value="1000" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
-																<input type="text" class="item_input" value="500" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
-										                        <select class="item_input" onmouseover="alert_editor('사이즈 선택');">
-										                  	    	<option selected="selected" value="0">Regular</option>
-										                        	<option value="1">Small</option>
-										                        </select>　
-									                            <select class="item_input" onmouseover="alert_editor('음료옵션 선택');">
-										                        	<option selected="selected" value="2">Both</option>
-										                        	<option value="1">Ice</option>
-										                            <option value="0">Hot</option>
-										                        </select>　
-															</li>
+															<c:forEach items="${menu_list}" var="menu_list" varStatus="status">
+															<c:choose>
+																<c:when test="${cate_list.code eq menu_list.category}">
+																	<li class="ui-state-default moving_item">
+																		<i class="ti-arrows-vertical"></i>　
+																		<input type="text" class="item_input" value="${menu_list.name_kr}" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
+																		<input type="text" class="item_input" value="${menu_list.name_en}" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
+																		<input type="text" class="item_input" value="${menu_list.price}" size="8" onmouseover="alert_editor('제품가격');"/>　
+																		<input type="text" class="item_input" value="${menu_list.dc_digicap}" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
+																		<input type="text" class="item_input" value="${menu_list.dc_covision}" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
+												                        <select class="item_input" onmouseover="alert_editor('사이즈 선택');">
+												                        	<c:choose>
+												                        		<c:when test="${menu_list.size eq 'REGULAR'}">
+												                        			<option selected="selected" value="0">REGULAR</option>
+												                        			<option value="1">SMALL</option>
+												                        			<option value="2">BOTH</option>
+												                        		</c:when>
+												                        		<c:when test="${menu_list.size eq 'SMALL'}">
+												                        			<option value="0">REGULAR</option>
+												                        			<option selected="selected" value="1">SMALL</option>
+												                        			<option value="2">BOTH</option>
+												                        		</c:when>
+												                        		<c:otherwise>
+												                        			<option value="0">REGULAR</option>
+												                        			<option value="1">SMALL</option>
+												                        			<option selected="selected" value="2">BOTH</option>												                        		
+												                        		</c:otherwise>
+												                        	</c:choose>
+
+												                        </select>　
+											                            <select class="item_input" onmouseover="alert_editor('음료옵션 선택');">
+											                            	<c:choose>
+											                            		<c:when test="${menu_list.type eq 'HOT'}">
+														                        	<option value="2">BOTH</option>
+														                        	<option value="1">ICE</option>
+														                            <option selected="selected" value="0">HOT</option>											                            		
+											                            		</c:when>
+											                            		<c:when test="${menu_list.type eq 'ICED'}">
+														                        	<option value="2">BOTH</option>
+														                        	<option selected="selected" value="1">ICE</option>
+														                            <option value="0">HOT</option>	
+											                            		</c:when>
+											                            		<c:otherwise>
+														                        	<option selected="selected" value="2">BOTH</option>
+														                        	<option value="1">ICE</option>
+														                            <option value="0">HOT</option>
+											                            		</c:otherwise>
+											                            	</c:choose>
+												                        </select>　
+																	</li>
+																</c:when>
+																<c:otherwise>
+																</c:otherwise>
+															</c:choose>
+
+															</c:forEach>
 														  
 														  
 														  
-															<li class="ui-state-default moving_item">
+															<!-- li class="ui-state-default moving_item">
 																<i class="ti-arrows-vertical"></i>　
 																<input type="text" class="item_input" value="라떼" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
 																<input type="text" class="item_input" value="Americano" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
@@ -387,7 +426,7 @@
 										                        	<option value="1">Ice</option>
 										                            <option value="0">Hot</option>
 										                        </select>　
-															</li>																														
+															</li-->																														
 															
 														</ul>
 														<!-- 제품 수정필드 목록 끝 -->														
@@ -400,6 +439,7 @@
 		                                        </div>
 		                                    </div>
 		                                </div>
+		                                </c:forEach>
 		                                <!-- 메뉴 수정 모달 끝 -->
 		                                
 		                                
@@ -419,20 +459,22 @@
                                       				    	<strong>Information</strong> 항목을 드래그하여 순서를 변경 할 수 있습니다.
                                        					</div>
 
-														<ul id="sortable" class="item_list_in_a_catefory">
+														<ul id="cate_sortable" class="item_list_in_a_catefory">
+														<c:forEach items="${cate_list}" var="cate_list" varStatus="status">
 															<li class="ui-state-default moving_item">
 																<i class="ti-arrows-vertical"></i>　
-																<input type="text" class="item_input" value="Coffee" size="12"/>
+																<input type="text" class="item_input" value="${cate_list.name}" size="12"/>
 															</li>																											
-															<li class="ui-state-default moving_item">
+	
+														</c:forEach>																	
+															<!-- li class="ui-state-default moving_item">
 																<i class="ti-arrows-vertical"></i>　
 																<input type="text" class="item_input" value="Cookie" size="12"/>
 															</li>																			
 															<li class="ui-state-default moving_item">
 																<i class="ti-arrows-vertical"></i>　
 																<input type="text" class="item_input" value="Drink" size="12"/>
-															</li>																			
-															
+															</li-->																
 															
 															
 														</ul>
@@ -440,7 +482,7 @@
 
 		                                            </div>
 		                                            <div class="modal-footer">
-			                                            <button type="button" class="btn btn-primary">수정내용 저장</button>
+			                                            <button type="button" onclick="sort_cate_save();" class="btn btn-primary">수정내용 저장</button>
 		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Cancel</button>
 		                                                
 		                                            </div>
@@ -663,6 +705,14 @@
     function alert_editor(msg){
     	
     	$("#modal_alert").html(msg);
+    }
+    
+    function sort_cate_save(){
+    	var zzz = "";
+    	$('#cate_sortable li input').each( function() {
+            	zzz += $(this).val() + ", ";
+          } );
+    	alert(zzz);
     }
     
     //$('#modal_rfcard_regist').modal('hide');
