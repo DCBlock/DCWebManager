@@ -1,11 +1,10 @@
 package com.digicaps.dcwebmanager.service;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -16,8 +15,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -25,7 +24,6 @@ import org.springframework.web.client.RestTemplate;
 import com.digicaps.dcwebmanager.dto.Category;
 import com.digicaps.dcwebmanager.dto.Menu;
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -106,7 +104,7 @@ public class CafeService {
 		RestTemplate restTemplate = new RestTemplate();
 		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/menus";
 		
-		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 
 
 		HttpHeaders headers = new HttpHeaders();
@@ -148,7 +146,6 @@ public class CafeService {
 	public int modifyCategories(String token, String type, String CategoriesStr) {
 		int result = 0;
 		List<Category> list = new ArrayList<Category>();
-		System.out.println("아 왜 : " + CategoriesStr);
 		//CategoriesStr = CategoriesStr.replace("\"", "\\\"");
 		//System.out.println("아 왜2 : " + CategoriesStr);
 		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
@@ -156,18 +153,12 @@ public class CafeService {
 
 		RestTemplate restTemplate = new RestTemplate(requestFactory);
 		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/categories";
-		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		
-		//headers.put("Content-Type", Arrays.asList("application/json; charset=utf-8"));
 		headers.add("Authorization", type + " " + token);
-		//headers.put("Authorization", Arrays.asList("application/json; charset=utf-8"));
-		
-
-        
         
 		HttpEntity<String> entity = new HttpEntity<String>(CategoriesStr, headers);
 		
@@ -196,6 +187,155 @@ public class CafeService {
 		
 		return result;
 	}
+	
+	public int registCategories(String token, String type, String cate_name) {
+		int result = 0;
+		cate_name = cate_name.replace("\r\n", "");
+		//cate_name = "{\"name\" : \""+cate_name+"\"}";
+		//HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+		RestTemplate restTemplate = new RestTemplate();
+		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/categories";
+		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+		System.out.println("혹시? : " + cate_name);
+		HttpHeaders headers = new HttpHeaders();
+		//headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.add("Authorization", type + " " + token);
+		HttpEntity<String> entity = new HttpEntity<String>(cate_name, headers);
+
+		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.POST, entity, String.class);		
+		System.out.println(response.getBody());
+
+		//정상일 경우
+		if(response.getStatusCodeValue() == 200) {
+			result = 1;
+		}
+		else
+			result = 0;
+		
+		return result;		
+	}
+	
+	public int deleteCategories(String token, String type, String cate_code) {
+		int result = 0;
+		//cate_name = cate_name.replace("\r\n", "");
+		//cate_name = "{\"name\" : \""+cate_name+"\"}";
+		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/categories/" + cate_code;
+		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.add("Authorization", type + " " + token);
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.DELETE, entity, String.class);		
+		System.out.println(response.getBody());
+
+		//정상일 경우
+		if(response.getStatusCodeValue() == 200) {
+			result = 1;
+		}
+		else
+			result = 0;
+		
+		return result;		
+	}
+	
+	public int modifyMenus(String token, String type, String MenusStr, String code) {
+		int result = 0;
+		MenusStr = MenusStr.replace("\r\n", "");
+		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+		
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/menus/" + code;
+		//restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+		
+		
+		HttpHeaders headers = new HttpHeaders();
+		//headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setAcceptCharset(Arrays.asList(Charset.forName("UTF-8")));
+		//headers.add("Content-Type", "application/json;charset=UTF-8");
+		//headers.add("Authorization", type + " " + token);
+		
+		HttpEntity<String> entity = new HttpEntity<String>(MenusStr, headers);
+		System.out.println("여기로 요청할거다 : " + reqUrl);
+		System.out.println("데이터는 이거다  : " + MenusStr);
+
+		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.PATCH, entity, String.class);		
+		System.out.println(response.getBody());
+
+		//정상일 경우
+		if(response.getStatusCodeValue() == 200) {
+			result = 1;
+		}
+		else
+			result = 0;
+		
+		return result;
+	}
+	
+	public int registMenus(String token, String type, String json_data) {
+		int result = 0;
+		json_data = json_data.replace("\r\n", "");
+		//cate_name = "{\"name\" : \""+cate_name+"\"}";
+		//HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+		RestTemplate restTemplate = new RestTemplate();
+		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/menus";
+		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+		System.out.println("혹시? : " + json_data);
+		HttpHeaders headers = new HttpHeaders();
+		//headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.add("Authorization", type + " " + token);
+		HttpEntity<String> entity = new HttpEntity<String>(json_data, headers);
+
+		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.POST, entity, String.class);		
+		System.out.println(response.getBody());
+
+		//정상일 경우
+		if(response.getStatusCodeValue() == 200) {
+			result = 1;
+		}
+		else
+			result = 0;
+		
+		return result;		
+	}
+	
+	
+	public int deleteMenus(String token, String type, String cate_code, String menu_code) {
+		int result = 0;
+		//cate_name = cate_name.replace("\r\n", "");
+		//cate_name = "{\"name\" : \""+cate_name+"\"}";
+		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/menus/" + cate_code + "/" + menu_code;
+		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.add("Authorization", type + " " + token);
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.DELETE, entity, String.class);		
+		System.out.println(response.getBody());
+
+		//정상일 경우
+		if(response.getStatusCodeValue() == 200) {
+			result = 1;
+		}
+		else
+			result = 0;
+		
+		return result;		
+	}
+	
 	
 	
 }

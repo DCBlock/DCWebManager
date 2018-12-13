@@ -145,7 +145,7 @@
 	                                        </div>
 	                                        <div id="accordion${cate_list.code}" class="collapse" data-parent="#category">
 	                                            <div class="card-body">
-		                                            <button type="button" class="btn btn-flat btn-info btn-xs mb-3" data-toggle="modal" data-target="#modal_menu_info_create">메뉴 추가</button>
+		                                            <button type="button" class="btn btn-flat btn-info btn-xs mb-3" onclick="select_create_menu_terget_cate('${cate_list.code}');" data-toggle="modal" data-target="#modal_menu_info_create">메뉴 추가</button>
 	                                            	<!-- button type="button" class="btn btn-flat btn-info mb-3" data-toggle="modal" data-target="#modal_menu_info_modify" >메뉴 수정</button-->
 	                                            	
 	                                            	
@@ -181,7 +181,7 @@
 		   						                                                <td>${menu_list.size}</td>
 		  						                                                <td>${menu_list.type}</td>
 								                                                <td>
-								                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_menu_info_delete">삭제</button>
+								                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3" onclick="select_delete_menu_target('${cate_list.code}', '${menu_list.code}');" data-toggle="modal" data-target="#modal_menu_info_delete">삭제</button>
 								                                                </td>
 								                                            </tr>
 																	    </c:when>
@@ -199,7 +199,7 @@
 					                                    </div>
 					                                </div>
 	                                            	<!-- button type="button" class="btn btn-flat btn-danger mb-3"  data-toggle="modal" data-target="#modal_menu_info_modify" onclick="">이 카테고리 삭제</button-->
-													<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_category_info_delete">이 카테고리 삭제</button>
+													<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" onclick="select_delete_cate_target('${cate_list.code}');" data-target="#modal_category_info_delete">이 카테고리 삭제</button>
 
 	                                            </div>
 	                                        </div>
@@ -278,53 +278,48 @@
 														<div id="modal_alert" class="alert alert-primary" role="alert">
                                       				    	<strong>Information</strong> 항목을 드래그하여 순서를 변경 할 수 있습니다.
                                        					</div>
-														<ul id="sortable" class="item_list_in_a_catefory">
+														<ul id="menu_sortable${cate_list.code}" class="item_list_in_a_catefory">
 															<c:forEach items="${menu_list}" var="menu_list" varStatus="status">
 															<c:choose>
 																<c:when test="${cate_list.code eq menu_list.category}">
 																	<li class="ui-state-default moving_item">
 																		<i class="ti-arrows-vertical"></i>　
-																		<input type="text" class="item_input" value="${menu_list.name_kr}" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
-																		<input type="text" class="item_input" value="${menu_list.name_en}" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
-																		<input type="text" class="item_input" value="${menu_list.price}" size="8" onmouseover="alert_editor('제품가격');"/>　
-																		<input type="text" class="item_input" value="${menu_list.dc_digicap}" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
-																		<input type="text" class="item_input" value="${menu_list.dc_covision}" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
-												                        <select class="item_input" onmouseover="alert_editor('사이즈 선택');">
+																		<input type="hidden" id="menu_code" value="${menu_list.code}"/>
+																		<input type="text" id="menu_name_kr" class="item_input" value="${menu_list.name_kr}" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
+																		<input type="text" id="menu_name_en" class="item_input" value="${menu_list.name_en}" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
+																		<input type="text" id="menu_price" class="item_input" value="${menu_list.price}" size="8" onmouseover="alert_editor('제품가격');"/>　
+																		<input type="text" id="menu_dc_digicap" class="item_input" value="${menu_list.dc_digicap}" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
+																		<input type="text" id="menu_dc_covision" class="item_input" value="${menu_list.dc_covision}" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
+												                        <select id="menu_size" class="item_input" onmouseover="alert_editor('사이즈 선택');">
 												                        	<c:choose>
 												                        		<c:when test="${menu_list.size eq 'REGULAR'}">
-												                        			<option selected="selected" value="0">REGULAR</option>
-												                        			<option value="1">SMALL</option>
-												                        			<option value="2">BOTH</option>
-												                        		</c:when>
-												                        		<c:when test="${menu_list.size eq 'SMALL'}">
-												                        			<option value="0">REGULAR</option>
-												                        			<option selected="selected" value="1">SMALL</option>
-												                        			<option value="2">BOTH</option>
+												                        			<option selected="selected" value="REGULAR">REGULAR</option>
+												                        			<option value="SMALL">SMALL</option>
 												                        		</c:when>
 												                        		<c:otherwise>
-												                        			<option value="0">REGULAR</option>
-												                        			<option value="1">SMALL</option>
-												                        			<option selected="selected" value="2">BOTH</option>												                        		
+												                        			<option value="REGULAR">REGULAR</option>
+												                        			<option selected="selected" value="SMALL">SMALL</option>
 												                        		</c:otherwise>
+												                        		
 												                        	</c:choose>
 
 												                        </select>　
-											                            <select class="item_input" onmouseover="alert_editor('음료옵션 선택');">
+											                            <select id="menu_type" class="item_input" onmouseover="alert_editor('음료옵션 선택');">
 											                            	<c:choose>
 											                            		<c:when test="${menu_list.type eq 'HOT'}">
-														                        	<option value="2">BOTH</option>
-														                        	<option value="1">ICE</option>
-														                            <option selected="selected" value="0">HOT</option>											                            		
+														                        	<option value="BOTH">BOTH</option>
+														                        	<option value="ICED">ICED</option>
+														                            <option selected="selected" value="HOT">HOT</option>											                            		
 											                            		</c:when>
 											                            		<c:when test="${menu_list.type eq 'ICED'}">
-														                        	<option value="2">BOTH</option>
-														                        	<option selected="selected" value="1">ICE</option>
-														                            <option value="0">HOT</option>	
+														                        	<option value="BOTH">BOTH</option>
+														                        	<option selected="selected" value="ICED">ICED</option>
+														                            <option value="HOT">HOT</option>	
 											                            		</c:when>
 											                            		<c:otherwise>
-														                        	<option selected="selected" value="2">BOTH</option>
-														                        	<option value="1">ICE</option>
-														                            <option value="0">HOT</option>
+														                        	<option selected="selected" value="BOTH">BOTH</option>
+														                        	<option value="ICED">ICED</option>
+														                            <option value="HOT">HOT</option>
 											                            		</c:otherwise>
 											                            	</c:choose>
 												                        </select>　
@@ -432,7 +427,7 @@
 														<!-- 제품 수정필드 목록 끝 -->														
 		                                            </div>
 		                                            <div class="modal-footer">
-			                                            <button type="button" class="btn btn-primary" onclick="">수정내용 저장</button>
+			                                            <button type="button" class="btn btn-primary" onclick="sort_menu_save('${cate_list.code}');">수정내용 저장</button>
 		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">취소</button>
 		                                                
 		                                            </div>
@@ -464,8 +459,8 @@
 															<li class="ui-state-default moving_item">
 																<i class="ti-arrows-vertical"></i>　
 																<input id="cate_name" type="text" class="item_input" value="${cate_list.name}" size="12"/>
-																<input id="cate_order" type="text" class="item_input" value="${cate_list.order}"/>
-																<input id="cate_code" type="text" class="item_input" value="${cate_list.code}"/>
+																<input id="cate_order" type="hidden" class="item_input" value="${cate_list.order}"/>
+																<input id="cate_code" type="hidden" class="item_input" value="${cate_list.code}"/>
 															</li>																											
 	
 														</c:forEach>																	
@@ -511,7 +506,7 @@
 														<input class="form-control" type="hidden" id="delete_user_index" value="" />
 		                                            </div>
 		                                            <div class="modal-footer">
-			                                            <button type="button" class="btn btn-primary" onclick="">OK</button>
+			                                            <button type="button" class="btn btn-primary" onclick="delete_menu();">OK</button>
 		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Cancel</button>
 		                                                
 		                                            </div>
@@ -534,7 +529,7 @@
 														<input class="form-control" type="hidden" id="delete_user_index" value="" />
 		                                            </div>
 		                                            <div class="modal-footer">
-			                                            <button type="button" class="btn btn-primary" onclick="">OK</button>
+			                                            <button type="button" class="btn btn-primary" onclick="delete_cate();">OK</button>
 		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Cancel</button>
 		                                                
 		                                            </div>
@@ -584,24 +579,24 @@
 							                                                <div class="form-group">
 									                                        	<label class="col-form-label">사이즈 옵션</label>
 										                                        <select class="custom-select" id="create_menu_size">
-										                                            <option selected="selected" value="0">Regular</option>
-										                                            <option value="1">Small</option>
+										                                            <option selected="selected" value="REGULAR">REGULAR</option>
+										                                            <option value="SMALL">SMALL</option>
 										                                        </select>
 										                                    </div>														                    
 														                    
 							                                                <div class="form-group">
 									                                        	<label class="col-form-label">음료 타입(Hot/Ice)</label>
 										                                        <select class="custom-select" id="create_menu_type">
-										                                            <option selected="selected" value="2">Both</option>
-										                                            <option value="1">Ice</option>
-										                                            <option value="0">Hot</option>
+										                                            <option selected="selected" value="BOTH">BOTH</option>
+										                                            <option value="ICED">ICED</option>
+										                                            <option value="HOT">HOT</option>
 										                                            
 										                                        </select>
 										                                    </div>			
 														
 		                                            </div>
 		                                            <div class="modal-footer">
-			                                            <button type="button" class="btn btn-primary" onclick="">추가</button>
+			                                            <button type="button" class="btn btn-primary" onclick="create_menu();">추가</button>
 		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">취소</button>
 		                                                
 		                                            </div>
@@ -624,13 +619,13 @@
 																			
 							                                                <div class="form-group">
 														                         <label for="example-text-input">카테고리명</label>
-														                         <input class="form-control" type="text" id="create_menu_name_kr">
+														                         <input class="form-control" type="text" id="new_cate_name">
 														                    </div>														                    
 														                    		
 														
 		                                            </div>
 		                                            <div class="modal-footer">
-			                                            <button type="button" class="btn btn-primary" onclick="">추가</button>
+			                                            <button type="button" class="btn btn-primary" onclick="create_cate();">추가</button>
 		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">취소</button>
 		                                                
 		                                            </div>
@@ -692,7 +687,24 @@
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/scripts.js"></script>
     <script>
+    var DELETE_CATE_TARGET_CODE = "";
+    var DELETE_MENU_TARGET_CODE = "";
+    var DELETE_MENU_TARGET_CATEGORY = "";
     
+    var CREATE_MENU_TARGET_CATEGORY = "";
+    
+    function select_delete_menu_target(ca, me){
+    	DELETE_MENU_TARGET_CATEGORY = ca;
+    	DELETE_MENU_TARGET_CODE = me;
+    }
+    
+    function select_create_menu_terget_cate(ca){
+    	CREATE_MENU_TARGET_CATEGORY = ca;
+    }
+    
+    function select_delete_cate_target(t){
+    	DELETE_CATE_TARGET_CODE = t;
+    }
 
     function confirm_modify(){
     	$('#modal_user_info_modify').modal('hide');
@@ -710,12 +722,9 @@
     }
     
     function sort_cate_save(){
+    	//JSON 생성
     	var order_counter = 0;
     	var json_str = "[";
-    	//$('#cate_sortable li input').each( function() {
-    	//	json_str += $(this).val() + ", ";
-            	
-        //  } );
     	$('#cate_sortable li').each( function() {
     		json_str += "{";
     		
@@ -732,9 +741,8 @@
         });
     	json_str = json_str.slice(0,-1);	//맨뒤 콤마 자름
     	json_str += "]";
-    	alert(json_str);
     	
-    	
+    	//요청 처리
         $.ajax({
             url: "/modify_categories",
             type: "post",
@@ -755,9 +763,167 @@
         });
     }
     
-    function sort_menu_save(menu_sortable_id){
+    function delete_cate(){
+    	
+        $.ajax({
+            url: "/delete_categories",
+            type: "post",
+            data: {
+            	"cate_code" : DELETE_CATE_TARGET_CODE
+            },
+            dataType: "json",
+            error: function(xhr, ajaxOptions, thrownError){
+            },
+            success: function(data){
+            	if(data.result == "success"){
+            		alert("카테고리 삭제가 완료되었습니다.");
+            		location.href="/menu_manage";
+            	}
+            	else
+            		alert("카테고리 삭제에 실패하였습니다.");
+            }
+        });
+    }
+    
+    function create_cate(){
+        $.ajax({
+            url: "/create_categories",
+            type: "post",
+            data: {
+            	"cate_name" : "{ \"name\" : \"" + $("#new_cate_name").val() + "\"}"
+            },
+            dataType: "json",
+            error: function(xhr, ajaxOptions, thrownError){
+            },
+            success: function(data){
+            	if(data.result == "success"){
+            		alert("카테고리 추가가 완료되었습니다.");
+            		location.href="/menu_manage";
+            	}
+            	else
+            		alert("카테고리 추가에 실패하였습니다.");
+            }
+        });
+    }
+    
+    function sort_menu_save(code){//code는 이 메뉴들의 category코드
+    	//JSON 생성
+    	var order_counter = 0;
+    	var json_str = "[";
+    	$('#menu_sortable'+code+' li').each( function() {
+    		json_str += "{";
+    		
+    		json_str += "\"name_kr\" : \"";
+    		json_str += $(this).children('#menu_name_kr').val() + "\", ";
+
+    		json_str += "\"name_en\" : \"";
+    		json_str += $(this).children('#menu_name_en').val() + "\", ";
+
+    		json_str += "\"price\" : ";
+    		json_str += $(this).children('#menu_price').val() + ", ";
+
+    		json_str += "\"dc_digicap\" : ";
+    		json_str += $(this).children('#menu_dc_digicap').val() + ", ";
+
+    		json_str += "\"dc_covision\" : ";
+    		json_str += $(this).children('#menu_dc_covision').val() + ", ";
+
+    		json_str += "\"type\" : \"";
+    		json_str += $(this).children('#menu_type').val() + "\", ";
+
+    		json_str += "\"size\" : \"";
+    		json_str += $(this).children('#menu_size').val() + "\", ";
+    		
+    		json_str += "\"code\" : ";
+    		json_str += $(this).children('#menu_code').val() + ", ";
+    		
+    		json_str += "\"order\" : ";
+    		json_str += order_counter + "},";
+    		
+    		order_counter++;	
+        });
+    	json_str = json_str.slice(0,-1);	//맨뒤 콤마 자름
+    	json_str += "]";
+    	//alert(json_str);
+    	
+    	//요청 처리
+        $.ajax({
+            url: "/modify_menus",
+            type: "post",
+            data: {
+            	"menus" : json_str,
+            	"code" : code + ""
+            },
+            dataType: "json",
+            error: function(xhr, ajaxOptions, thrownError){
+            },
+            success: function(data){
+            	if(data.result == "success"){
+            		alert("메뉴 수정이 완료되었습니다.");
+            		location.href="/menu_manage";
+            	}
+            	else
+            		alert("메뉴 변경에 실패하였습니다.");
+            }
+        });
+    	
     	
     }
+    
+    function delete_menu(){
+    	
+        $.ajax({
+            url: "/delete_menus",
+            type: "post",
+            data: {
+            	"menu_code" : DELETE_MENU_TARGET_CODE,
+            	"cate_code" : DELETE_MENU_TARGET_CATEGORY//DELETE_CATE_TARGET_CODE
+            },
+            dataType: "json",
+            error: function(xhr, ajaxOptions, thrownError){
+            },
+            success: function(data){
+            	if(data.result == "success"){
+            		alert("메뉴 삭제가 완료되었습니다.");
+            		location.href="/menu_manage";
+            	}
+            	else
+            		alert("메뉴 삭제에 실패하였습니다.");
+            }
+        });
+    }
+    
+    function create_menu(){
+    	var json_data = "{ \"category\" : " + CREATE_MENU_TARGET_CATEGORY + ", ";
+    	json_data += "\"name_kr\" : \"" + $("#create_menu_name_kr").val() + "\",";
+    	json_data += "\"name_en\" : \"" + $("#create_menu_name_en").val() + "\",";
+    	json_data += "\"price\" : " + $("#create_menu_price").val() + ",";
+    	json_data += "\"dc_digicap\" : " + $("#create_menu_dc_digicap").val() + ",";
+    	json_data += "\"dc_covision\" : " + $("#create_menu_dc_covision").val() + ",";
+    	json_data += "\"type\" : \"" + $("#create_menu_type").val() + "\",";
+    	json_data += "\"size\" : \"" + $("#create_menu_size").val() + "\"}";
+    	
+    	
+        $.ajax({
+            url: "/create_menus",
+            type: "post",
+            data: {
+            	"menu_data" : json_data
+            },
+            dataType: "json",
+            error: function(xhr, ajaxOptions, thrownError){
+            },
+            success: function(data){
+            	if(data.result == "success"){
+            		alert("메뉴 추가가 완료되었습니다.");
+            		location.href="/menu_manage";
+            	}
+            	else
+            		alert("메뉴 추가에 실패하였습니다.");
+            }
+        });
+    }
+    
     
     //$('#modal_rfcard_regist').modal('hide');
 

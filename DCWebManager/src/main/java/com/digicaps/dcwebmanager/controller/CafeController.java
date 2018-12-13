@@ -90,5 +90,102 @@ public class CafeController {
     	
         return ResponseEntity.ok(retMap);
     }
+    
+    @RequestMapping( value = "/create_categories", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity createCategories(HttpServletRequest request) throws Exception{
+    	Map<String, Object> retMap = new HashMap<String, Object>();
+		HttpSession session = request.getSession(true);
+		
+    	int res = cafeSevice.registCategories(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(), 
+    			request.getParameter("cate_name").toString());
+    	
+    	if(res == 1)
+    		retMap.put("result", "success");
+    	else
+    		retMap.put("result", "fail");
+    	
+    	
+        return ResponseEntity.ok(retMap);
+    }
+
+    
+    @RequestMapping( value = "/delete_categories", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity deleteCategories(HttpServletRequest request) throws Exception{
+    	Map<String, Object> retMap = new HashMap<String, Object>();
+		HttpSession session = request.getSession(true);
+		
+    	int res = cafeSevice.deleteCategories(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(), 
+    			request.getParameter("cate_code"));
+    	
+    	if(res == 1)
+    		retMap.put("result", "success");
+    	else
+    		retMap.put("result", "fail");
+    	
+    	
+        return ResponseEntity.ok(retMap);
+    }
+    
+    
+    @RequestMapping( value = "/modify_menus", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity menuCategories(HttpServletRequest request) throws Exception{
+    	Map<String, Object> retMap = new HashMap<String, Object>();
+		HttpSession session = request.getSession(true);
+		
+    	int res = cafeSevice.modifyMenus(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(), 
+    			request.getParameter("menus"), request.getParameter("code").toString());
+    	
+    	if(res == 1)
+    		retMap.put("result", "success");
+    	else
+    		retMap.put("result", "fail");
+    	
+    	
+        return ResponseEntity.ok(retMap);
+    }
+    
+    
+    @RequestMapping( value = "/create_menus", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity createMenus(HttpServletRequest request) throws Exception{
+    	Map<String, Object> retMap = new HashMap<String, Object>();
+		HttpSession session = request.getSession(true);
+		
+    	int res = cafeSevice.registMenus(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(), 
+    			request.getParameter("menu_data").toString());
+    	
+    	if(res == 1)
+    		retMap.put("result", "success");
+    	else
+    		retMap.put("result", "fail");
+    	
+    	
+        return ResponseEntity.ok(retMap);
+    }
+
+    
+    @RequestMapping( value = "/delete_menus", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity deleteMenus(HttpServletRequest request) throws Exception{
+    	Map<String, Object> retMap = new HashMap<String, Object>();
+		HttpSession session = request.getSession(true);
+		
+    	int res = cafeSevice.deleteMenus(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(), 
+    			request.getParameter("cate_code"), request.getParameter("menu_code"));
+    	
+    	if(res == 1)
+    		retMap.put("result", "success");
+    	else
+    		retMap.put("result", "fail");
+    	
+    	
+        return ResponseEntity.ok(retMap);
+    }
+    
+    
+    
 	
 }
