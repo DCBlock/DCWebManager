@@ -1,14 +1,19 @@
 package com.digicaps.dcwebmanager.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.digicaps.dcwebmanager.dto.Category;
@@ -64,5 +69,26 @@ public class CafeController {
 		
 		return mav;
 
-	}	
+	}
+	
+	
+
+    @RequestMapping( value = "/modify_categories", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity modifyCategories(HttpServletRequest request) throws Exception{
+    	Map<String, Object> retMap = new HashMap<String, Object>();
+		HttpSession session = request.getSession(true);
+		
+    	int res = cafeSevice.modifyCategories(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(), 
+    			request.getParameter("categories"));
+    	
+    	if(res == 1)
+    		retMap.put("result", "success");
+    	else
+    		retMap.put("result", "fail");
+    	
+    	
+        return ResponseEntity.ok(retMap);
+    }
+	
 }

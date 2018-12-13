@@ -463,7 +463,9 @@
 														<c:forEach items="${cate_list}" var="cate_list" varStatus="status">
 															<li class="ui-state-default moving_item">
 																<i class="ti-arrows-vertical"></i>　
-																<input type="text" class="item_input" value="${cate_list.name}" size="12"/>
+																<input id="cate_name" type="text" class="item_input" value="${cate_list.name}" size="12"/>
+																<input id="cate_order" type="text" class="item_input" value="${cate_list.order}"/>
+																<input id="cate_code" type="text" class="item_input" value="${cate_list.code}"/>
 															</li>																											
 	
 														</c:forEach>																	
@@ -708,11 +710,53 @@
     }
     
     function sort_cate_save(){
-    	var zzz = "";
-    	$('#cate_sortable li input').each( function() {
-            	zzz += $(this).val() + ", ";
-          } );
-    	alert(zzz);
+    	var order_counter = 0;
+    	var json_str = "[";
+    	//$('#cate_sortable li input').each( function() {
+    	//	json_str += $(this).val() + ", ";
+            	
+        //  } );
+    	$('#cate_sortable li').each( function() {
+    		json_str += "{";
+    		
+    		json_str += "\"name\" : \"";
+    		json_str += $(this).children('#cate_name').val() + "\", ";
+    		
+    		json_str += "\"code\" : ";
+    		json_str += $(this).children('#cate_code').val() + ", ";
+    		
+    		json_str += "\"order\" : ";
+    		json_str += order_counter + "},";
+    		
+    		order_counter++;	
+        });
+    	json_str = json_str.slice(0,-1);	//맨뒤 콤마 자름
+    	json_str += "]";
+    	alert(json_str);
+    	
+    	
+        $.ajax({
+            url: "/modify_categories",
+            type: "post",
+            data: {
+            	"categories" : json_str
+            },
+            dataType: "json",
+            error: function(xhr, ajaxOptions, thrownError){
+            },
+            success: function(data){
+            	if(data.result == "success"){
+            		alert("카테고리 수정이 완료되었습니다.");
+            		location.href="/menu_manage";
+            	}
+            	else
+            		alert("카테고리 변경에 실패하였습니다.");
+            }
+        });
+    }
+    
+    function sort_menu_save(menu_sortable_id){
+    	
     }
     
     //$('#modal_rfcard_regist').modal('hide');
@@ -731,7 +775,7 @@
 	  } );
 	  </script>    
       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   
   
 
