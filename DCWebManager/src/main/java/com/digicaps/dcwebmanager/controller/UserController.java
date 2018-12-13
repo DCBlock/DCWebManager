@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -94,9 +95,9 @@ public class UserController {
     @RequestMapping( value = "/user_regist_request", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity RegistUserInfo(HttpServletRequest request) throws Exception{
+    	HttpSession session = request.getSession(true);
     	Map<String, Object> retMap = new HashMap<String, Object>();
-    	System.out.println("음???? 왜 모르는척해 ㅋㅋㅋ");
-    	int res = userService.RefistUserInfo(
+    	int res = userService.RegistUserInfo(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(),
     			request.getParameter("email"), 
     			request.getParameter("rfid"), 
     			request.getParameter("name"), 
@@ -115,8 +116,10 @@ public class UserController {
     @RequestMapping( value = "/user_modify", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity ModifyUserInfo(HttpServletRequest request) throws Exception{
+    	HttpSession session = request.getSession(true);
     	Map<String, Object> retMap = new HashMap<String, Object>();
-    	int res = userService.ModifyUserInfo(request.getParameter("index"), 
+    	int res = userService.ModifyUserInfo(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(),
+    			request.getParameter("index"), 
     			request.getParameter("email"), 
     			request.getParameter("rfid"), 
     			request.getParameter("name"), 
@@ -131,6 +134,26 @@ public class UserController {
     	
         return ResponseEntity.ok(retMap);
     }
+    
+    //DeleteUserInfo(String token, String type, String index)
+    @RequestMapping( value = "/user_delete", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity DeleteUserInfo(HttpServletRequest request) throws Exception{
+    	HttpSession session = request.getSession(true);
+    	Map<String, Object> retMap = new HashMap<String, Object>();
+    	int res = userService.DeleteUserInfo(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(),
+    			request.getParameter("index"));
+   	
+    	if(res == 1)
+    		retMap.put("result", "success");
+    	else
+    		retMap.put("result", "fail");
+    	
+    	
+        return ResponseEntity.ok(retMap);
+    }    
+    
+    
     
     
 	

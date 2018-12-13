@@ -2,6 +2,7 @@ package com.digicaps.dcwebmanager.service;
 
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,6 +19,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -35,7 +38,7 @@ public class UserService {
 	@Value("${user_api_server.address}")
 	String API_SERVER_ADDRESS;
 	
-	public int RefistUserInfo(String email, String rfid, String name, String company, String leave) {
+	public int RegistUserInfo(String token, String type, String email, String rfid, String name, String company, String leave) {
 		int result = 0;
 		
 		RestTemplate restTemplate = new RestTemplate();
@@ -58,8 +61,10 @@ public class UserService {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		//headers.put("Content-Type", Arrays.asList("application/json; charset=utf-8"));
-		headers.put("Authorization", Arrays.asList("application/json; charset=utf-8"));
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.add("Authorization", type + " " + token);
+        
 		HttpEntity<String> entity = new HttpEntity<String>(tokenToJson, headers);
 
 		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.POST, entity, String.class);		
@@ -83,9 +88,48 @@ public class UserService {
 		return result;
 	}
 	
-	public int ModifyUserInfo(String index, String email, String rfid, String name, String company, String leave) {
+	
+	public int DeleteUserInfo(String token, String type, String index) {
 		int result = 0;
+		
 		RestTemplate restTemplate = new RestTemplate();
+		String reqUrl = API_SERVER_ADDRESS + "/api/users/" + index;
+		//System.out.println("아아아아 : " + index);
+		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		//headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.add("Authorization", type + " " + token);
+        
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.DELETE, entity, String.class);		
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> map = new HashMap<String, Object>(); 
+		try {
+			map = mapper.readValue(response.getBody(), new TypeReference<Map<String, String>>(){});
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	
+		
+		//정상일 경우
+		if(map.get("code").toString().equals("200")) {
+			result = 1;
+		}		
+		
+		return result;
+	}
+	
+	public int ModifyUserInfo(String token, String type, String index, String email, String rfid, String name, String company, String leave) {
+		int result = 0;
+		//RestTemplate restTemplate = new RestTemplate();
 		String reqUrl = API_SERVER_ADDRESS + "/api/users/" + index;
 		User User = new User();
 		User.setUindex(index);
@@ -95,7 +139,7 @@ public class UserService {
 		User.setCompany(company);
 		User.setLeave(leave);
 
-		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+		//restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 		String tokenToJson = null;
 		try {
 			tokenToJson = new ObjectMapper().writeValueAsString(User);
@@ -103,15 +147,35 @@ public class UserService {
 			
 			e.printStackTrace();
 		}
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		//headers.put("Content-Type", Arrays.asList("application/json; charset=utf-8"));
-		headers.put("Authorization", Arrays.asList("application/json; charset=utf-8"));
-		HttpEntity<String> entity = new HttpEntity<String>(tokenToJson, headers);
-
-		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.POST, entity, String.class);		
 		
+		System.out.println("으디 ? : " + tokenToJson);
+		tokenToJson = "{\"index\" : " + index + ", ";
+		tokenToJson += "\"email\" : \"" + email + "\", ";
+		tokenToJson += "\"rfid\" : \"" + rfid + "\", ";
+		tokenToJson += "\"name\" : \"" + name + "\", ";
+		tokenToJson += "\"company\" : \"" + company + "\", ";
+		tokenToJson += "\"leave\" : \"" + leave + "\"}";
+		System.out.println("으디 22? : " + tokenToJson);
+		
+		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+		//ClientHttpRequestFactory httpRequestFactory =  new HttpComponentsClientHttpRequestFactory();
+
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.add("Authorization", type + " " + token);
+        
+		HttpEntity<String> entity = new HttpEntity<String>(tokenToJson, headers);
+		
+
+		//requestFactory.setConnectTimeout(TIMEOUT);
+		//requestFactory.setReadTimeout(TIMEOUT);
+		
+		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.PATCH, entity, String.class);		
+		System.out.println(response.getBody());		
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> map = new HashMap<String, Object>(); 
 		try {

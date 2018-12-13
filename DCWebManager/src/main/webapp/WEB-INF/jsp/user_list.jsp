@@ -132,7 +132,7 @@
   	                                                </td>
 	                                                <td>
 	                                                	<button type="button" class="btn btn-flat btn-warning btn-xs mb-3"  data-toggle="modal" data-target="#modal_user_info_modify" onclick="open_user_modify_modal('${user_list.uindex}', '${user_list.rfid}', '${user_list.name}', '${user_list.company}', '${user_list.email}', '${user_list.leave}', '${user_list.regdate}', '${user_list.updatedate}');">수정</button>                         
-	                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_user_info_delete" onclick="open_user_delete_modal(1, '이태호');">삭제</button>
+	                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3"  data-toggle="modal" data-target="#modal_user_info_delete" onclick="open_user_delete_modal('${user_list.uindex}', '${user_list.name}');">삭제</button>
 	                                                	
 	                                                </td>
 	                                              </tr>
@@ -401,10 +401,10 @@
             type: "post",
             data: {
             	"index" : $("#modify_user_index").val(),
-            	"email"  : $("#modify_user_rfid").val(),
-            	"rfid" : $("#modify_user_name").val(),
-            	"name" : $("#modify_user_company_name").val(),
-            	"company" : $("#modify_user_email").val(),
+            	"email"  : $("#modify_user_email").val(),
+            	"rfid" : $("#modify_user_rfid").val(),
+            	"name" : $("#modify_user_name").val(),
+            	"company" : $("#modify_user_company_name").val(),
             	"leave" : $("#modify_user_leave").val()
             },
             dataType: "json",
@@ -414,7 +414,7 @@
             success: function(data){
                 if(data.result == 'success') {
   					alert("성공적으로 변경되었습니다.");
-  					location.href="/";
+  					location.href="/user_manage";
                 
                 }else{
   					alert("서버 응답이 올바르지 않습니다.");	                	
@@ -428,7 +428,30 @@
     }
     
     function confirm_delete(){
-    	$("#delete_user_index").val();
+    	//;
+    	
+        $.ajax({
+            url: "/user_delete",
+            type: "post",
+            data: {
+            	"index" : $("#delete_user_index").val()
+            },
+            dataType: "json",
+            error: function(xhr, ajaxOptions, thrownError){
+
+            },
+            success: function(data){
+                if(data.result == 'success') {
+  					alert("성공적으로 삭제되었습니다.");
+  					location.href="/user_manage";
+                
+                }else{
+  					alert("서버 응답이 올바르지 않습니다.");	                	
+                }
+            }
+        });
+        
+        
     	$('#modal_user_info_delete').modal('hide');
     }
     
