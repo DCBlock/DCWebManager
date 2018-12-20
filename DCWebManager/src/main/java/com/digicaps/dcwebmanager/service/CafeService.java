@@ -21,6 +21,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.digicaps.dcwebmanager.dto.CancelOrder;
 import com.digicaps.dcwebmanager.dto.Category;
 import com.digicaps.dcwebmanager.dto.Menu;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -33,6 +34,192 @@ public class CafeService {
 
 	@Value("${cafe_api_server.address}")
 	String CAFE_API_SERVER_ADDRESS;
+	
+	
+	
+	public List<CancelOrder> getCancelOrderList(String token, String type) {
+		
+		List<CancelOrder> list = new ArrayList<CancelOrder>();		
+		
+		
+		RestTemplate restTemplate = new RestTemplate();
+		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/purchases/purchase/search?after=1545004800&before=1545058800&filter=1";
+		
+		String testJSON = "[\r\n" + 
+				"    {\r\n" + 
+				"        \"date\": 1544437417801,\r\n" + 
+				"        \"receipt_id\": 1,\r\n" + 
+				"        \"menu_name_kr\": \"에스프레소\",\r\n" + 
+				"        \"price\": 2500,\r\n" + 
+				"        \"dc_price\": 0,\r\n" + 
+				"        \"type\": \"HOT\",\r\n" + 
+				"        \"size\": \"REGULAR\",\r\n" + 
+				"        \"count\": 5,\r\n" + 
+				"        \"receipt_status\": 1,\r\n" + 
+				"        \"purchase_date\": 1544437313144,\r\n" + 
+				"        \"cancel_date\": 1544437417801\r\n" + 
+				"    },\r\n" + 
+				"    {\r\n" + 
+				"        \"date\": 1544437417801,\r\n" + 
+				"        \"receipt_id\": 1,\r\n" + 
+				"        \"menu_name_kr\": \"인디안 차이라떼\",\r\n" + 
+				"        \"price\": 3000,\r\n" + 
+				"        \"dc_price\": 0,\r\n" + 
+				"        \"type\": \"HOT\",\r\n" + 
+				"        \"size\": \"REGULAR\",\r\n" + 
+				"        \"count\": 1,\r\n" + 
+				"        \"receipt_status\": 1,\r\n" + 
+				"        \"purchase_date\": 1544437313147,\r\n" + 
+				"        \"cancel_date\": 1544437417801\r\n" + 
+				"    },\r\n" + 
+				"    {\r\n" + 
+				"        \"date\": 1543826130280,\r\n" + 
+				"        \"receipt_id\": 4,\r\n" + 
+				"        \"menu_name_kr\": \"에스프레소\",\r\n" + 
+				"        \"price\": 2500,\r\n" + 
+				"        \"dc_price\": 0,\r\n" + 
+				"        \"type\": \"HOT\",\r\n" + 
+				"        \"size\": \"REGULAR\",\r\n" + 
+				"        \"count\": 5,\r\n" + 
+				"        \"receipt_status\": 2,\r\n" + 
+				"        \"purchase_date\": 1543821578827,\r\n" + 
+				"        \"cancel_date\": 1543821615786\r\n" + 
+				"    },\r\n" + 
+				"    {\r\n" + 
+				"        \"date\": 1543826130280,\r\n" + 
+				"        \"receipt_id\": 4,\r\n" + 
+				"        \"menu_name_kr\": \"인디안 차이라떼\",\r\n" + 
+				"        \"price\": 3000,\r\n" + 
+				"        \"dc_price\": 0,\r\n" + 
+				"        \"type\": \"ICED\",\r\n" + 
+				"        \"size\": \"SMALL\",\r\n" + 
+				"        \"count\": 1,\r\n" + 
+				"        \"receipt_status\": 2,\r\n" + 
+				"        \"purchase_date\": 1543821578830,\r\n" + 
+				"        \"cancel_date\": 1543821615786\r\n" + 
+				"    }\r\n" + 
+				"]";
+/*
+		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.add("Authorization", type + " " + token);
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.GET, entity, String.class);		
+		System.out.println("취소주문목록 : " + response.getBody().toString());
+*/
+		
+		///////////////////////JSON 영역/////////////////////////////////
+		ObjectMapper objectMapper = new ObjectMapper();
+		TypeFactory typeFactory = objectMapper.getTypeFactory();
+		try {
+			List<CancelOrder> someClassList = objectMapper.readValue(testJSON, typeFactory.constructCollectionType(List.class, CancelOrder.class));//response.getBody()
+			
+
+			
+			double date_buff = -1;
+			double receipt_id_buff = -1;
+			double date_buff_for_receipt_id = -1;
+			int date_counter = 0;
+			int receipt_id_counter = 0;
+			int j_start_point = 0;
+			int k_start_point = 0;
+			
+			for(int i = 0; i < someClassList.size(); i++) {
+				if(i == 0) {
+					date_buff = Double.parseDouble(someClassList.get(i).getDate());
+					receipt_id_buff = Double.parseDouble(someClassList.get(i).getReceipt_id());
+					date_counter = 1;
+					receipt_id_counter = 1;
+					date_buff_for_receipt_id = date_buff;
+				}
+				else if(i != 0 && date_buff == Double.parseDouble(someClassList.get(i).getDate())) {
+					date_counter++;
+					
+				}
+				else{//(date_buff != Double.parseDouble(someClassList.get(i).getDate()))
+					for(int j = j_start_point; j < i ; j++) {
+						someClassList.get(j).setData_cnt(date_counter);
+						
+					}
+					//초기화 
+					
+					j_start_point = i;
+					
+					date_buff = Double.parseDouble(someClassList.get(i).getDate());
+					date_counter = 1;
+				}
+				
+				if(i != 0 && receipt_id_buff == Double.parseDouble(someClassList.get(i).getReceipt_id())) {//영수증 아이디가 동일함
+					if(date_buff_for_receipt_id == date_buff) {	//근데 날짜도 동일함
+						
+						receipt_id_counter++;	//추가
+					}
+					else {	//근데 날짜가 다름.. 그럼 영수아이디가 같아보았자 서로 다른 것임.. 반영 후 카운터 초기화
+						
+						for(int k = k_start_point; k < i ; k++) {
+							someClassList.get(k).setReceipt_id_cnt(receipt_id_counter);
+						}
+						
+						//초기화
+						receipt_id_buff = Double.parseDouble(someClassList.get(i).getReceipt_id());
+						k_start_point = i;
+						date_buff_for_receipt_id = date_buff;
+						receipt_id_counter = 1;
+					}
+				}
+				else {//다른 영수증 id로 바뀜
+					
+					for(int k = k_start_point; k < i ; k++) {
+						someClassList.get(k).setReceipt_id_cnt(receipt_id_counter);
+					}
+					
+					//초기화
+					receipt_id_buff = Double.parseDouble(someClassList.get(i).getReceipt_id());
+					k_start_point = i;
+					date_buff_for_receipt_id = date_buff;
+					receipt_id_counter = 1;
+				}
+				
+				
+			}
+			
+			for(int j = j_start_point; j < someClassList.size() ; j++) {
+				someClassList.get(j).setData_cnt(date_counter);
+				
+			}
+			for(int k = k_start_point; k <  someClassList.size(); k++) {
+				someClassList.get(k).setReceipt_id_cnt(receipt_id_counter);
+			}
+			
+			
+			
+			for(int l = 0; l < someClassList.size(); l++) {
+				System.out.println("출력테스트 : " + someClassList.get(l).getData_cnt() + ", " + someClassList.get(l).getReceipt_id_cnt());
+				
+			}
+			//model.addAttribute("package_list", list);
+			
+			list = someClassList;
+			
+			
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
 	
 	
 	public List<Category> getCategoryList(String token, String type) {
@@ -128,6 +315,7 @@ public class CafeService {
 			    try {
 					//List<Menu> someClassList = 
 					list.addAll(objectMapper.readValue(jsonObj.get(CateList.get(i).getName().toString()).toString(), typeFactory.constructCollectionType(List.class, Menu.class)));
+					
 					//someClassList.addAll(c)
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

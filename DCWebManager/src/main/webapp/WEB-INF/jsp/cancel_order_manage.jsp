@@ -97,70 +97,36 @@
                                 <div class="single-table">
                                     <div class="table-responsive">
                                         <table class="table text-center">
-<thead class="bg-light text-capitalize">
+											<thead class="bg-light text-capitalize">
 	                                            <tr>
-	                                                <th scope="col">구매시간</th>
-	                                                <th scope="col">주문메뉴</th>
-	                                                <th scope="col">갯수</th>
+	                                                <th scope="col">구매날짜</th>
+	                                                <th scope="col">영수증ID</th>
+	                                                <th scope="col">메뉴명(국문)</th>
 	                                                <th scope="col">가격</th>
 	                                                <th scope="col">할인가격</th>
+	                                                <th scope="col">타입</th>
 	                                                <th scope="col">사이즈</th>
-	                                                <th scope="col">종류</th>
-	                                                <th scope="col">상태</th>
-	                                                <th scope="col">취소요청시간</th>
-	                                                <th scope="col">취소완료시간</th>	 
-	                                                <th scope="col">업데이트시간</th>
+	                                                <th scope="col">개수</th>
+	                                                <th scope="col">처리상태</th>
+	                                                <th scope="col">구매날짜</th>	 
+	                                                <th scope="col">취소날짜</th>
 	                                            </tr>
 	                                        </thead>
 	                                        <tbody>
-	                                            <tr>
-	                                                <th scope="row">2018-12-25 14:12:30</th>
-	                                                <td>아메리카노</td>
-	                                                <td>3</td>
-  	                                                <td>4500</td>
-	                                                <td>1500</td>
-  	                                                <td>Regular</td>
-	                                                <td>Ice</td>
-  	                                                <td><span class="badge badge-pill badge-warning">취소대기중</span></td>	
-	                                                <td><button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_order_cancel_modal" onclick="set_cancel_target('1');">취소승인</button></td>
-  	                                                <td>-</td>
-	                                            </tr>
-	                                            <tr>
-	                                                <th scope="row">2018-12-25 14:12:30</th>
-	                                                <td>아메리카노</td>
-	                                                <td>3</td>
-  	                                                <td>4500</td>
-	                                                <td>1500</td>
-  	                                                <td>Regular</td>
-	                                                <td>Ice</td>
-  	                                                <td><span class="badge badge-pill badge-danger">취소됨</span></td>	
-	                                                <td>2018-12-25 23:10:44</td>
-  	                                                <td>2018-12-25 23:12:33</td>
-	                                            </tr>
-	                                            <tr>
-	                                                <th scope="row">2018-12-25 14:12:30</th>
-	                                                <td>아메리카노</td>
-	                                                <td>3</td>
-  	                                                <td>4500</td>
-	                                                <td>1500</td>
-  	                                                <td>Regular</td>
-	                                                <td>Ice</td>
-  	                                                <td><span class="badge badge-pill badge-danger">취소됨</span></td>	
-	                                                <td>2018-12-25 23:10:44</td>
-  	                                                <td>-</td>
-	                                         	</tr>
-	                                         	<tr>
-	                                                <th scope="row">2018-12-25 14:12:30</th>
-	                                                <td>아메리카노</td>
-	                                                <td>3</td>
-  	                                                <td>4500</td>
-	                                                <td>1500</td>
-  	                                                <td>Regular</td>
-	                                                <td>Ice</td>
-  	                                                <td><span class="badge badge-pill badge-warning">취소대기중</span></td>	
-	                                                <td><button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_order_cancel_modal" onclick="set_cancel_target('1');">취소승인</button></td>
-  	                                                <td>-</td>	                                         	
-	                                         	</tr>
+	                                        	<c:forEach items="${cate_list}" var="cate_list" varStatus="status">
+		                                            <tr>
+		                                                <th scope="row">2018-12-25 14:12:30</th>
+		                                                <td>아메리카노</td>
+		                                                <td>3</td>
+	  	                                                <td>4500</td>
+		                                                <td>1500</td>
+	  	                                                <td>Regular</td>
+		                                                <td>Ice</td>
+	  	                                                <td><span class="badge badge-pill badge-warning">취소대기중</span></td>	
+		                                                <td><button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_order_cancel_modal" onclick="set_cancel_target('1');">취소승인</button></td>
+	  	                                                <td>-</td>
+		                                            </tr>
+												</c:forEach>
 
 
 

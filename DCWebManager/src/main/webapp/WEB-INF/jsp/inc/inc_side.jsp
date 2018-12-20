@@ -3,9 +3,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
         <div class="sidebar-menu">
-            <div class="sidebar-header">
-                <div class="logo">
-                    <h5 style="color:white;">D Cafe web manager</h5><a href="/"><!-- img src="img/digicap_logo.png" style=""/--><!-- img src="assets/images/icon/logo.png" alt="logo"--></a>
+            <div class="sidebar-header"><!--  style="background-color:#D0AB5C;" -->
+                <div class="logo" >
+	                <!-- p class="page-title pull-left" style="color:white; text-align:left;">D Cafe web Manager</p><a href="/"></a -->
+	                <!-- img src="img/digicap_logo.png" style=""/--><!-- img src="assets/images/icon/logo.png" alt="logo"-->
+	                <a href="#" style="color:white;">D Cafe web Manager</a>
                 </div>
             </div>
             <div class="main-menu">

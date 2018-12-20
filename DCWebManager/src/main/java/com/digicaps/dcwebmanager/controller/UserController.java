@@ -50,11 +50,8 @@ public class UserController {
 		else
 			resultPage = "login";
 		 */
-		mav.setViewName(resultPage);		
-		
-		
+		mav.setViewName(resultPage);	
 		return mav;
-
 	}
 	
 	@RequestMapping(value = "/user_manage", method = RequestMethod.GET)

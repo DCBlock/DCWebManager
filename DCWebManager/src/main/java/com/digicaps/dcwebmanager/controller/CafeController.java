@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.digicaps.dcwebmanager.dto.CancelOrder;
 import com.digicaps.dcwebmanager.dto.Category;
 import com.digicaps.dcwebmanager.dto.Menu;
 import com.digicaps.dcwebmanager.service.CafeService;
@@ -26,6 +27,10 @@ public class CafeController {
 	
 	@Autowired
 	CafeService cafeSevice;
+	
+	
+
+	
 	
 	@RequestMapping(value = "/menu_manage")
     public ModelAndView userRegist(ModelMap model, HttpServletRequest request){
@@ -63,6 +68,17 @@ public class CafeController {
 		else
 			resultPage = "login";
 		*/
+		HttpSession session = request.getSession(true);
+		
+		List<CancelOrder> cancel_list = cafeSevice.getCancelOrderList(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString());
+		/*
+		
+		for(int i = 0; i < cancel_list.size(); i++) {
+			
+		}
+		*/
+		
+		model.addAttribute("cancel_list", cancel_list);
 		
 		mav.setViewName(resultPage);		
 		
