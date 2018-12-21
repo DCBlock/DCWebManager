@@ -2068,7 +2068,7 @@ table tr th {
 
 table tr th,
 table tr td {
-    border-top: 1px solid rgba(120, 130, 140, 0.13) !important;
+    border-top: 1px solid rgba(120, 130, 140, 0.13);
 }
 
 table tr td [class^="ti-"] {

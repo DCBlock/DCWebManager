@@ -1,5 +1,7 @@
 package com.digicaps.dcwebmanager.controller;
 
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,8 +51,8 @@ public class CafeController {
 
 	}
 	
-	@RequestMapping(value = "/cancel_order_manage")
-    public ModelAndView userManage(ModelMap model, HttpServletRequest request){
+	@RequestMapping(value = "/cancel_order_manage", method = RequestMethod.GET)
+    public ModelAndView userManage(ModelMap model, HttpServletRequest request) throws Exception{
 		String resultPage = "cancel_order_manage";
 		/*
 		HttpSession session = request.getSession(true);
@@ -69,8 +71,71 @@ public class CafeController {
 			resultPage = "login";
 		*/
 		HttpSession session = request.getSession(true);
+		String s_date = "";
+		String e_date = "";
+		long epoch_start = 0;
+		long epoch_end = 0;
+
 		
-		List<CancelOrder> cancel_list = cafeSevice.getCancelOrderList(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString());
+		if(request.getParameter("start_date") != null && request.getParameter("end_date") != null) {
+			try {
+				epoch_start = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("start_date").toString()).getTime() / 1000;
+				epoch_end = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("end_date").toString()).getTime() / 1000;
+				s_date = Long.toString(epoch_start);
+				e_date = Long.toString(epoch_end);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			model.addAttribute("start_date", request.getParameter("start_date").toString());
+			model.addAttribute("end_date", request.getParameter("end_date").toString());
+			
+		}
+		else {
+			//날짜 계산
+			Calendar calendar = Calendar.getInstance();
+			String today = "";
+			String today_end = "";
+			String today_end2 = "";
+			//오늘날짜 가져오기
+			today += calendar.get(calendar.YEAR) + "-";
+			int month = calendar.get(calendar.MONTH)+1;
+			int day = calendar.get(calendar.DAY_OF_MONTH);
+			today += (month < 10 ? "0"+month : month)  + "-";
+
+			
+			today_end = today + "01";
+			today_end2 = today;
+			today += day < 10 ? "0"+day : day;
+
+			
+			//해당월의 마지막 날짜 가져오기
+			calendar.set(calendar.get(calendar.YEAR), month, calendar.get(calendar.DAY_OF_MONTH));
+
+			int lastDay = calendar.getActualMaximum(Calendar.DATE);
+			today_end2 += lastDay;
+			try {
+				epoch_start = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(today_end).getTime() / 1000;
+				epoch_end = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(today_end2).getTime() / 1000;
+				
+				s_date = Long.toString(epoch_start);
+				e_date = Long.toString(epoch_end);
+				
+				model.addAttribute("start_date", today_end);
+				model.addAttribute("end_date", today_end2);
+				
+				
+			} catch (java.text.ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			System.out.println("* 날짜 정보 : " + today + ", 막날정보 : " + lastDay + "zz " + epoch_start + ". " + epoch_end);
+			
+		}
+		
+		List<CancelOrder> cancel_list = cafeSevice.getCancelOrderList(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(), s_date, e_date);
 		/*
 		
 		for(int i = 0; i < cancel_list.size(); i++) {
@@ -79,6 +144,8 @@ public class CafeController {
 		*/
 		
 		model.addAttribute("cancel_list", cancel_list);
+
+		
 		
 		mav.setViewName(resultPage);		
 		

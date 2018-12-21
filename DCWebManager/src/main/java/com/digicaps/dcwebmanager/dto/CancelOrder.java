@@ -14,9 +14,15 @@ public class CancelOrder {
 	private String receipt_status;
 	private String purchase_date;
 	private String cancel_date;
+	private String canceled_date = "";
 
 	private double data_cnt = 0;
 	private double receipt_id_cnt = 0;
+	
+	private String tdate = "";
+	private String rowspan = "0";
+	private String rowspanreceipt = "0";
+	
 
 	public CancelOrder(){
 		
@@ -32,7 +38,9 @@ public class CancelOrder {
 			@JsonProperty("count") String count,
 			@JsonProperty("receipt_status") String receipt_status,
 			@JsonProperty("purchase_date") String purchase_date,
-			@JsonProperty("cancel_date") String cancel_date
+			@JsonProperty("cancel_date") String cancel_date,
+			@JsonProperty("canceled_date") String canceled_date
+			
 			) {
 		
 		super();
@@ -47,8 +55,22 @@ public class CancelOrder {
 		this.receipt_status = receipt_status;
 		this.purchase_date = purchase_date;
 		this.cancel_date = cancel_date;
+		this.canceled_date = canceled_date;
 		
-		
+	}
+	public String getRowspanreceipt() {
+		return rowspanreceipt;
+	}
+	public void setRowspanreceipt(String rowspanreceipt) {
+		this.rowspanreceipt = rowspanreceipt;
+	}
+	
+	
+	public String getRowspan() {
+		return rowspan;
+	}
+	public void setRowspan(String rowspan) {
+		this.rowspan = rowspan;
 	}
 	
 	public double getData_cnt() {
@@ -57,6 +79,14 @@ public class CancelOrder {
 	public void setData_cnt(double data_cnt) {
 		this.data_cnt = data_cnt;
 	}
+	
+	public String getTdate() {
+		return tdate;
+	}
+	public void setTdate(String tdate) {
+		this.tdate = tdate;
+	}
+	
 	
 	public double getReceipt_id_cnt() {
 		return receipt_id_cnt;
@@ -151,7 +181,12 @@ public class CancelOrder {
 		this.cancel_date = cancel_date;
 	}
 	
-
+	public String getCanceled_date() {
+		return canceled_date;
+	}
+	public void setCanceled_date(String canceled_date) {
+		this.canceled_date = canceled_date;
+	}
 	
 
 }

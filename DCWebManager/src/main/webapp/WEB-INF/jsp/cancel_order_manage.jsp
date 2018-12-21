@@ -85,13 +85,78 @@
                                 <option selected="">Last 7 Days</option>
                                 <option value="0">Last 7 Days</option>
                             </select-->
+
+									
                         </div>
                         <!--  div id="visitor_graph"></div-->
 	                    <!-- data table start -->
 	                    <div class="col-12 mt-5">
 	                        <div class="card">
 	                            <div class="card-body">
+								  <div class="row">
+                            		<table style="border:1px solid black;">
+										<thead style="border:1px solid white; border-color:white;">
+										<tr>
+											<th style="border:1px solid white;border-top:1px solid white; border-color:white;">
+												검색시작날짜
+											</th>
+											<th style="border:1px solid white;">
+												 
+											</th>
+											<th style="border:1px solid white; border-color:white;">
+												검색종료날짜
+											</th>
+											<th style="border:1px solid white; border-color:white;">
+											</th>
+										</tr>
+										</thead>
+									
+										<tbody style="border:1px solid white;">
 
+										<tr style="border-bottom:1px solid gray;">
+											<td style="border:1px solid white;">
+												<input class="form-control" type="date" value="${start_date}" id="start_day">
+											</td>
+											<td style="border:1px solid white;">
+											 ~ 	 
+											</td>
+											<td style="border:1px solid white;">
+												<input class="form-control" type="date" value="${end_date}" id="end_day">
+											</td>
+											<td style="border:1px solid white;"><br>
+												　<button type="button" style="margin-top:-4px;" onclick="reload_page();" class="btn btn-flat btn-info mb-3"><i class="ti-search"></i></button><br>
+											</td>
+										</tr>
+										</tbody>
+									</table>
+									</div>	
+
+
+									<!-- div class="col-sm-12">
+										<div class="form-group">
+                                            <input class="form-control" type="date" value="2018-03-05" id="example-date-input" style="width:200px"> ~ 
+                                            <input class="form-control" type="date" value="2018-03-05" id="example-date-input" style="width:200px">
+                                            <button type="button" class="btn btn-flat btn-info mb-3" disabled><i class="ti-search"></i></button>
+										</div>
+									</div>
+									<div class="col-sm-1" >
+										<div class="form-group">
+                                            <center>~</center>
+										</div>
+									</div>
+									<div class="col-sm-2">
+										<div class="form-group">
+                                            
+										</div>
+									</div>
+									
+									<div class="col-sm-1" >
+										
+									</div>
+									
+									<div class="col-sm-6">
+									</div>																											
+								</div-->
 	                                
 	                                <!-- 테이블 샘플 -->
                                 <div class="single-table">
@@ -109,22 +174,66 @@
 	                                                <th scope="col">개수</th>
 	                                                <th scope="col">처리상태</th>
 	                                                <th scope="col">구매날짜</th>	 
-	                                                <th scope="col">취소날짜</th>
+	                                                <th scope="col">취소요청날짜</th>
+  	                                                <th scope="col">취소승인날짜</th>
 	                                            </tr>
 	                                        </thead>
 	                                        <tbody>
-	                                        	<c:forEach items="${cate_list}" var="cate_list" varStatus="status">
+	                                        	<c:forEach items="${cancel_list}" var="cancel_list" varStatus="status">
 		                                            <tr>
-		                                                <th scope="row">2018-12-25 14:12:30</th>
-		                                                <td>아메리카노</td>
-		                                                <td>3</td>
-	  	                                                <td>4500</td>
-		                                                <td>1500</td>
-	  	                                                <td>Regular</td>
-		                                                <td>Ice</td>
-	  	                                                <td><span class="badge badge-pill badge-warning">취소대기중</span></td>	
+		                                            	<c:choose>
+			                                            	<c:when test="${cancel_list.rowspan eq '1'}">
+			                                            		<td scope="row" rowspan="${cancel_list.data_cnt}">${cancel_list.tdate}</td>
+			                                            	</c:when>
+			                                            	<c:otherwise>
+														    </c:otherwise>
+		                                            	</c:choose>
+		                                                <c:choose>
+			                                            	<c:when test="${cancel_list.rowspanreceipt eq '1'}">
+			                                            		<td scope="row" rowspan="${cancel_list.receipt_id_cnt}">${cancel_list.receipt_id}</td>
+			                                            	</c:when>
+			                                            	<c:otherwise>
+														    </c:otherwise>
+		                                            	</c:choose>
+		                                                <td>${cancel_list.menu_name_kr}</td>
+	  	                                                <td>${cancel_list.price}</td>
+		                                                <td>${cancel_list.dc_price}</td>
+	  	                                                <td>${cancel_list.type}</td>
+		                                                <td>${cancel_list.size}</td>
+		                                                <td>${cancel_list.count}</td>
+		                                                <td>
+		                                                <c:choose>
+			                                            	<c:when test="${cancel_list.receipt_status eq '1'}">
+			                                            		<span class="badge badge-pill badge-warning">취소승인 대기중</span>
+			                                            		<!-- button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_order_cancel_modal" onclick="set_cancel_target('1');">취소승인</button-->
+			                                            	</c:when>
+			                                            	<c:when test="${cancel_list.receipt_status eq '2'}">
+			                                            		<span class="badge badge-pill badge-success">취소승인 완료</span>
+			                                            	</c:when>			                                            	
+			                                            	
+			                                            	<c:otherwise>
+														    </c:otherwise>
+		                                            	</c:choose>
+		                                                </td>
+		                                                <td>${cancel_list.purchase_date}</td>
+		                                                <td>${cancel_list.cancel_date}</td>
+   		                                                <td>
+   		                                                <c:choose>
+			                                            	<c:when test="${cancel_list.canceled_date eq '-'}">
+			                                            		<button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_order_cancel_modal" onclick="set_cancel_target('1');">취소승인</button>
+			                                            	
+			                                            		<!-- span class="badge badge-pill badge-warning">취소승인 대기중</span-->
+			                                            		<!-- button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_order_cancel_modal" onclick="set_cancel_target('1');">취소승인</button-->
+			                                            	</c:when>	                                            	
+			                                            	
+			                                            	<c:otherwise>
+				                                            	${cancel_list.canceled_date}
+														    </c:otherwise>
+														    </c:choose>
+   		                                                </td>
+	  	                                                <!-- td><span class="badge badge-pill badge-warning">취소대기중</span></td>	
 		                                                <td><button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_order_cancel_modal" onclick="set_cancel_target('1');">취소승인</button></td>
-	  	                                                <td>-</td>
+	  	                                                <td>-</td-->
 		                                            </tr>
 												</c:forEach>
 
@@ -237,6 +346,10 @@
     	alert(CANCEL_TARGET);
     }
     
+    function reload_page(){
+    	
+    	location.href="/cancel_order_manage?start_date="+$("#start_day").val()+"&end_date="+$("#end_day").val();
+    }
     //$('#modal_rfcard_regist').modal('hide');
 
     

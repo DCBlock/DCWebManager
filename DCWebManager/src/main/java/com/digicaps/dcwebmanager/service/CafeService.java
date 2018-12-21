@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -37,14 +38,19 @@ public class CafeService {
 	
 	
 	
-	public List<CancelOrder> getCancelOrderList(String token, String type) {
+	public List<CancelOrder> getCancelOrderList(String token, String type, String s_date, String e_date) {
 		
 		List<CancelOrder> list = new ArrayList<CancelOrder>();		
 		
 		
 		RestTemplate restTemplate = new RestTemplate();
-		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/purchases/purchase/search?after=1545004800&before=1545058800&filter=1";
 		
+		
+		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/purchases/purchase/search?before="+s_date+"&after="+e_date+"&filter=3";
+		//String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/purchases/purchase/search?before=1545004800&after=1545058800&filter=3";
+		
+		
+		/*
 		String testJSON = "[\r\n" + 
 				"    {\r\n" + 
 				"        \"date\": 1544437417801,\r\n" + 
@@ -99,7 +105,7 @@ public class CafeService {
 				"        \"cancel_date\": 1543821615786\r\n" + 
 				"    }\r\n" + 
 				"]";
-/*
+*/
 		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
 
@@ -110,13 +116,13 @@ public class CafeService {
 
 		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.GET, entity, String.class);		
 		System.out.println("취소주문목록 : " + response.getBody().toString());
-*/
+
 		
 		///////////////////////JSON 영역/////////////////////////////////
 		ObjectMapper objectMapper = new ObjectMapper();
 		TypeFactory typeFactory = objectMapper.getTypeFactory();
 		try {
-			List<CancelOrder> someClassList = objectMapper.readValue(testJSON, typeFactory.constructCollectionType(List.class, CancelOrder.class));//response.getBody()
+			List<CancelOrder> someClassList = objectMapper.readValue(response.getBody(), typeFactory.constructCollectionType(List.class, CancelOrder.class));//response.getBody()
 			
 
 			
@@ -135,6 +141,9 @@ public class CafeService {
 					date_counter = 1;
 					receipt_id_counter = 1;
 					date_buff_for_receipt_id = date_buff;
+					
+					someClassList.get(i).setRowspan("1");
+					someClassList.get(i).setRowspanreceipt("1");
 				}
 				else if(i != 0 && date_buff == Double.parseDouble(someClassList.get(i).getDate())) {
 					date_counter++;
@@ -146,12 +155,14 @@ public class CafeService {
 						
 					}
 					//초기화 
-					
+					someClassList.get(i).setRowspan("1");
 					j_start_point = i;
 					
 					date_buff = Double.parseDouble(someClassList.get(i).getDate());
 					date_counter = 1;
 				}
+				
+				
 				
 				if(i != 0 && receipt_id_buff == Double.parseDouble(someClassList.get(i).getReceipt_id())) {//영수증 아이디가 동일함
 					if(date_buff_for_receipt_id == date_buff) {	//근데 날짜도 동일함
@@ -165,6 +176,7 @@ public class CafeService {
 						}
 						
 						//초기화
+						someClassList.get(i).setRowspanreceipt("1");
 						receipt_id_buff = Double.parseDouble(someClassList.get(i).getReceipt_id());
 						k_start_point = i;
 						date_buff_for_receipt_id = date_buff;
@@ -178,13 +190,29 @@ public class CafeService {
 					}
 					
 					//초기화
+					someClassList.get(i).setRowspanreceipt("1");
 					receipt_id_buff = Double.parseDouble(someClassList.get(i).getReceipt_id());
 					k_start_point = i;
 					date_buff_for_receipt_id = date_buff;
 					receipt_id_counter = 1;
 				}
 				
+				//날짜 세팅
+				String date = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date (Long.parseLong(someClassList.get(i).getDate())));
+				someClassList.get(i).setTdate(date);
 				
+				String date2 = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date (Long.parseLong(someClassList.get(i).getCancel_date())));
+				someClassList.get(i).setCancel_date(date2);;
+				
+				String date3 = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date (Long.parseLong(someClassList.get(i).getPurchase_date())));
+				someClassList.get(i).setPurchase_date(date3);
+				
+				if(someClassList.get(i).getCanceled_date().equals("0"))
+					someClassList.get(i).setCanceled_date("-");
+				else {
+					String date4 = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date (Long.parseLong(someClassList.get(i).getCanceled_date())));
+					someClassList.get(i).setCanceled_date(date4);
+				}
 			}
 			
 			for(int j = j_start_point; j < someClassList.size() ; j++) {
@@ -198,7 +226,7 @@ public class CafeService {
 			
 			
 			for(int l = 0; l < someClassList.size(); l++) {
-				System.out.println("출력테스트 : " + someClassList.get(l).getData_cnt() + ", " + someClassList.get(l).getReceipt_id_cnt());
+				System.out.println("출력테스트 : " + someClassList.get(l).getData_cnt() + ", " + someClassList.get(l).getReceipt_id_cnt() + ", 날짜  : " + someClassList.get(l).getDate());
 				
 			}
 			//model.addAttribute("package_list", list);
