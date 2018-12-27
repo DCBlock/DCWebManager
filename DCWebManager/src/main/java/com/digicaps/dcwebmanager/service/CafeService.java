@@ -198,19 +198,20 @@ public class CafeService {
 				}
 				
 				//날짜 세팅
-				String date = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date (Long.parseLong(someClassList.get(i).getDate())));
+				String date = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date (Long.parseLong(someClassList.get(i).getDate())*1000));
 				someClassList.get(i).setTdate(date);
 				
-				String date2 = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date (Long.parseLong(someClassList.get(i).getCancel_date())));
-				someClassList.get(i).setCancel_date(date2);;
-				
-				String date3 = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date (Long.parseLong(someClassList.get(i).getPurchase_date())));
+				String date2 = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date (Long.parseLong(someClassList.get(i).getCancel_date())*1000));
+				System.out.println("년도 테스트 : " + date2 + ", ㅇㅇ : " + someClassList.get(i).getCancel_date());
+				someClassList.get(i).setCancel_date(date2);
+
+				String date3 = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date (Long.parseLong(someClassList.get(i).getPurchase_date())*1000));
 				someClassList.get(i).setPurchase_date(date3);
 				
 				if(someClassList.get(i).getCanceled_date().equals("0"))
 					someClassList.get(i).setCanceled_date("-");
 				else {
-					String date4 = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date (Long.parseLong(someClassList.get(i).getCanceled_date())));
+					String date4 = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date (Long.parseLong(someClassList.get(i).getCanceled_date())*1000));
 					someClassList.get(i).setCanceled_date(date4);
 				}
 			}

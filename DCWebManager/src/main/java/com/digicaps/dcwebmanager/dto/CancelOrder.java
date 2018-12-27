@@ -15,6 +15,7 @@ public class CancelOrder {
 	private String purchase_date;
 	private String cancel_date;
 	private String canceled_date = "";
+	private String purchase_type;
 
 	private double data_cnt = 0;
 	private double receipt_id_cnt = 0;
@@ -39,7 +40,8 @@ public class CancelOrder {
 			@JsonProperty("receipt_status") String receipt_status,
 			@JsonProperty("purchase_date") String purchase_date,
 			@JsonProperty("cancel_date") String cancel_date,
-			@JsonProperty("canceled_date") String canceled_date
+			@JsonProperty("canceled_date") String canceled_date,
+			@JsonProperty("purchase_type") String purchase_type
 			
 			) {
 		
@@ -56,8 +58,18 @@ public class CancelOrder {
 		this.purchase_date = purchase_date;
 		this.cancel_date = cancel_date;
 		this.canceled_date = canceled_date;
-		
+		this.purchase_type = purchase_type;
 	}
+	
+	public String getPurchase_type() {
+		return purchase_type;
+	}
+	public void setPurchase_type(String purchase_type) {
+		this.purchase_type = purchase_type;
+	}
+	
+	
+	
 	public String getRowspanreceipt() {
 		return rowspanreceipt;
 	}
