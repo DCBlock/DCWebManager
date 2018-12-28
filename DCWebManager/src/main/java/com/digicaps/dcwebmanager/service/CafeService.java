@@ -37,6 +37,48 @@ public class CafeService {
 	String CAFE_API_SERVER_ADDRESS;
 	
 	
+	public int requestCancelOrderAccept(String token, String type, String receipt_id, String purchaseDate) {
+		int result = 0;
+		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/purchases/purchase/receipt/" + receipt_id + "/cancel-approval?purchaseDate=" + purchaseDate;
+		///
+		
+		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.add("Authorization", type + " " + token);
+        
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+		
+
+		//requestFactory.setConnectTimeout(TIMEOUT);
+		//requestFactory.setReadTimeout(TIMEOUT);
+		
+		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.PATCH, entity, String.class);		
+		System.out.println("주문취소승인에 대한 응답 : " + response.getBody());
+/*
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> map = new HashMap<String, Object>(); 
+		try {
+			map = mapper.readValue(response.getBody(), new TypeReference<Map<String, String>>(){});
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+*/
+		//정상일 경우
+		if(response.getStatusCodeValue() == 200) {
+			result = 1;
+		}
+		else
+			result = 0;
+		
+		return result;
+	}
 	
 	public List<CancelOrder> getCancelOrderList(String token, String type, String s_date, String e_date) {
 		
@@ -206,7 +248,7 @@ public class CafeService {
 				someClassList.get(i).setCancel_date(date2);
 
 				String date3 = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date (Long.parseLong(someClassList.get(i).getPurchase_date())*1000));
-				someClassList.get(i).setPurchase_date(date3);
+				someClassList.get(i).setTpurchase_date(date3);
 				
 				if(someClassList.get(i).getCanceled_date().equals("0"))
 					someClassList.get(i).setCanceled_date("-");

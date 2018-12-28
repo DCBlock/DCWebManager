@@ -31,7 +31,23 @@ public class CafeController {
 	CafeService cafeSevice;
 	
 	
-
+    @RequestMapping( value = "/cancel_order_accept", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity requestCancelOrderAccept(HttpServletRequest request) throws Exception{
+    	Map<String, Object> retMap = new HashMap<String, Object>();
+		HttpSession session = request.getSession(true);
+		
+    	int res = cafeSevice.requestCancelOrderAccept(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(), 
+    			request.getParameter("receipt_id"), request.getParameter("purchaseDate"));
+    	
+    	if(res == 1)
+    		retMap.put("result", "success");
+    	else
+    		retMap.put("result", "fail");
+    	
+    	
+        return ResponseEntity.ok(retMap);
+    }
 	
 	
 	@RequestMapping(value = "/menu_manage")

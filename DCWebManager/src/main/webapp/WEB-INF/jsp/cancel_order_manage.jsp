@@ -166,6 +166,8 @@
 	                                            <tr>
 	                                                <th scope="col">구매날짜</th>
 	                                                <th scope="col">영수증ID</th>
+	                                                <th scope="col">성명</th>
+	                                                
 	                                                <th scope="col">메뉴명(국문)</th>
 	                                                <th scope="col">가격</th>
 	                                                <th scope="col">할인가격</th>
@@ -195,6 +197,7 @@
 			                                            	<c:otherwise>
 														    </c:otherwise>
 		                                            	</c:choose>
+		                                            	<td>${cancel_list.name}</td>
 		                                                <td>${cancel_list.menu_name_kr}</td>
 	  	                                                <td>${cancel_list.price}</td>
 		                                                <td>${cancel_list.dc_price}</td>
@@ -215,12 +218,12 @@
 														    </c:otherwise>
 		                                            	</c:choose>
 		                                                </td>
-		                                                <td>${cancel_list.purchase_date}</td>
+		                                                <td>${cancel_list.tpurchase_date}</td>
 		                                                <td>${cancel_list.cancel_date}</td>
    		                                                <td>
    		                                                <c:choose>
 			                                            	<c:when test="${cancel_list.canceled_date eq '-'}">
-			                                            		<button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_order_cancel_modal" onclick="set_cancel_target('1');">취소승인</button>
+			                                            		<button type="button" class="btn btn-flat btn-info btn-xs mb-3"  onclick="set_cancel_target('${cancel_list.receipt_id}', '${cancel_list.purchase_date}');">취소승인</button>
 			                                            	
 			                                            		<!-- span class="badge badge-pill badge-warning">취소승인 대기중</span-->
 			                                            		<!-- button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_order_cancel_modal" onclick="set_cancel_target('1');">취소승인</button-->
@@ -341,9 +344,34 @@
     function confirm_modify(){
     }
     
-    function set_cancel_target(tar){
-    	CANCEL_TARGET = tar;
-    	alert(CANCEL_TARGET);
+    function set_cancel_target(r_id, p_date){
+    	//CANCEL_TARGET = tar;
+    	//alert(CANCEL_TARGET);
+        $.ajax({
+            url: "/cancel_order_accept",
+            type: "post",
+            data: {
+                "receipt_id": r_id,
+                "purchaseDate": p_date
+                
+                //"user_pw" : document.getElementById("exampleInputPassword1").value
+            },
+            dataType: "json",
+            error: function(xhr, ajaxOptions, thrownError){
+
+            },
+            success: function(data){
+                if(data.result == 'success') {
+                	alert("주문취소요청이 승인되었습니다.");
+                	location.href="/cancel_order_manage";
+                
+                }else{
+                	alert("서버 응답이 올바르지 않습니다.");	                	
+                }
+            }
+        });
+        
+        
     }
     
     function reload_page(){

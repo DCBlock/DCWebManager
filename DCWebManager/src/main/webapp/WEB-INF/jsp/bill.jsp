@@ -58,10 +58,10 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">취소주문 관리</h4>
+                            <h4 class="page-title pull-left">월말공제정산</h4>
                             <ul class="breadcrumbs pull-left">
-                                <li><a href="/">카페 관리</a></li>
-                                <li><span>취소주문 관리</span></li>
+                                <li><a href="/">카페 통계</a></li>
+                                <li><span>월말공제정산</span></li>
                             </ul>
                         </div>
                     </div>
@@ -79,8 +79,48 @@
                 <!-- visitor graph area start -->
                 <div class="card mt-5">
                     <div class="card-body">
+                    
+								  <div class="row">
+                            		<table style="border:1px solid black;">
+										<thead style="border:1px solid white; border-color:white;">
+										<tr>
+											<th style="border:1px solid white;border-top:1px solid white; border-color:white;">
+												검색시작날짜
+											</th>
+											<th style="border:1px solid white;">
+												 
+											</th>
+											<th style="border:1px solid white; border-color:white;">
+												검색종료날짜
+											</th>
+											<th style="border:1px solid white; border-color:white;">
+											</th>
+										</tr>
+										</thead>
+									
+										<tbody style="border:1px solid white;">
+
+										<tr style="border-bottom:1px solid gray;">
+											<td style="border:1px solid white;">
+												<input class="form-control" type="date" value="${start_date}" id="start_day">
+											</td>
+											<td style="border:1px solid white;">
+											 ~ 	 
+											</td>
+											<td style="border:1px solid white;">
+												<input class="form-control" type="date" value="${end_date}" id="end_day">
+											</td>
+											<td style="border:1px solid white;"><br>
+												　<button type="button" style="margin-top:-4px;" onclick="reload_page();" class="btn btn-flat btn-info mb-3"><i class="ti-search"></i></button><br>
+											</td>
+										</tr>
+										</tbody>
+									</table>
+									</div>	
+									
+									                    
                         <div class="d-flex justify-content-between mb-5">
-                            <h4 class="header-title mb-0">취소주문 관리</h4>
+                            <h4 class="header-title mb-0">월말공제정산</h4>
                             <!-- select class="custome-select border-0 pr-3">
                                 <option selected="">Last 7 Days</option>
                                 <option value="0">Last 7 Days</option>
@@ -97,28 +137,29 @@
                                 <div class="single-table">
                                     <div class="table-responsive">
                                         <table class="table text-center">
-<thead class="bg-light text-capitalize">
+											<thead class="bg-light text-capitalize">
 	                                            <tr>
-	                                                <th scope="col">회사</th>
-	                                                <th scope="col">직원명</th>
+	                                                <th scope="col">성명</th>
+	                                                <th scope="col">회사명</th>
 	                                                <th scope="col">이메일</th>
-	                                                <th scope="col">구매금액</th>
-	                                                <th scope="col">할인금액</th>
-	                                                <th scope="col">청구액</th>
+	                                                <th scope="col">총 구매가격</th>
+	                                                <th scope="col">총 할인가격</th>
+	                                                <th scope="col">정산 청구액</th>
 	                                                <th scope="col">상세보기</th>
 	                                            </tr>
 	                                        </thead>
 	                                        <tbody>
-	                                            <tr>
-	                                                <th scope="row">DigiCAP</th>
-	                                                <td>정병옥</td>
-	                                                <td>bojung@digicaps.com</td>
-  	                                                <td>34234000</td>
-	                                                <td>10342000</td>
-  	                                                <td>25303000</td>
-	                                                <td><button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_detail_modal" onclick="request_detail_bill('1');">상세보기</button></td>
-
-	                                            </tr>
+		                                        <c:forEach items="${bill_list}" var="bill_list" varStatus="status">
+		                                            <tr>
+		                                                <th scope="row">${bill_list.name}</th>
+		                                                <td>${bill_list.company}</td>
+		                                                <td>${bill_list.email}</td>
+	  	                                                <td>${bill_list.total_price}</td>
+		                                                <td>${bill_list.total_dc_price}</td>
+	  	                                                <td>${bill_list.billing_amount}</td>
+		                                                <td><button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_detail_modal" onclick="detail_user_info('${start_date}', '${end_date}', '${bill_list.user_record_index}','${bill_list.name}','${bill_list.total_price}','${bill_list.total_dc_price}');">상세보기</button></td>
+		                                            </tr>
+	                                            </c:forEach>
 
 
 
@@ -141,50 +182,26 @@
             
             
             
+                                <div id="open_detail_modal" class="modal fade bd-example-modal-lg">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">상세내역 조회</h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                            	<div id="detail_data_area">
+                                            		데이터를 불러오는 중입니다.
+                                            	</div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>						                                
+						                                
 
-						                                
-						                                
-						                <!-- 회원정보 삭제 모달 시작 -->
-		                                <div class="modal fade" id="open_detail_modal">
-		                                    <div class="modal-dialog modal-dialog-centered" role="document">
-		                                        <div class="modal-content">
-		                                            <div id="modal-header" class="modal-header">
-		                                                <h5 class="modal-title">주문 상세보기</h5>
-		                                                <!-- button type="button" class="close" data-dismiss="modal" onclick="rfcard_register_modal_close();"><span>&times;</span></button-->
-		                                            </div>
-		                                            <div class="modal-body">
-		                                                
-														<h5 id="delete_user_name">데이터를 받아오고 있습니다.</h5>
-		                                            </div>
-		                                            <div class="modal-footer">
-			                                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="">확인</button>
-		                                            </div>
-		                                        </div>
-		                                    </div>
-		                                </div>
-		                                <!-- 회원정보 삭제 모달 끝 -->						                                
-						                                
-						                <!-- 완료 모달 -->
-		                                <div class="modal fade" id="ok_modal">
-		                                    <div class="modal-dialog modal-dialog-centered" role="document">
-		                                        <div class="modal-content">
-		                                            <div id="modal-header" class="modal-header">
-		                                                <h5 class="modal-title">알림</h5>
-		                                                <!-- button type="button" class="close" data-dismiss="modal" onclick="rfcard_register_modal_close();"><span>&times;</span></button-->
-		                                            </div>
-		                                            <div class="modal-body">
-		                                                <br/>
-														<h5 id="">완료되었습니다.</h5>
-														<br/>
-		                                            </div>
-		                                            <div class="modal-footer">
-		                                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="">확인</button>
-		                                                
-		                                            </div>
-		                                        </div>
-		                                    </div>
-		                                </div>
-		                                <!-- 회원정보 삭제 모달 끝 -->				
 		                                
 		                                						                                
         </div>
@@ -227,6 +244,79 @@
     	CANCEL_TARGET = tar;
     	alert(CANCEL_TARGET);
     }
+    
+    function reload_page(){
+    	
+    	location.href="/bill?start_date="+$("#start_day").val()+"&end_date="+$("#end_day").val();
+    }
+    
+    
+    function detail_user_info(s_d, e_d, u_i, u_name, total_price, total_dc){
+    	//start_date
+    	//end_date
+    	//user_index
+    	$("#detail_data_area").html("데이터를 불러오는 중 입니다.");
+    	
+
+    		
+
+
+    	
+        $.ajax({
+            url: "/user_bill?start_date="+s_d+"&end_date="+e_d+"&user_index="+u_i,
+            type: "get",
+            data: {
+                //"receipt_id": r_id,
+                //"purchaseDate": p_date
+                
+                //"user_pw" : document.getElementById("exampleInputPassword1").value
+            },
+            dataType: "json",
+            error: function(xhr, ajaxOptions, thrownError){
+
+            },
+            success: function(data){
+
+
+            	var table_html = "<h4 class='header-title'>"+u_name+"</h4>";
+        		table_html += "<p>총 구매금액 : "+total_price+"</p>";
+            	table_html += "<p>총 할인금액 : "+total_dc+"</p>";    	
+            	table_html += "<p>청구액 : "+(total_price - total_dc)+"</p>";    	
+            	
+            	
+            	table_html += "<div class='single-table'>";
+            	table_html += 	"<div class='table-responsive'>";
+            	table_html +=		"<table class='table table-striped text-center'>";
+            	table_html +=			"<thead class='text-uppercase'>";
+           		table_html +=				"<th>날짜</th><th>영수ID</th><th>품목</th><th>가격</th><th>할인가</th><th>TYPE</th><th>SIZE</th><th>갯수</th><th>상태</th><th>구매일</th><th>취소일</th><th>타입</th>";
+        		table_html +=			"</thead>";
+        		table_html +=		    "<tbody>";		
+
+            	for (var i = 0; i < data.purchases.length; i++){
+            	    //alert(data.purchases[i].menu_name_kr);
+            	    table_html += "<tr>";
+            	    table_html += 	"<th scope='row'>" + data.purchases[i].date + "</th>";
+            	    table_html += 	"<td>"+data.purchases[i].receipt_id+"</td><td>"+data.purchases[i].menu_name_kr+"</td><td>"+data.purchases[i].price+"</td><td>"+data.purchases[i].dc_price+"</td><td>"+data.purchases[i].type+"</td><td>"+data.purchases[i].size+"</td><td>"+data.purchases[i].count+"</td><td>"+data.purchases[i].receipt_status+"</td><td>"+data.purchases[i].purchase_date+"</td><td>"+data.purchases[i].cancel_date+"</td><td>"+data.purchases[i].purchase_type+"</td>";
+            	    table_html += "</tr>";
+            	    
+            	}
+
+            	
+            	table_html +=		  	"</tbody>";		
+        		table_html +=		"</table>";		
+        		table_html +=	"</div></div>";
+        		
+        		
+            	
+        		$("#detail_data_area").html(table_html);
+        		
+            	
+            	
+            }
+        });
+        
+    }
+    
     
     //$('#modal_rfcard_regist').modal('hide');
 

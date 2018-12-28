@@ -451,10 +451,10 @@
 
     
 	function user_regist(){
-		rfcard_id
-		company_name
-		user_name
-		user_email
+		//rfcard_id
+		//company_name
+		//user_name
+		//user_email
         $.ajax({
             url: "/user_regist_request",
             type: "post",
