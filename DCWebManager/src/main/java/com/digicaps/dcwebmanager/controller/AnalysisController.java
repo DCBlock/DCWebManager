@@ -2,17 +2,15 @@ package com.digicaps.dcwebmanager.controller;
 
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,6 +25,20 @@ public class AnalysisController {
 	
 	@Autowired
 	AnalysisService analysisService;
+	
+	@RequestMapping(value = "/my_order/{token_info}", method = RequestMethod.GET)
+	public ModelAndView myOrder(ModelMap model, HttpServletRequest request, @PathVariable String token_info) {
+		
+		
+		
+		model.addAttribute("token_info", analysisService.myOrder(token_info));
+		mav.setViewName("my_order");
+		
+		
+		return mav;
+
+		
+	}
 	
 	
 	@RequestMapping(value = "/bill", method = RequestMethod.GET)
@@ -60,7 +72,7 @@ public class AnalysisController {
 		if(request.getParameter("start_date") != null && request.getParameter("end_date") != null) {
 			try {
 				epoch_start = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("start_date").toString()).getTime() / 1000;
-				epoch_end = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("end_date").toString()).getTime() / 1000;
+				epoch_end = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(request.getParameter("end_date").toString() + " 23:59:59").getTime() / 1000;
 				s_date = Long.toString(epoch_start);
 				e_date = Long.toString(epoch_end);
 			} catch (ParseException e) {
@@ -95,21 +107,23 @@ public class AnalysisController {
 
 			int lastDay = calendar.getActualMaximum(Calendar.DATE);
 			today_end2 += lastDay;
-			try {
+			//try {
 				epoch_start = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(today_end).getTime() / 1000;
-				epoch_end = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(today_end2).getTime() / 1000;
-				
+				//System.out.println("시간변환테스트 == " + request.getParameter("end_date").toString() + " 23:59:59");
+				epoch_end = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(today_end2 + " 23:59:59").getTime() / 1000;
 				s_date = Long.toString(epoch_start);
 				e_date = Long.toString(epoch_end);
+				//s_date = Long.toString(epoch_start);
+				//e_date = Long.toString(epoch_end);
 				
 				model.addAttribute("start_date", today_end);
 				model.addAttribute("end_date", today_end2);
 				
 				
-			} catch (java.text.ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			//} catch (java.text.ParseException e1) {
+			//	// TODO Auto-generated catch block
+		//		e1.printStackTrace();
+		//	}
 			
 			System.out.println("* 날짜 정보 : " + today + ", 막날정보 : " + lastDay + "zz " + epoch_start + ". " + epoch_end);
 			
@@ -142,7 +156,7 @@ public class AnalysisController {
 		if(request.getParameter("start_date") != null && request.getParameter("end_date") != null) {
 			try {
 				epoch_start = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("start_date").toString()).getTime() / 1000;
-				epoch_end = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("end_date").toString()).getTime() / 1000;
+				epoch_end = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(request.getParameter("end_date").toString() + " 23:59:59").getTime() / 1000;
 				s_date = Long.toString(epoch_start);
 				e_date = Long.toString(epoch_end);
 			} catch (ParseException e) {
@@ -177,7 +191,7 @@ public class AnalysisController {
 			today_end2 += lastDay;
 			try {
 				epoch_start = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(today_end).getTime() / 1000;
-				epoch_end = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(today_end2).getTime() / 1000;
+				epoch_end = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(request.getParameter("end_date").toString() + " 23:59:59").getTime() / 1000;
 				
 				s_date = Long.toString(epoch_start);
 				e_date = Long.toString(epoch_end);

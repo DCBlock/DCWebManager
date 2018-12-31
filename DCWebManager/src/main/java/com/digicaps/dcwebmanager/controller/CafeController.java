@@ -96,7 +96,7 @@ public class CafeController {
 		if(request.getParameter("start_date") != null && request.getParameter("end_date") != null) {
 			try {
 				epoch_start = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("start_date").toString()).getTime() / 1000;
-				epoch_end = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("end_date").toString()).getTime() / 1000;
+				epoch_end = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(request.getParameter("end_date").toString() + " 23:59:59").getTime() / 1000;
 				s_date = Long.toString(epoch_start);
 				e_date = Long.toString(epoch_end);
 			} catch (ParseException e) {
@@ -113,6 +113,7 @@ public class CafeController {
 			Calendar calendar = Calendar.getInstance();
 			String today = "";
 			String today_end = "";
+			
 			String today_end2 = "";
 			//오늘날짜 가져오기
 			today += calendar.get(calendar.YEAR) + "-";
@@ -133,7 +134,7 @@ public class CafeController {
 			today_end2 += lastDay;
 			try {
 				epoch_start = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(today_end).getTime() / 1000;
-				epoch_end = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(today_end2).getTime() / 1000;
+				epoch_end = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(today_end2 + " 23:59:59").getTime() / 1000;
 				
 				s_date = Long.toString(epoch_start);
 				e_date = Long.toString(epoch_end);

@@ -87,4 +87,26 @@ public class AnalysisService {
 	}
 	
 	
+	public String myOrder(String token){
+		RestTemplate restTemplate = new RestTemplate();
+		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/purchases/temporary/" + token;
+	
+		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+		System.out.println("토큰 : " + token);
+		HttpHeaders headers = new HttpHeaders();
+		//headers.setContentType(MediaType.APPLICATION_JSON);
+		//headers.add("Authorization", type + " " + token);
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.GET, entity, String.class);		
+		System.out.println("개인정산서목록 : " + response.getBody().toString());
+
+		if(response.getStatusCodeValue() != 200)
+			return "페이지가 유효하지 않습니다.";
+		
+		return response.getBody().toString();
+	}
+	
+	
+	
 }

@@ -61,9 +61,9 @@ public class UserService {
 		}
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.add("Authorization", type + " " + token);
         
 		HttpEntity<String> entity = new HttpEntity<String>(tokenToJson, headers);
@@ -198,43 +198,18 @@ public class UserService {
 	}
 	
 	public ArrayList<HashMap<String, String>> UserList(String page_num){
-		
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();		
-		/*
-		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-		HttpEntity<String> entity = new HttpEntity<String>(headers);
-		//
-		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.DELETE, entity, String.class);		
+
+		//HttpHeaders headers = new HttpHeaders();
+		//headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		//HttpEntity<String> entity = new HttpEntity<String>(headers);
 		
 		URI uri = URI.create(API_SERVER_ADDRESS + "/api/users/page/" + page_num);
 		RestTemplate template = new RestTemplate();
 		String responseString = new String();
 		responseString = template.getForObject(uri, String.class);
-		System.out.println("***전체목록 불러오기 : " + responseString);
-		
-		
-		*/
-		RestTemplate restTemplate = new RestTemplate();
-		String reqUrl = API_SERVER_ADDRESS + "/api/users/page/" + page_num;
-		//System.out.println("아아아아 : " + index);
-		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		//headers.setContentType(MediaType.APPLICATION_JSON);
-		//headers.add("Authorization", type + " " + token);
-        
-		HttpEntity<String> entity = new HttpEntity<String>(headers);
-
-		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.GET, entity, String.class);		
-		
-		
+		//System.out.println("***전체목록 불러오기 : " + responseString);
 		
 		//Users부분 분리
 		/*
@@ -256,29 +231,19 @@ public class UserService {
 		
 		JSONParser parser = new JSONParser();
 
-		
 		ObjectMapper objectMapper = new ObjectMapper();
 		TypeFactory typeFactory = objectMapper.getTypeFactory();
-/*
-		String strUTF = "";
-		
-		try {
-			strUTF =new String(response.getBody().toString().getBytes("UTF8"));
-			System.out.println(strUTF);
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
+
+
 		try {
 			JSONParser jsonParser = new JSONParser();
-		    JSONObject jsonObj = (JSONObject) jsonParser.parse(strUTF);
+		    JSONObject jsonObj = (JSONObject) jsonParser.parse(responseString);
 		    //JSONArray memberArray = (JSONArray) jsonObj.get("Users");
-*/
+
 		    System.out.println("=====Users=====");
 		    
 		    try {
-				List<User> someClassList = objectMapper.readValue(response.getBody().toString(), typeFactory.constructCollectionType(List.class, User.class));
+				List<User> someClassList = objectMapper.readValue(jsonObj.get("Users").toString(), typeFactory.constructCollectionType(List.class, User.class));
 				for(int i = 0; i < someClassList.size(); i++) {
 					//System.out.println("이게 돼나? 지금은 " + i + "번째");
 					if(null == someClassList.get(i))
@@ -303,7 +268,10 @@ public class UserService {
 		    }
 		    */
 
-		    
+		    } catch (ParseException e) {
+		    	// TODO Auto-generated catch block
+		    	e.printStackTrace();
+		 }
 		 
 			 
 			
@@ -338,6 +306,7 @@ public class UserService {
 		
 		return list;
 	}
+	
 	
 	public int pageStartPointCalcul(int pivot) {
 		if(pivot%10 == 0)
@@ -416,3 +385,4 @@ public class UserService {
 	}
 	
 }
+
