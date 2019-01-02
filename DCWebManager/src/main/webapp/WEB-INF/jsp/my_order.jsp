@@ -72,7 +72,7 @@
     	//end_date
     	//user_index
     	//$("#detail_data_area").html("데이터를 불러오는 중 입니다.");
-    	var result = '${token_info}':
+    	var result = '${token_info}';
 		var data;
 		if(result == "페이지가 유효하지 않습니다."){
 			document.getElementById("order_table").innerHTML = result;
@@ -98,9 +98,9 @@
             	table_html += "<p>청구액 : "+thousands_separators(data.total.toString().replace(",","") - data.dc_total.toString().replace(",",""))+"</p>";    	
             	
             	
-            	table_html += "<div class='single-table'>";
+            	table_html += "<div class='single-table' style='width:650px;'>";
             	table_html += 	"<div class='table-responsive'>";
-            	table_html +=		"<table class='table table-striped text-center'>";
+            	table_html +=		"<table class='table table-striped text-center' style='font-size:12px;'>";
             	table_html +=			"<thead class='text-uppercase'>";
            		table_html +=				"<th>코드</th><th>가격</th><th>할인금액</th><th>청구액</th><th>음료타입</th><th>사이즈</th><th>갯수</th><th>메뉴명</th><th>구매타입</th>";
         		table_html +=			"</thead>";
