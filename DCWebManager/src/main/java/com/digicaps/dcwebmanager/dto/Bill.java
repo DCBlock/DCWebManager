@@ -1,5 +1,7 @@
 package com.digicaps.dcwebmanager.dto;
 
+import java.text.DecimalFormat;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Bill {
@@ -10,7 +12,13 @@ public class Bill {
 	private String total_dc_price;
 	private String billing_amount;
 	private String user_record_index;
-
+	
+	public static String toNumFormat(String num) {
+		int num2 = Integer.parseInt(num);
+		DecimalFormat df = new DecimalFormat("#,###");
+		return df.format(num2);
+	}
+	
 	public Bill(){
 		
 	}
@@ -28,9 +36,9 @@ public class Bill {
 		this.name = name;
 		this.company = company;
 		this.email = email;
-		this.total_price = total_price;
-		this.total_dc_price = total_dc_price;
-		this.billing_amount = billing_amount;
+		this.total_price = toNumFormat(total_price);
+		this.total_dc_price = toNumFormat(total_dc_price);
+		this.billing_amount = toNumFormat(billing_amount);
 		this.user_record_index = user_record_index;
 	}
 
@@ -45,6 +53,7 @@ public class Bill {
 		return company;
 	}
 	public void setCompany(String company) {
+		
 		this.company = company;
 	}
 	
@@ -59,13 +68,16 @@ public class Bill {
 		return total_price;
 	}
 	public void setTotal_price(String total_price) {
+		total_price = toNumFormat(total_price);
 		this.total_price = total_price;
 	}
 	
 	public String getTotal_dc_price() {
+		
 		return total_dc_price;
 	}
 	public void setTotal_dc_price(String total_dc_price) {
+		total_dc_price = toNumFormat(total_dc_price);
 		this.total_dc_price = total_dc_price;
 	}
 	
@@ -73,6 +85,7 @@ public class Bill {
 		return billing_amount;
 	}
 	public void setBilling_amount(String billing_amount) {
+		billing_amount = toNumFormat(billing_amount);
 		this.billing_amount = billing_amount;
 	}
 	

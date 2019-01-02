@@ -1,5 +1,7 @@
 package com.digicaps.dcwebmanager.dto;
 
+import java.text.DecimalFormat;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CancelOrder {
@@ -26,7 +28,13 @@ public class CancelOrder {
 	private String rowspan = "0";
 	private String rowspanreceipt = "0";
 	
-
+	public static String toNumFormat(String num) {
+		int num2 = Integer.parseInt(num);
+		DecimalFormat df = new DecimalFormat("#,###");
+		return df.format(num2);
+	}
+	
+	
 	public CancelOrder(){
 		
 	}
@@ -53,8 +61,8 @@ public class CancelOrder {
 		this.date = date;
 		this.receipt_id = receipt_id;
 		this.menu_name_kr = menu_name_kr;
-		this.price = price;
-		this.dc_price = dc_price;
+		this.price = toNumFormat(price);
+		this.dc_price = toNumFormat(dc_price);
 		this.type = type;
 		this.size = size;
 		this.count = count;

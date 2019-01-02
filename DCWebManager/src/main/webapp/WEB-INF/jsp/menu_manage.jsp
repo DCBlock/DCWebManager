@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -175,9 +176,9 @@
 								                                            <tr>
 								                                                <th scope="row">${menu_list.name_kr}</th>
 								                                                <td>${menu_list.name_en}</td>
-								                                                <td>${menu_list.price}</td>
-								                                                <td>${menu_list.dc_digicap}</td>
-		   						                                                <td>${menu_list.dc_covision}</td>
+								                                                <td><fmt:formatNumber value="${menu_list.price}" pattern="#,###" /></td>
+								                                                <td><fmt:formatNumber value="${menu_list.dc_digicap}" pattern="#,###" /></td>
+		   						                                                <td><fmt:formatNumber value="${menu_list.dc_covision}" pattern="#,###" /></td>
 		   						                                                <td>${menu_list.size}</td>
 		  						                                                <td>${menu_list.type}</td>
 								                                                <td>
