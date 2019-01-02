@@ -41,8 +41,12 @@ public class CertificationInterceptor implements HandlerInterceptor{
 		else {
 			System.out.println("로그인이 안 된 유저 입니다.");
 			System.out.println("--------------------------");  
-            try { response.sendRedirect("/login"); }
-            catch (IOException ie ) {} //만약 리다이렉션 도중 에러가 난 경우
+			
+			//System.out.println("xx : " + request.getRequestURI());
+			//if(!request.getRequestURI().equals("/error")) {
+				try { response.sendRedirect("/login"); }
+				catch (IOException ie ) {} //만약 리다이렉션 도중 에러가 난 경우
+			//}
             return false;
 		}
 
