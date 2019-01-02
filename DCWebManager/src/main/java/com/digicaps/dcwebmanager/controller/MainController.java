@@ -42,6 +42,21 @@ public class MainController {
 
 	}
 	
+	
+	@RequestMapping(value = "/logout")
+    public ModelAndView logout(ModelMap model, HttpServletRequest request){
+		String resultPage = "login";
+		
+		HttpSession session = request.getSession(true);
+		session.invalidate();
+
+		mav.setViewName(resultPage);		
+		
+		
+		return mav;
+
+	}
+	
 
 	
 	@RequestMapping("/jsp")

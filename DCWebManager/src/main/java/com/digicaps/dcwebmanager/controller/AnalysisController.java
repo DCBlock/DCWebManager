@@ -45,6 +45,7 @@ public class AnalysisController {
     public ModelAndView userManage(ModelMap model, HttpServletRequest request) throws Exception{
 		String resultPage = "bill";
 		HttpSession session = request.getSession(true);
+		model.addAttribute("user_name",session.getAttribute("user_id").toString());
 		/*
 		
 		String user_id;

@@ -24,7 +24,9 @@ public class WebConfig extends WebMvcConfigurerAdapter{
                 .excludePathPatterns("/assets/**")
                 .excludePathPatterns("/img")
                 .excludePathPatterns("/img/**")
-                .excludePathPatterns("/my_order/**")
+                .excludePathPatterns("/my_order/**")//logout
+                .excludePathPatterns("/logout")//
+                
                 .excludePathPatterns("/my_order")
                 
                 .excludePathPatterns("/");	// 홈 화면에서는 자체적으로 세션 검사를 하도록 한다.

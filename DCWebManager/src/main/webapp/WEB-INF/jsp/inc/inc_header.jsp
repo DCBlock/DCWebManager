@@ -20,8 +20,8 @@
                     </div>
                     <!-- profile info & task notification -->
                     <div class="col-md-6 col-sm-4 clearfix">
-                        <!-- ul class="notification-area pull-right">
-                            <li id="full-view"><i class="ti-fullscreen"></i></li>
+                        <ul class="notification-area pull-right">
+                            <!-- li id="full-view"><i class="ti-fullscreen"></i></li>
                             <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
                             <li class="dropdown">
                                 <i class="ti-bell dropdown-toggle" data-toggle="dropdown">
@@ -159,11 +159,14 @@
                                         </a>
                                     </div>
                                 </div>
-                            </li>
-                            <li class="settings-btn">
+                            </li-->
+                            <!-- li class="settings-btn">
                                 <i class="ti-settings"></i>
+                            </li-->
+                            <li class="">
+                                <a href="/logout" style="color:gray;"><i class="fa fa-sign-out"></i>  로그아웃</a>
                             </li>
-                        </ul-->
+                        </ul>
                     </div>
                 </div>
             </div>

@@ -34,6 +34,8 @@ public class UserController {
 	@RequestMapping(value = "/user_regist")
     public ModelAndView userRegist(ModelMap model, HttpServletRequest request){
 		String resultPage = "user_regist";
+		HttpSession session = request.getSession(true);
+		
 		/*
 		HttpSession session = request.getSession(true);
 		String user_id;
@@ -50,6 +52,8 @@ public class UserController {
 		else
 			resultPage = "login";
 		 */
+		model.addAttribute("user_name",session.getAttribute("user_id").toString());
+		
 		mav.setViewName(resultPage);	
 		return mav;
 	}
@@ -59,6 +63,8 @@ public class UserController {
 		String resultPage = "user_list";
 		ArrayList<HashMap<String, String>> user_list;
 		String page = "1";
+		HttpSession session = request.getSession(true);
+		
 		if(request.getParameter("page") != null)
 			page = request.getParameter("page");
 		/*
@@ -82,6 +88,7 @@ public class UserController {
 		model.addAttribute("pageStartPointCalcul", userService.pageStartPointCalcul(Integer.parseInt(page)));
 		model.addAttribute("pageEndPointCalcul", userService.pageEndPointCalcul(Integer.parseInt(page)));
 		model.addAttribute("page",page);
+		model.addAttribute("user_name",session.getAttribute("user_id").toString());
 		mav.setViewName(resultPage);		
 		
 		

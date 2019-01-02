@@ -59,7 +59,7 @@ public class CafeController {
 		List<Menu> menu = cafeSevice.getMenuList(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(), cate);
 		model.addAttribute("cate_list", cate);
 		model.addAttribute("menu_list", menu);
-		
+		model.addAttribute("user_name",session.getAttribute("user_id").toString());
 		mav.setViewName(resultPage);		
 		
 		
@@ -92,7 +92,7 @@ public class CafeController {
 		long epoch_start = 0;
 		long epoch_end = 0;
 
-		
+		model.addAttribute("user_name",session.getAttribute("user_id").toString());
 		if(request.getParameter("start_date") != null && request.getParameter("end_date") != null) {
 			try {
 				epoch_start = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("start_date").toString()).getTime() / 1000;
