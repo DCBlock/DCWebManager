@@ -165,6 +165,7 @@
 						                                                <th scope="col">코비젼 할인가</th>
 						                                                <th scope="col">사이즈</th>						                                                
 						                                                <th scope="col">음료타입</th>
+						                                                <th scope="col">이벤트명</th>
 						                                                <th scope="col">편집</th>
 						                                                
 						                                            </tr>
@@ -181,6 +182,7 @@
 		   						                                                <td><fmt:formatNumber value="${menu_list.dc_covision}" pattern="#,###" /></td>
 		   						                                                <td>${menu_list.size}</td>
 		  						                                                <td>${menu_list.type}</td>
+		  						                                                <td>${menu_list.event_name}</td>
 								                                                <td>
 								                                                	<button type="button" class="btn btn-flat btn-danger btn-xs mb-3" onclick="select_delete_menu_target('${cate_list.code}', '${menu_list.code}');" data-toggle="modal" data-target="#modal_menu_info_delete">삭제</button>
 								                                                </td>
@@ -324,6 +326,8 @@
 											                            		</c:otherwise>
 											                            	</c:choose>
 												                        </select>　
+												                        <input type="text" id="menu_event_name" class="item_input" value="${menu_list.event_name}" size="8" onmouseover="alert_editor('이벤트명');"/>　
+												                        
 																	</li>
 																</c:when>
 																<c:otherwise>
@@ -334,95 +338,7 @@
 														  
 														  
 														  
-															<!-- li class="ui-state-default moving_item">
-																<i class="ti-arrows-vertical"></i>　
-																<input type="text" class="item_input" value="라떼" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
-																<input type="text" class="item_input" value="Americano" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
-																<input type="text" class="item_input" value="2500" size="8" onmouseover="alert_editor('제품가격');"/>　
-																<input type="text" class="item_input" value="1000" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
-																<input type="text" class="item_input" value="500" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
-										                        <select class="item_input" onmouseover="alert_editor('사이즈 선택');">
-										                  	    	<option selected="selected" value="0">Regular</option>
-										                        	<option value="1">Small</option>
-										                        </select>　
-									                            <select class="item_input" onmouseover="alert_editor('음료옵션 선택');">
-										                        	<option selected="selected" value="2">Both</option>
-										                        	<option value="1">Ice</option>
-										                            <option value="0">Hot</option>
-										                        </select>　
-															</li>
-															
-															
-															
-															
-															<li class="ui-state-default moving_item">
-																<i class="ti-arrows-vertical"></i>　
-																<input type="text" class="item_input" value="타로티" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
-																<input type="text" class="item_input" value="Americano" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
-																<input type="text" class="item_input" value="2500" size="8" onmouseover="alert_editor('제품가격');"/>　
-																<input type="text" class="item_input" value="1000" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
-																<input type="text" class="item_input" value="500" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
-										                        <select class="item_input" onmouseover="alert_editor('사이즈 선택');">
-										                  	    	<option selected="selected" value="0">Regular</option>
-										                        	<option value="1">Small</option>
-										                        </select>　
-									                            <select class="item_input" onmouseover="alert_editor('음료옵션 선택');">
-										                        	<option selected="selected" value="2">Both</option>
-										                        	<option value="1">Ice</option>
-										                            <option value="0">Hot</option>
-										                        </select>　
-															</li>															
-															<li class="ui-state-default moving_item">
-																<i class="ti-arrows-vertical"></i>　
-																<input type="text" class="item_input" value="히비스커스" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
-																<input type="text" class="item_input" value="Americano" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
-																<input type="text" class="item_input" value="2500" size="8" onmouseover="alert_editor('제품가격');"/>　
-																<input type="text" class="item_input" value="1000" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
-																<input type="text" class="item_input" value="500" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
-										                        <select class="item_input" onmouseover="alert_editor('사이즈 선택');">
-										                  	    	<option selected="selected" value="0">Regular</option>
-										                        	<option value="1">Small</option>
-										                        </select>　
-									                            <select class="item_input" onmouseover="alert_editor('음료옵션 선택');">
-										                        	<option selected="selected" value="2">Both</option>
-										                        	<option value="1">Ice</option>
-										                            <option value="0">Hot</option>
-										                        </select>　
-															</li>
-															<li class="ui-state-default moving_item">
-																<i class="ti-arrows-vertical"></i>　
-																<input type="text" class="item_input" value="아메리카노" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
-																<input type="text" class="item_input" value="Americano" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
-																<input type="text" class="item_input" value="2500" size="8" onmouseover="alert_editor('제품가격');"/>　
-																<input type="text" class="item_input" value="1000" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
-																<input type="text" class="item_input" value="500" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
-										                        <select class="item_input" onmouseover="alert_editor('사이즈 선택');">
-										                  	    	<option selected="selected" value="0">Regular</option>
-										                        	<option value="1">Small</option>
-										                        </select>　
-									                            <select class="item_input" onmouseover="alert_editor('음료옵션 선택');">
-										                        	<option selected="selected" value="2">Both</option>
-										                        	<option value="1">Ice</option>
-										                            <option value="0">Hot</option>
-										                        </select>　
-															</li>															
-															<li class="ui-state-default moving_item">
-																<i class="ti-arrows-vertical"></i>　
-																<input type="text" class="item_input" value="아메리카노" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
-																<input type="text" class="item_input" value="Americano" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
-																<input type="text" class="item_input" value="2500" size="8" onmouseover="alert_editor('제품가격');"/>　
-																<input type="text" class="item_input" value="1000" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
-																<input type="text" class="item_input" value="500" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
-										                        <select class="item_input" onmouseover="alert_editor('사이즈 선택');">
-										                  	    	<option selected="selected" value="0">Regular</option>
-										                        	<option value="1">Small</option>
-										                        </select>　
-									                            <select class="item_input" onmouseover="alert_editor('음료옵션 선택');">
-										                        	<option selected="selected" value="2">Both</option>
-										                        	<option value="1">Ice</option>
-										                            <option value="0">Hot</option>
-										                        </select>　
-															</li-->																														
+																												
 															
 														</ul>
 														<!-- 제품 수정필드 목록 끝 -->														
@@ -593,7 +509,12 @@
 										                                            <option value="HOT">HOT</option>
 										                                            
 										                                        </select>
-										                                    </div>			
+										                                    </div>	
+										                                    
+														                    <div class="form-group">
+														                         <label for="example-text-input">이벤트명</label>
+														                         <input class="form-control" type="text" id="create_menu_event_name">
+														                    </div>										                                    		
 														
 		                                            </div>
 		                                            <div class="modal-footer">
@@ -819,6 +740,9 @@
 
     		json_str += "\"name_en\" : \"";
     		json_str += $(this).children('#menu_name_en').val() + "\", ";
+    		
+    		json_str += "\"event_name\" : \"";
+    		json_str += $(this).children('#menu_event_name').val() + "\", ";
 
     		json_str += "\"price\" : ";
     		json_str += $(this).children('#menu_price').val() + ", ";
@@ -902,7 +826,9 @@
     	json_data += "\"dc_digicap\" : " + $("#create_menu_dc_digicap").val() + ",";
     	json_data += "\"dc_covision\" : " + $("#create_menu_dc_covision").val() + ",";
     	json_data += "\"type\" : \"" + $("#create_menu_type").val() + "\",";
-    	json_data += "\"size\" : \"" + $("#create_menu_size").val() + "\"}";
+    	json_data += "\"event_name\" : \"" + $("#create_menu_event_name").val() + "\",";
+    	json_data += "\"size\" : \"" + $("#create_menu_size").val() + "\"}";//create_menu_event_name
+    	
     	
     	
         $.ajax({
