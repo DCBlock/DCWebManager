@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>D Cafe Web Manager</title>
+    <title>DCCaffe Web Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -375,7 +375,10 @@
     }
     
     function reload_page(){
-    	
+    	if($("#start_day").val().replace("-","") > $("#end_day").val().replace("-","")){
+    		alert("검색 시작일이 종료일보다 이전이어야 합니다.");
+    		return;
+    	}
     	location.href="/cancel_order_manage?start_date="+$("#start_day").val()+"&end_date="+$("#end_day").val();
     }
     //$('#modal_rfcard_regist').modal('hide');

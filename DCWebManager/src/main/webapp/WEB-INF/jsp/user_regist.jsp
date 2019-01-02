@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>D Cafe Web Manager</title>
+    <title>DCCaffe Web Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -98,7 +98,7 @@
 		                                            <div class="modal-body">
 		                                                <center>
 			                                          	
-			                                                <h3 style="color:gray;">지금 단말기에 카드를 대주세요 자동으로 입력 됩니다.</h3>
+			                                                <h3 style="color:gray;font-size:12px;">지금 단말기에 카드를 대주세요. 자동으로 입력 됩니다.</h3>
 			                                                <br/>
 			                                                <br/>
 			                                                <b><p id="rfcard_regist_field_tmp" style="color:red;"></p></b>
@@ -106,8 +106,8 @@
 														
 		                                            </div>
 		                                            <div class="modal-footer">
-			                                            <button type="button" class="btn btn-primary" onclick="rfcard_register_modal_save();">Save changes</button>
-		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="rfcard_register_modal_close();">Close</button>
+			                                            <button type="button" class="btn btn-primary" onclick="rfcard_register_modal_save();">확인</button>
+		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="rfcard_register_modal_close();">취소</button>
 		                                                
 		                                            </div>
 		                                        </div>

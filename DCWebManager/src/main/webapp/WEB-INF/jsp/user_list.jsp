@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>D Cafe Web Manager</title>
+    <title>DCCaffe Web Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -310,12 +310,12 @@
 		                                            </div>
 		                                            <div class="modal-body">
 		                                                
-														<h5 id="delete_user_name">...님을 정말로 삭제하시겠습니까?</h5>
+														<h5 id="delete_user_name" style="font-size:12px;">...님을 정말로 삭제하시겠습니까?</h5>
 														<input class="form-control" type="hidden" id="delete_user_index" value="" />
 		                                            </div>
 		                                            <div class="modal-footer">
-			                                            <button type="button" class="btn btn-primary" onclick="confirm_delete();">OK</button>
-		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Cancel</button>
+			                                            <button type="button" class="btn btn-primary" onclick="confirm_delete();">확인</button>
+		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">취소</button>
 		                                                
 		                                            </div>
 		                                        </div>

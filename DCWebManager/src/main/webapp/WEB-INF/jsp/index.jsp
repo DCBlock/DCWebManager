@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>D Cafe Web Manager</title>
+    <title>DCCaffe Web Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -91,7 +91,7 @@
                             </select-->
                         </div>
                         <!--  div id="visitor_graph"></div-->
-                        <p>D Cafe web manager를 이용해주셔서 감사합니다.</p>
+                        <p>DC Cafe Web Manager를 이용해주셔서 감사합니다.</p>
                     </div>
                 </div>
                 <!-- visitor graph area end -->

@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Login - srtdash</title>
+    <title>DCCaffe Web Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -29,7 +29,7 @@
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
-<body>
+<body style="overflow:hidden;">
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -49,7 +49,7 @@
                         <br/>
                         <br/>
                         <br/>
-                        <p><b>D Cafe Web Manager</b>에 방문해주셔서 감사합니다.</p>
+                        <p><b>DCCaffe Web Manager</b>에 방문해주셔서 감사합니다.</p>
                         <p>관리자 계정을 입력해 주세요.</p>
                     </div>
                     <div class="login-form-body">

@@ -103,7 +103,7 @@ public class AnalysisController {
 
 			
 			//해당월의 마지막 날짜 가져오기
-			calendar.set(calendar.get(calendar.YEAR), month, calendar.get(calendar.DAY_OF_MONTH));
+			calendar.set(calendar.get(calendar.YEAR), calendar.get(calendar.MONTH), calendar.get(calendar.DAY_OF_MONTH));
 
 			int lastDay = calendar.getActualMaximum(Calendar.DATE);
 			today_end2 += lastDay;

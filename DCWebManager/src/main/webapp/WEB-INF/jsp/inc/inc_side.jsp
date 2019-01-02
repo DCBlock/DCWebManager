@@ -7,7 +7,7 @@
                 <div class="logo" >
 	                <!-- p class="page-title pull-left" style="color:white; text-align:left;">D Cafe web Manager</p><a href="/"></a -->
 	                <!-- img src="img/digicap_logo.png" style=""/--><!-- img src="assets/images/icon/logo.png" alt="logo"-->
-	                <a href="#" style="color:white;">D Cafe web Manager</a>
+	                <a href="#" style="color:white;font-size:17px;">DCCaffe<br/>Web Manager</a>
                 </div>
             </div>
             <div class="main-menu">
@@ -45,17 +45,17 @@
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-pie-chart"></i><span>카페 통계</span></a>
                                 <ul class="collapse">
                                     <li class="<c:if test="${page_name eq 'bill'}">active</c:if>"><a href="bill">월말 공제 정산</a></li>
-                                    <li><a href="#">매출 통계</a></li>
+                                    <!--추후 개발 예정 li><a href="#">매출 통계</a></li-->
                                 </ul>
                             </li>
 
-							<li>
+							<!--추후 개발 예정 li>
                                 <a href="#" aria-expanded="true"><i class="ti-key"></i><span>관리자 관리</span></a>
-                                <!-- ul class="collapse">
+                                <ul class="collapse">
                                     <li><a href="#">사용자 등록</a></li>
                                     <li><a href="#">사용자 수정/삭제</a></li>
-                                </ul-->
-                            </li>
+                                </ul>
+                            </li-->
                             
                         </ul>
                     </nav>

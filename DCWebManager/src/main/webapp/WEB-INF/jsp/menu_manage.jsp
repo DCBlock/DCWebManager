@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>D Cafe Web Manager</title>
+    <title>DCCaffe Web Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -419,12 +419,12 @@
 		                                            </div>
 		                                            <div class="modal-body">
 		                                                
-														<h5>정말 해당 메뉴를 삭제하시겠습니까?</h5>
+														<h5 style="font-size:12px;">정말 해당 메뉴를 삭제하시겠습니까?</h5>
 														<input class="form-control" type="hidden" id="delete_user_index" value="" />
 		                                            </div>
 		                                            <div class="modal-footer">
-			                                            <button type="button" class="btn btn-primary" onclick="delete_menu();">OK</button>
-		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Cancel</button>
+			                                            <button type="button" class="btn btn-primary" onclick="delete_menu();">확인</button>
+		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">취소</button>
 		                                                
 		                                            </div>
 		                                        </div>
@@ -442,12 +442,12 @@
 		                                            </div>
 		                                            <div class="modal-body">
 		                                                
-														<h5>정말 해당 카테고리를 삭제하시겠습니까? 카테고리를 삭제하면 이 카테고리에 속해있는 모든 메뉴도 자동 삭제됩니다.</h5>
+														<h5 style="font-size:12px;">정말 해당 카테고리를 삭제하시겠습니까? 카테고리를 삭제하면 이 카테고리에 속해있는 모든 메뉴도 자동 삭제됩니다.</h5>
 														<input class="form-control" type="hidden" id="delete_user_index" value="" />
 		                                            </div>
 		                                            <div class="modal-footer">
-			                                            <button type="button" class="btn btn-primary" onclick="delete_cate();">OK</button>
-		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Cancel</button>
+			                                            <button type="button" class="btn btn-primary" onclick="delete_cate();">확인</button>
+		                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">취소</button>
 		                                                
 		                                            </div>
 		                                        </div>

@@ -1,5 +1,5 @@
 <footer>
             <div class="footer-area">
-                <p>� DigiCAP. All right reserved.</p>
+                <p>Copyright 2018. (주)디지캡 inc. all rights reserved.</p>
             </div>
 </footer>

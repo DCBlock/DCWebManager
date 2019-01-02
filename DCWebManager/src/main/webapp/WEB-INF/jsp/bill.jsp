@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>D Cafe Web Manager</title>
+    <title>DCCaffe Web Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -79,7 +79,19 @@
                 <!-- visitor graph area start -->
                 <div class="card mt-5">
                     <div class="card-body">
+                        <div class="d-flex justify-content-between mb-5">
+                            <h4 class="header-title mb-0">월말공제정산</h4>
+                        </div>
                     
+
+									                    
+
+                        <!--  div id="visitor_graph"></div-->
+	                    <!-- data table start -->
+	                    <div class="col-12 mt-5">
+	                        <div class="card">
+	                            <div class="card-body">
+
 								  <div class="row">
                             		<table style="border:1px solid black;">
 										<thead style="border:1px solid white; border-color:white;">
@@ -118,21 +130,7 @@
 									</table>
 									</div>	
 									
-									                    
-                        <div class="d-flex justify-content-between mb-5">
-                            <h4 class="header-title mb-0">월말공제정산</h4>
-                            <!-- select class="custome-select border-0 pr-3">
-                                <option selected="">Last 7 Days</option>
-                                <option value="0">Last 7 Days</option>
-                            </select-->
-                        </div>
-                        <!--  div id="visitor_graph"></div-->
-	                    <!-- data table start -->
-	                    <div class="col-12 mt-5">
-	                        <div class="card">
-	                            <div class="card-body">
-
-	                                
+										                                
 	                                <!-- 테이블 샘플 -->
                                 <div class="single-table">
                                     <div class="table-responsive">
@@ -246,6 +244,10 @@
     }
     
     function reload_page(){
+    	if($("#start_day").val().replace("-","") > $("#end_day").val().replace("-","")){
+    		alert("검색 시작일이 종료일보다 이전이어야 합니다.");
+    		return;
+    	}
     	
     	location.href="/bill?start_date="+$("#start_day").val()+"&end_date="+$("#end_day").val();
     }
@@ -281,8 +283,6 @@
     	$("#detail_data_area").html("데이터를 불러오는 중 입니다.");
     	
 
-    		
-
 
     	
         $.ajax({
@@ -303,8 +303,9 @@
 
             	var table_html = "<h4 class='header-title'>"+u_name+"</h4>";
         		table_html += "<p>총 구매금액 : "+thousands_separators(total_price)+"</p>";
-            	table_html += "<p>총 할인금액 : "+thousands_separators(total_dc)+"</p>";    	
-            	table_html += "<p>청구액 : "+thousands_separators(total_price - total_dc)+"</p>";    	
+            	table_html += "<p>총 할인금액 : "+thousands_separators(total_dc)+"</p>";    
+            	
+            	table_html += "<p>청구액 : "+thousands_separators(total_price.replace(",","") - total_dc.replace(",",""))+"</p>";    	
             	
             	
             	table_html += "<div class='single-table'>";
@@ -316,10 +317,39 @@
         		table_html +=		    "<tbody>";		
 
             	for (var i = 0; i < data.purchases.length; i++){
+            		//convert_date(data.purchases[i].cancel_date)
+            		var can_d = "";
+            		var sta = "";
+            		var pur_type = "";
+            		
+            		if(data.purchases[i].cancel_date == 0)
+            			can_d = "-";
+            		else{
+            			can_d = convert_date(data.purchases[i].cancel_date);
+            		}
+            		
+            		if(data.purchases[i].receipt_status == 1){
+            			sta = "<span class='badge badge-pill badge-warning'>취소승인 대기중</span>";
+            		}
+            		else if(data.purchases[i].receipt_status == 1){
+            			sta = "<span class='badge badge-pill badge-success'>취소승인 완료</span>";
+            		}
+            		else{
+            			sta = "-";
+            		}
+            		
+					if(data.purchases[i].purchase_type == 0){
+						pur_type = "<span class='badge badge-pill badge-success'>급여공제</span>";
+					}            		
+					else if(data.purchases[i].purchase_type == 1){
+						pur_type = "<span class='badge badge-pill badge-warning'>손님구매</span>";
+					}            		
+					
+            		
             	    //alert(data.purchases[i].menu_name_kr);
             	    table_html += "<tr>";
-            	    table_html += 	"<th scope='row'>" + convert_date(data.purchases[i].date) + " /<br/>"+ convert_date(data.purchases[i].purchase_date) + " /<br/>" + convert_date(data.purchases[i].cancel_date)+"</th>";
-            	    table_html += 	"<td>"+data.purchases[i].receipt_id+ "</td><td>"+data.purchases[i].menu_name_kr+"</td><td>"+thousands_separators(data.purchases[i].price)+"</td><td>"+thousands_separators(data.purchases[i].dc_price)+"</td><td>"+data.purchases[i].type+"</td><td>"+data.purchases[i].size+"</td><td>"+data.purchases[i].count+"</td><td>"+data.purchases[i].receipt_status+"</td><td>"+data.purchases[i].purchase_type+"</td>";
+            	    table_html += 	"<th scope='row'>" + convert_date(data.purchases[i].date) + " /<br/>"+ convert_date(data.purchases[i].purchase_date) + " /<br/>" + can_d +"</th>";
+            	    table_html += 	"<td>"+data.purchases[i].receipt_id+ "</td><td>"+data.purchases[i].menu_name_kr+"</td><td>"+thousands_separators(data.purchases[i].price)+"</td><td>"+thousands_separators(data.purchases[i].dc_price)+"</td><td>"+data.purchases[i].type+"</td><td>"+data.purchases[i].size+"</td><td>"+data.purchases[i].count+"</td><td>"+sta+"</td><td>"+pur_type+"</td>";
             	    table_html += "</tr>";
             	    
             	}
