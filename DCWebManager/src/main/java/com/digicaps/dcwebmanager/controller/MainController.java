@@ -66,7 +66,10 @@ public class MainController {
 	}
 	
 	
-	
+    @RequestMapping("/a")
+    String dfdf() {        
+        return "Hello World!";
+    }
 	
     
 }

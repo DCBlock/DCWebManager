@@ -17,7 +17,19 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(certificationInterceptor)
-                .addPathPatterns("/**")
+        		//.addPathPatterns(patterns)
+                //.addPathPatterns("/**")
+                .addPathPatterns("/user_regist")
+                .addPathPatterns("/user_manage")
+                .addPathPatterns("/menu_manage")
+                .addPathPatterns("/cancel_order_manage")
+                .addPathPatterns("/bill");
+                
+
+                
+                
+                /*
+                
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/login_request")
                 .excludePathPatterns("/assets")	//뷰를 위한 리소스 자원에는 접근 가능
@@ -29,7 +41,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
                 .excludePathPatterns("assets")
                 .excludePathPatterns("assets/**")
                 .excludePathPatterns("/my_order")
-                
                 .excludePathPatterns("/");	// 홈 화면에서는 자체적으로 세션 검사를 하도록 한다.
+                */
     }
 }

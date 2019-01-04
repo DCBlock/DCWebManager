@@ -104,8 +104,8 @@ public class AnalysisService {
 		res = response.getBody().toString();
 		}
 		catch(HttpClientErrorException e){
-//			return "페이지가 유효하지 않습니다.";
-			return "{\"name\":\"이태호\",\"total\":50000,\"dc_total\":21000,\"purchases\":[{\"code\":1,\"price\":2500,\"count\":3,\"dc_price\":1000,\"type\":\"HOT\",\"size\":\"REGULAR\",\"menu_name_kr\":\"에스프레소\",\"purchase_type\":0},{\"code\":3,\"price\":2000,\"count\":13,\"dc_price\":1000,\"type\":\"HOT\",\"size\":\"SMALL\",\"menu_name_kr\":\"아메리카노(소)\",\"purchase_type\":0},{\"code\":5,\"price\":3300,\"count\":5,\"dc_price\":1000,\"type\":\"HOT\",\"size\":\"REGULAR\",\"menu_name_kr\":\"바닐라라떼\",\"purchase_type\":0}]}";
+			return "페이지가 유효하지 않습니다.";
+//			return "{\"name\":\"이태호\",\"total\":50000,\"dc_total\":21000,\"purchases\":[{\"code\":1,\"price\":2500,\"count\":3,\"dc_price\":1000,\"type\":\"HOT\",\"size\":\"REGULAR\",\"menu_name_kr\":\"에스프레소\",\"purchase_type\":0},{\"code\":3,\"price\":2000,\"count\":13,\"dc_price\":1000,\"type\":\"HOT\",\"size\":\"SMALL\",\"menu_name_kr\":\"아메리카노(소)\",\"purchase_type\":0},{\"code\":5,\"price\":3300,\"count\":5,\"dc_price\":1000,\"type\":\"HOT\",\"size\":\"REGULAR\",\"menu_name_kr\":\"바닐라라떼\",\"purchase_type\":0}]}";
 		}
 		//if(response.getStatusCodeValue() != 200)
 		//	return "페이지가 유효하지 않습니다.";

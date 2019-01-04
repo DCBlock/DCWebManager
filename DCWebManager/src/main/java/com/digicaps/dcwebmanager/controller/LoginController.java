@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -30,8 +29,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.minidev.json.parser.JSONParser;
-
 @Controller
 public class LoginController {
 	ModelAndView mav = new ModelAndView();
@@ -44,6 +41,7 @@ public class LoginController {
 	@RequestMapping(value = "/login")
     public ModelAndView Login(ModelMap model, HttpServletRequest request){
 		String resultPage = "login";
+		/*
 		HttpSession session = request.getSession(true);
 		String user_id;
 		String is_login = "";
@@ -62,6 +60,7 @@ public class LoginController {
 		}
 		else
 			resultPage = "login";
+			*/
 		mav.setViewName(resultPage);		
 		
 		

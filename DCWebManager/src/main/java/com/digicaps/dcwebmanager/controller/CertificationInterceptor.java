@@ -17,6 +17,7 @@ public class CertificationInterceptor implements HandlerInterceptor{
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         HttpSession session = request.getSession();
+        String webRoot = request.getContextPath();
         //UserVO loginVO = (UserVO) session.getAttribute("loginUser");
         /*
         if(ObjectUtils.isEmpty(loginVO)){
@@ -30,7 +31,7 @@ public class CertificationInterceptor implements HandlerInterceptor{
         //String user_id = "";
         //String is_login = "";
         System.out.println("--------------------------");        
-        System.out.println("인터셉트 입니다.");
+        System.out.println("인터셉트 입니다.23");
 		if(session.getAttribute("user_id") != null) {
 			//user_id = session.getAttribute("user_id").toString();
 			//is_login = session.getAttribute("is_login").toString();		
@@ -38,14 +39,34 @@ public class CertificationInterceptor implements HandlerInterceptor{
 			System.out.println("--------------------------");  
 			return true;
 		}
+		else if(request.getRequestURI().equals("/error")){
+			System.out.println("에러 페이지");
+			System.out.println("--------------------------");  
+			
+			//System.out.println("xx : " + request.getRequestURI());
+			//if(!request.getRequestURI().equals("/error")) {
+			/*
+				try { 
+					response.sendRedirect(webRoot + "/login"); 
+					}
+				catch (IOException ie ) {
+					System.out.println("에러 페이지 전달 중 에러");
+					System.out.println("--------------------------");  
+					
+				} //만약 리다이렉션 도중 에러가 난 경우
+			//}
+			 
+			 */
+            return false;
+		}
 		else {
 			System.out.println("로그인이 안 된 유저 입니다.");
 			System.out.println("--------------------------");  
 			
 			//System.out.println("xx : " + request.getRequestURI());
 			//if(!request.getRequestURI().equals("/error")) {
-				try { response.sendRedirect("/login"); }
-				catch (IOException ie ) {} //만약 리다이렉션 도중 에러가 난 경우
+				try { response.sendRedirect(webRoot + "/login"); }
+				catch (IOException ie ) {response.sendRedirect(webRoot + "/login");} //만약 리다이렉션 도중 에러가 난 경우
 			//}
             return false;
 		}
