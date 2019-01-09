@@ -35,7 +35,7 @@
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-pencil-alt"></i><span>카페 관리</span></a>
                                 <ul class="collapse">
                                     <li class="<c:if test="${page_name eq 'menu_manage'}">active</c:if>"><a href="menu_manage">카테고리/메뉴 관리</a></li>
-                                    <li class="<c:if test="${page_name eq 'cancel_order_manage'}">active</c:if>"><a href="cancel_order_manage">취소주문 관리</a></li>                                    
+                                    <li class="<c:if test="${page_name eq 'cancel_order_manage'}">active</c:if>"><a href="cancel_order_manage">주문취소 관리</a></li>                                    
 
                                 </ul>
                             </li>

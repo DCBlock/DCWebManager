@@ -1,5 +1,7 @@
 package com.digicaps.dcwebmanager.dto;
 
+import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Menu {
@@ -22,6 +24,7 @@ public class Menu {
 	private String price;
 	private String dc_digicap;
 	private String dc_covision;
+	private HashMap<String, String> discounts;
 	private String event_name;
 	private String type;
 	private String size;
@@ -35,11 +38,12 @@ public class Menu {
 			@JsonProperty("name_kr") String name_kr,
 			@JsonProperty("name_en") String name_en,
 			@JsonProperty("price") String price,
-			@JsonProperty("dc_digicap") String dc_digicap,
-			@JsonProperty("dc_covision") String dc_covision,
+			//@JsonProperty("dc_digicap") String dc_digicap,
+			//@JsonProperty("dc_covision") String dc_covision,
 			@JsonProperty("event_name") String event_name,
 			@JsonProperty("type") String type,
-			@JsonProperty("size") String size
+			@JsonProperty("size") String size,
+			@JsonProperty("discounts") HashMap<String, String> discounts
 			) {
 		
 		super();
@@ -48,11 +52,12 @@ public class Menu {
 		this.name_kr = name_kr;
 		this.name_en = name_en;
 		this.price = price;
-		this.dc_digicap = dc_digicap;
-		this.dc_covision = dc_covision;
+		//this.dc_digicap = dc_digicap;
+		//this.dc_covision = dc_covision;
 		this.event_name = event_name;
 		this.type = type;
 		this.size = size;
+		this.discounts = discounts;
 		
 	}
 
@@ -62,6 +67,15 @@ public class Menu {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	
+	public HashMap<String, String> getDiscounts() {
+		return discounts;
+	}
+	public void setDiscounts(HashMap<String, String> discounts) {
+		this.discounts = discounts;
+	}
+	
+
 	
 	public String getCode() {
 		return code;

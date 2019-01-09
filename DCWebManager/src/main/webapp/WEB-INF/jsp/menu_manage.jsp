@@ -178,8 +178,11 @@
 								                                                <th scope="row">${menu_list.name_kr}</th>
 								                                                <td>${menu_list.name_en}</td>
 								                                                <td><fmt:formatNumber value="${menu_list.price}" pattern="#,###" /></td>
-								                                                <td><fmt:formatNumber value="${menu_list.dc_digicap}" pattern="#,###" /></td>
-		   						                                                <td><fmt:formatNumber value="${menu_list.dc_covision}" pattern="#,###" /></td>
+								                                                <%--td><fmt:formatNumber value="${menu_list.dc_digicap}" pattern="#,###" /></td>discounts
+		   						                                                <td><fmt:formatNumber value="${menu_list.dc_covision}" pattern="#,###" /></td --%>
+		   						                                                <%-- 회사 조회 api가 생기면,, 갯수만큼 for문으로 돌도록 한다.. 그리고 위 테이블헤더에서도 동적으로 필드를 늘려줘야함 --%>
+								                                                <td><fmt:formatNumber value="${menu_list.discounts.digicap}" pattern="#,###" /></td>
+		   						                                                <td><fmt:formatNumber value="${menu_list.discounts.covision}" pattern="#,###" /></td>
 		   						                                                <td>${menu_list.size}</td>
 		  						                                                <td>${menu_list.type}</td>
 		  						                                                <td>${menu_list.event_name}</td>
