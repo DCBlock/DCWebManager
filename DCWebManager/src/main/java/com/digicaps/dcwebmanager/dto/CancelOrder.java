@@ -28,6 +28,10 @@ public class CancelOrder {
 	private String rowspan = "0";
 	private String rowspanreceipt = "0";
 	
+	private String total_count = "0";
+	
+	
+	
 	public static String toNumFormat(String num) {
 		int num2 = Integer.parseInt(num);
 		DecimalFormat df = new DecimalFormat("#,###");
@@ -79,6 +83,13 @@ public class CancelOrder {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getTotal_count() {
+		return total_count;
+	}
+	public void setTotal_count(String total_count) {
+		this.total_count = total_count;
 	}
 	
 	public String getTpurchase_date() {

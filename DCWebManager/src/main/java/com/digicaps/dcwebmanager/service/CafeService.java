@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -36,6 +35,17 @@ public class CafeService {
 	@Value("${cafe_api_server.address}")
 	String CAFE_API_SERVER_ADDRESS;
 	
+	
+	public int pageStartPointCalcul(int pivot) {
+		if(pivot%10 == 0)
+			return (pivot-1)/10 * 10 + 1;
+		return pivot/10 * 10 + 1;
+	}
+	public int pageEndPointCalcul(int pivot) {
+		if(pivot%10 == 0)
+			return ((pivot-1)/10 + 1) * 10;
+		return (pivot/10 + 1) * 10;
+	}	
 	
 	public int requestCancelOrderAccept(String token, String type, String receipt_id, String purchaseDate) {
 		int result = 0;
@@ -80,7 +90,7 @@ public class CafeService {
 		return result;
 	}
 	
-	public List<CancelOrder> getCancelOrderList(String token, String type, String s_date, String e_date) {
+	public List<CancelOrder> getCancelOrderList(String token, String type, String s_date, String e_date, int page, int per_page) {
 		
 		List<CancelOrder> list = new ArrayList<CancelOrder>();		
 		
@@ -88,7 +98,7 @@ public class CafeService {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		
-		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/purchases/purchase/search?before="+s_date+"&after="+e_date+"&filter=3";
+		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/purchases/purchase/search?before="+s_date+"&after="+e_date+"&filter=3&page="+page+"&per_page="+per_page;
 		//String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/purchases/purchase/search?before=1545004800&after=1545058800&filter=3";
 		
 		
@@ -161,11 +171,22 @@ public class CafeService {
 
 		
 		///////////////////////JSON 영역/////////////////////////////////
-		ObjectMapper objectMapper = new ObjectMapper();
-		TypeFactory typeFactory = objectMapper.getTypeFactory();
+
 		try {
-			List<CancelOrder> someClassList = objectMapper.readValue(response.getBody(), typeFactory.constructCollectionType(List.class, CancelOrder.class));//response.getBody()
+			//lists항목만 분리시키고싶다
+			ObjectMapper objectMapper = new ObjectMapper();
+			TypeFactory typeFactory = objectMapper.getTypeFactory();
+
+			JSONParser jsonParser = new JSONParser();
+		    JSONObject jsonObj;
+			//try {
+			jsonObj = (JSONObject) jsonParser.parse(response.getBody().toString());
 			
+		    
+			//
+			//response.getBody() 대신 jsonObj.get("Users").toString()을 넣어보자
+			List<CancelOrder> someClassList = objectMapper.readValue(jsonObj.get("list").toString(), typeFactory.constructCollectionType(List.class, CancelOrder.class));//response.getBody()
+			String to_count = jsonObj.get("total_pages").toString();
 
 			
 			double date_buff = -1;
@@ -177,6 +198,8 @@ public class CafeService {
 			int k_start_point = 0;
 			
 			for(int i = 0; i < someClassList.size(); i++) {
+				someClassList.get(i).setTotal_count(to_count);
+				
 				if(i == 0) {
 					date_buff = Double.parseDouble(someClassList.get(i).getDate());
 					receipt_id_buff = Double.parseDouble(someClassList.get(i).getReceipt_id());
@@ -284,6 +307,9 @@ public class CafeService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

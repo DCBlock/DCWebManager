@@ -115,7 +115,7 @@
             	table_html += 	"<div class='table-responsive'>";
             	table_html +=		"<table class='table table-striped text-center' style='font-size:12px;'>";
             	table_html +=			"<thead class='text-uppercase'>";
-           		table_html +=				"<th>코드</th><th>가격</th><th>할인금액</th><th>청구액</th><th>음료타입</th><th>사이즈</th><th>갯수</th><th>메뉴명</th><th>구매타입</th><th>구매날짜</th><th>취소요청날짜</th><th>취소승인날짜</th><th>취소상태</th>";
+           		table_html +=				"<th>가격</th><th>할인금액</th><th>청구액</th><th>음료타입</th><th>사이즈</th><th>갯수</th><th>메뉴명</th><th>구매타입</th><th>구매날짜</th><th>취소요청날짜</th><th>취소승인날짜</th><th>취소상태</th>";
         		table_html +=			"</thead>";
         		table_html +=		    "<tbody>";		
 
@@ -168,8 +168,8 @@
             		
             	    //alert(data.purchases[i].menu_name_kr);
             	    table_html += "<tr>";
-            	    table_html += 	"<th scope='row'>" + data.purchases[i].code + "</th>";
-            	    table_html += 	"<td>"+thousands_separators(data.purchases[i].price)+"</td><td>"+thousands_separators(data.purchases[i].dc_price)+"</td><td>"+thousands_separators(data.purchases[i].price - data.purchases[i].dc_price)+"</td><td>"+data.purchases[i].type+ "</td><td>"+data.purchases[i].size+"</td><td>"+data.purchases[i].count+"</td><td>"+data.purchases[i].menu_name_kr+"</td><td>"+pur_type+"</td><td>"+p_d+"</td><td>"+can_d+"</td><td>"+cand_d+"</td><td>"+sta+"</td>";
+            	    table_html += 	"<th scope='row'>" + thousands_separators(data.purchases[i].price) + "</th>";
+            	    table_html += 	"<td>"+thousands_separators(data.purchases[i].dc_price)+"</td><td>"+thousands_separators(data.purchases[i].price - data.purchases[i].dc_price)+"</td><td>"+data.purchases[i].type+ "</td><td>"+data.purchases[i].size+"</td><td>"+data.purchases[i].count+"</td><td>"+data.purchases[i].menu_name_kr+"</td><td>"+pur_type+"</td><td>"+p_d+"</td><td>"+can_d+"</td><td>"+cand_d+"</td><td>"+sta+"</td>";
             	    table_html += "</tr>";
             	    
             	}

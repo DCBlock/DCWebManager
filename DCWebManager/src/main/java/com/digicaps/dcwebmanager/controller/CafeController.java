@@ -91,6 +91,12 @@ public class CafeController {
 		String e_date = "";
 		long epoch_start = 0;
 		long epoch_end = 0;
+		int page = 1;
+		int per_page = 10;
+		
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page").toString());
+		}
 
 		model.addAttribute("user_name",session.getAttribute("user_id").toString());
 		if(request.getParameter("start_date") != null && request.getParameter("end_date") != null) {
@@ -152,14 +158,21 @@ public class CafeController {
 			
 		}
 		
-		List<CancelOrder> cancel_list = cafeSevice.getCancelOrderList(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(), s_date, e_date);
+		List<CancelOrder> cancel_list = cafeSevice.getCancelOrderList(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(), s_date, e_date, page, per_page);
 		/*
 		
 		for(int i = 0; i < cancel_list.size(); i++) {
 			
 		}
 		*/
+		model.addAttribute("pageStartPointCalcul", cafeSevice.pageStartPointCalcul(page));
+		model.addAttribute("pageEndPointCalcul", cafeSevice.pageEndPointCalcul(page));
+
+		model.addAttribute("page", page);
+		//int to_count = Integer.parseInt(cancel_list.get(0).getTotal_count());
+		//int max_page = ;
 		
+		model.addAttribute("total_count", Integer.parseInt(cancel_list.get(0).getTotal_count()));
 		model.addAttribute("cancel_list", cancel_list);
 
 		

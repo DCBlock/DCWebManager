@@ -191,6 +191,74 @@
                                             	<div id="detail_data_area">
                                             		데이터를 불러오는 중입니다.
                                             	</div>
+                                            	
+                                            	<br>
+                                            	
+                                            	
+			                                    <!-- 페이징 처리 -->
+			                                    <!-- 
+			                                	<c:set var="is_last_page_navi" value="0" />
+			
+			                                	<div style="float:right; margin-right:120px;">
+					                                <nav aria-label="Page navigation example">
+					                                    <ul class="pagination">
+					                                      	<c:choose>
+															    <c:when test="${page < 11}">
+						                                	    </c:when>
+				
+															    <c:otherwise>
+							                                        <li class="page-item">
+							                                            <a class="page-link" href="/cancel_order_manage?page=${pageStartPointCalcul - 1}" aria-label="Previous">
+							                                                <span aria-hidden="true">&laquo;</span>
+							                                                <span class="sr-only">Previous</span>
+							                                            </a>
+							                                        </li>
+					                                            </c:otherwise>
+															</c:choose>				
+			
+					                                        <c:forEach var="page_counter" begin="${pageStartPointCalcul + 0}" end="${pageEndPointCalcul + 0}" step="1">
+			  	                                                <c:choose>
+			
+			
+			
+																    <c:when test="${page_counter eq page}">
+							                                	        <li class="page-item active"><a class="page-link" href="/cancel_order_manage?page=${page_counter}">${page_counter}</a></li>
+																    </c:when>
+																    
+																    <c:when test="${page_counter gt total_count}">
+							                                	    	<c:set var="is_last_page_navi" value="1" />
+																    </c:when>
+				
+																    <c:otherwise>
+							                                	        <li class="page-item"><a class="page-link" href="/cancel_order_manage?page=${page_counter}">${page_counter}</a></li>
+																    </c:otherwise>
+																</c:choose>					
+															</c:forEach>
+															
+															<c:choose>
+																    <c:when test="${is_last_page_navi eq '1'}">
+							                                	        
+																    </c:when>
+				
+																    <c:otherwise>
+								                                        <li class="page-item">
+								                                            <a class="page-link" href="/cancel_order_manage?page=${pageEndPointCalcul + 1}" aria-label="Next">
+								                                                <span aria-hidden="true">&raquo;</span>
+								                                                <span class="sr-only">Next</span>
+								                                            </a>
+								                                        </li>													    
+								                                    </c:otherwise>
+															</c:choose>
+					                                                                                
+			
+					                                    </ul>
+					                                </nav>
+				                                </div>
+				                                -->
+				                                <!-- 페이징 처리 끝-->
+				                                
+			                                            	
+                                            	
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
