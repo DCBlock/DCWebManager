@@ -374,6 +374,30 @@
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/scripts.js"></script>
     <script>
+    
+    function convert_date(timestamp){
+    	//var timestamp = 1293683278;
+    	var date = new Date(timestamp*1000);
+
+    	var year = date.getFullYear();
+    	var month = date.getMonth() + 1;
+    	var day = date.getDate();
+    	var hours = date.getHours();
+    	var minutes = date.getMinutes();
+    	var seconds = date.getSeconds();
+		//(year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds);
+
+    	return year + "-" + month + "-" + day;
+    }
+    function convert_date2(timestamp){
+    	//var timestamp = 1293683278;
+	    var myDate = new Date(timestamp * 1);
+	    //document.write(myDate.toGMTString()+"<br>"+myDate.toLocaleString());
+    	return myDate.toLocaleString();
+    }
+
+    
+    
     function open_user_modify_modal(u_index, u_rfid, u_name, u_company_name, u_email, u_leave, u_regdate, u_updatedate){
     	$("#modify_user_index").val(u_index);
     	$("#modify_user_rfid").val(u_rfid);
@@ -381,8 +405,8 @@
     	//$("#modify_user_company_name").val(u_company_name);
     	$("#modify_user_email").val(u_email);
     	$("#modify_user_leave").val(u_leave);
-    	$("#modify_user_regdate").val(u_regdate);
-    	$("#modify_user_updatedate").val(u_updatedate);
+    	$("#modify_user_regdate").val(convert_date2(u_regdate));
+    	$("#modify_user_updatedate").val(convert_date2(u_updatedate));
     	if(u_company_name == 'DigiCAP' || u_company_name == 'digicap')
 	    	$("#modify_user_company_name").val("DigiCAP").prop("selected", true);
     	else

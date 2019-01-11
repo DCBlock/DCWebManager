@@ -83,10 +83,10 @@ public class AnalysisService {
 	}
 	
 	
-	public String getBillOneUserList(String token, String type, String s_date, String e_date, String user_index){
+	public String getBillOneUserList(String token, String type, String s_date, String e_date, String user_index, String page){
 		List<Bill> list = new ArrayList<Bill>();		
 		RestTemplate restTemplate = new RestTemplate();
-		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/settlement/report?before="+s_date+"&after="+e_date+"&user_index=" + user_index;
+		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/settlement/report?before="+s_date+"&after="+e_date+"&user_index=" + user_index + "&page="+page+"&per_page=10";
 	
 		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 

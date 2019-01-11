@@ -155,7 +155,7 @@
 	  	                                                <td>${bill_list.total_price}</td>
 		                                                <td>${bill_list.total_dc_price}</td>
 	  	                                                <td>${bill_list.billing_amount}</td>
-		                                                <td><button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_detail_modal" onclick="detail_user_info('${start_date}', '${end_date}', '${bill_list.user_record_index}','${bill_list.name}','${bill_list.total_price}','${bill_list.total_dc_price}');">상세보기</button></td>
+		                                                <td><button type="button" class="btn btn-flat btn-info btn-xs mb-3"  data-toggle="modal" data-target="#open_detail_modal" onclick="detail_user_info('${start_date}', '${end_date}', '${bill_list.user_record_index}','${bill_list.name}','${bill_list.total_price}','${bill_list.total_dc_price}', 1);">상세보기</button></td>
 		                                            </tr>
 	                                            </c:forEach>
 
@@ -193,7 +193,9 @@
                                             	</div>
                                             	
                                             	<br>
-                                            	
+                                            	<div id="detail_paging_area">
+                                            		
+                                            	</div>
                                             	
 			                                    <!-- 페이징 처리 -->
 			                                    <!-- 
@@ -299,6 +301,7 @@
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/scripts.js"></script>
     <script>
+    var NOW_PAGE = 1;
 	var CANCEL_TARGET = "";
     function open_user_delete_modal(u_index, u_name){
     }
@@ -342,9 +345,20 @@
 
     	return year + "-" + month + "-" + day;
     }
+    //detail_paging_area
     
-    
-    function detail_user_info(s_d, e_d, u_i, u_name, total_price, total_dc){
+    function pageStartPointCalcul(pivot) {
+		if(pivot%10 == 0)
+			return (pivot-1)/10 * 10 + 1;
+		return pivot/10 * 10 + 1;
+	}
+	function pageEndPointCalcul(pivot) {
+		if(pivot%10 == 0)
+			return ((pivot-1)/10 + 1) * 10;
+		return (pivot/10 + 1) * 10;
+	}
+	
+    function detail_user_info(s_d, e_d, u_i, u_name, total_price, total_dc, page){
     	//start_date
     	//end_date
     	//user_index
@@ -354,7 +368,7 @@
 
     	
         $.ajax({
-            url: "/user_bill?start_date="+s_d+"&end_date="+e_d+"&user_index="+u_i,
+            url: "/user_bill?start_date="+s_d+"&end_date="+e_d+"&user_index="+u_i+"&page="+page,
             type: "get",
             data: {
                 //"receipt_id": r_id,
@@ -368,7 +382,12 @@
             },
             success: function(data){
 
-
+            	NOW_PAGE = page;
+            	
+				var total_pages = data.total_pages;
+				var paging_html = "";
+				var is_last_page_navi = 0;
+				
             	var table_html = "<h4 class='header-title'>"+u_name+"</h4>";
         		table_html += "<p>총 구매금액 : "+thousands_separators(total_price)+"</p>";
             	table_html += "<p>총 할인금액 : "+thousands_separators(total_dc)+"</p>";    
@@ -383,7 +402,7 @@
            		table_html +=				"<th>날짜</th><th>구매일</th><th>취소일</th><th>영수ID</th><th>품목</th><th>가격</th><th>할인가</th><th>TYPE</th><th>SIZE</th><th>갯수</th><th>상태</th><th>타입</th>";
         		table_html +=			"</thead>";
         		table_html +=		    "<tbody>";		
-
+				
             	for (var i = 0; i < data.purchases.length; i++){
             		//convert_date(data.purchases[i].cancel_date)
             		var can_d = "";
@@ -428,10 +447,64 @@
         		table_html +=	"</div></div>";
         		
         		
-            	
-        		$("#detail_data_area").html(table_html);
+        		paging_html += "<div style='float:right; margin-right:120px;'>";
+        		paging_html += "<nav aria-label='Page navigation example'>";
+       			paging_html += "<ul class='pagination'>";
+       			if(NOW_PAGE < 11){
+       				
+       			}
+       			else{
+       				
+       				
+       				paging_html += "<li class='page-item'>";
+       				paging_html += "<a class='page-link' onclick='detail_user_info(\'" + s_d + "\', \'" + e_d + "\', \'" + u_i + "\', \'" + u_name + "\', \'" + total_price + "\', \'" + total_dc +"\', " +(pageStartPointCalcul(NOW_PAGE) - 1)+ ")' href='#' aria-label='Previous'>";
+       				paging_html += "<span aria-hidden='true'>&laquo;</span>";
+       				paging_html += "<span class='sr-only'>Previous</span>";
+       				paging_html += "</a>";
+       				paging_html += "</li>";       				
+       			}
+       			
+       			for(var i = (pageStartPointCalcul(NOW_PAGE) - 1); i < (pageEndPointCalcul(NOW_PAGE)-1); i++){
+       				//alert(pageStartPointCalcul(NOW_PAGE) + "  " + pageEndPointCalcul(NOW_PAGE));
+       				if(i == NOW_PAGE){
+       					//alert("1 = " + NOW_PAGE);
+       					paging_html += "<li class='page-item active'><a class='page-link'  onclick='detail_user_info(\'" + s_d + "\', \'" + e_d + "\', \'" + u_i + "\', \'" + u_name + "\', \'" + total_price + "\', \'" + total_dc +"\', " +i+ ")'  href='#'>"+i+"</a></li>";
+       				}
+
+       				else{
+       					//alert("3 = " + NOW_PAGE);
+       					paging_html += "<li class='page-item'><a class='page-link'  onclick='detail_user_info(\'" + s_d + "\', \'" + e_d + "\', \'" + u_i + "\', \'" + u_name + "\', \'" + total_price + "\', \'" + total_dc +"\', " +i+ ")'  href='#'>"+i+"</a></li>";
+       				}
+       				
+       				if(i >= total_pages){
+       					//alert("2 = " + NOW_PAGE);
+       					is_last_page_navi = 1;
+       					break;
+       					
+       				}
+       				
+       			}
+       			
+       			if(is_last_page_navi == 1){
+       				
+       			}
+       			else{
+       				paging_html += "<li class='page-item'>";
+       				paging_html += "<a class='page-link'  onclick='detail_user_info(\'" + s_d + "\', \'" + e_d + "\', \'" + u_i + "\', \'" + u_name + "\', \'" + total_price + "\', \'" + total_dc +"\', " +(pageEndPointCalcul(NOW_PAGE) + 1)+ ")'  href='#' aria-label='Next'>";
+       				paging_html += "<span aria-hidden='true'>&raquo;</span>";
+       				paging_html += "<span class='sr-only'>Next</span>";
+                    
+       				paging_html += "</a>";
+       				paging_html +=  "</li>";    				
+       			}
+       			paging_html += "</ul></nav></div>";
+      		//paging_html += 
         		
             	
+        		$("#detail_data_area").html(table_html);
+        		$("#detail_paging_area").html(paging_html);
+        		
+            	alert(paging_html);
             	
             }
         });

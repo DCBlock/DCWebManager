@@ -248,6 +248,16 @@ public class UserService {
 					//System.out.println("이게 돼나? 지금은 " + i + "번째");
 					if(null == someClassList.get(i))
 						break;
+					/*
+					String date2 = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date (Long.parseLong(someClassList.get(i).getRegdate())*1000));
+					System.out.println("유저업댓 테스트 : " + date2 + ", ㅇㅇ : " + someClassList.get(i).getRegdate());
+					someClassList.get(i).setRegdate(date2);
+
+					String date3 = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date (Long.parseLong(someClassList.get(i).getupdatedate())*1000));
+					System.out.println("유저업댓 테스트 : " + date2 + ", ㅇㅇ : " + someClassList.get(i).getRegdate());
+					someClassList.get(i).setUpdatedate(date3);
+					*/
+					
 					list.add(addUserObjectList(someClassList.get(i)));
 					
 				}

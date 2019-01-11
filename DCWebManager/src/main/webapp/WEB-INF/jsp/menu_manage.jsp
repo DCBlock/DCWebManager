@@ -294,8 +294,8 @@
 																		<input type="text" id="menu_name_kr" class="item_input" value="${menu_list.name_kr}" size="8" onmouseover="alert_editor('제품명(국문)');"/>　
 																		<input type="text" id="menu_name_en" class="item_input" value="${menu_list.name_en}" size="8" onmouseover="alert_editor('제품명(영문)');"/>　
 																		<input type="text" id="menu_price" class="item_input" value="${menu_list.price}" size="8" onmouseover="alert_editor('제품가격');"/>　
-																		<input type="text" id="menu_dc_digicap" class="item_input" value="${menu_list.dc_digicap}" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
-																		<input type="text" id="menu_dc_covision" class="item_input" value="${menu_list.dc_covision}" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
+																		<input type="text" id="menu_dc_digicap" class="item_input" value="${menu_list.discounts.digicap}" size="8" onmouseover="alert_editor('디지캡 할인가격');"/>　
+																		<input type="text" id="menu_dc_covision" class="item_input" value="${menu_list.discounts.covision}" size="8" onmouseover="alert_editor('코비젼 할인가격');"/>　
 												                        <select id="menu_size" class="item_input" onmouseover="alert_editor('사이즈 선택');">
 												                        	<c:choose>
 												                        		<c:when test="${menu_list.size eq 'REGULAR'}">
@@ -750,11 +750,13 @@
     		json_str += "\"price\" : ";
     		json_str += $(this).children('#menu_price').val() + ", ";
 
-    		json_str += "\"dc_digicap\" : ";
-    		json_str += $(this).children('#menu_dc_digicap').val() + ", ";
+    		json_str += "\"discounts\" : { \"digicap\" : " + $(this).children('#menu_dc_digicap').val() + ", \"covision\" : \""+$(this).children('#menu_dc_covision').val()+"\"},";
 
-    		json_str += "\"dc_covision\" : ";
-    		json_str += $(this).children('#menu_dc_covision').val() + ", ";
+    		//json_str += "\"dc_digicap\" : ";
+    		//json_str += $(this).children('#menu_dc_digicap').val() + ", ";
+
+    		//json_str += "\"dc_covision\" : ";
+    		//json_str += $(this).children('#menu_dc_covision').val() + ", ";
 
     		json_str += "\"type\" : \"";
     		json_str += $(this).children('#menu_type').val() + "\", ";
@@ -826,8 +828,10 @@
     	json_data += "\"name_kr\" : \"" + $("#create_menu_name_kr").val() + "\",";
     	json_data += "\"name_en\" : \"" + $("#create_menu_name_en").val() + "\",";
     	json_data += "\"price\" : " + $("#create_menu_price").val() + ",";
-    	json_data += "\"dc_digicap\" : " + $("#create_menu_dc_digicap").val() + ",";
-    	json_data += "\"dc_covision\" : " + $("#create_menu_dc_covision").val() + ",";
+    	json_data += "\"discounts\" : { \"digicap\" : " + $("#create_menu_dc_digicap").val() + ", \"covision\" : \""+$("#create_menu_dc_covision").val()+"\"},";
+    	
+    	//json_data += "\"dc_digicap\" : " + $("#create_menu_dc_digicap").val() + ",";
+    	//json_data += "\"dc_covision\" : " + $("#create_menu_dc_covision").val() + ",";
     	json_data += "\"type\" : \"" + $("#create_menu_type").val() + "\",";
     	json_data += "\"event_name\" : \"" + $("#create_menu_event_name").val() + "\",";
     	json_data += "\"size\" : \"" + $("#create_menu_size").val() + "\"}";//create_menu_event_name

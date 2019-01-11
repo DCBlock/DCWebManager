@@ -349,7 +349,7 @@ public class AnalysisController {
 		}
     	
     	
-        return analysisService.getBillOneUserList(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(), s_date, e_date, request.getParameter("user_index").toString());
+        return analysisService.getBillOneUserList(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(), s_date, e_date, request.getParameter("user_index").toString(),  request.getParameter("page").toString());
     }
     
     
