@@ -31,7 +31,7 @@ public class CertificationInterceptor implements HandlerInterceptor{
         //String user_id = "";
         //String is_login = "";
         System.out.println("--------------------------");        
-        System.out.println("인터셉트 입니다.23");
+        System.out.println("인터셉트 입니다.");
 		if(session.getAttribute("user_id") != null) {
 			//user_id = session.getAttribute("user_id").toString();
 			//is_login = session.getAttribute("is_login").toString();		

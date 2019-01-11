@@ -86,6 +86,7 @@ public class CafeController {
 		else
 			resultPage = "login";
 		*/
+		model.addAttribute("page_name", resultPage);
 		HttpSession session = request.getSession(true);
 		String s_date = "";
 		String e_date = "";
@@ -172,7 +173,11 @@ public class CafeController {
 		//int to_count = Integer.parseInt(cancel_list.get(0).getTotal_count());
 		//int max_page = ;
 		
-		model.addAttribute("total_count", Integer.parseInt(cancel_list.get(0).getTotal_count()));
+		int total_c = 0;
+		if(cancel_list.size() != 0) {
+			total_c = Integer.parseInt(cancel_list.get(0).getTotal_count());
+		}
+		model.addAttribute("total_count", total_c);
 		model.addAttribute("cancel_list", cancel_list);
 
 		

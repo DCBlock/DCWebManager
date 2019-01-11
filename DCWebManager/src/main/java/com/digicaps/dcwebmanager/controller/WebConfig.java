@@ -23,8 +23,8 @@ public class WebConfig extends WebMvcConfigurerAdapter{
                 .addPathPatterns("/user_manage")
                 .addPathPatterns("/menu_manage")
                 .addPathPatterns("/cancel_order_manage")
-                .addPathPatterns("/bill");
-                
+                .addPathPatterns("/bill")
+        		.addPathPatterns("/customer_bill");
 
                 
                 

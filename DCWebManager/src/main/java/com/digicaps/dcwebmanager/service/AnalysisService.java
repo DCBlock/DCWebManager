@@ -32,6 +32,19 @@ public class AnalysisService {
 	@Value("${cafe_api_server.address}")
 	String CAFE_API_SERVER_ADDRESS;
 
+	
+	public int pageStartPointCalcul(int pivot) {
+		if(pivot%10 == 0)
+			return (pivot-1)/10 * 10 + 1;
+		return pivot/10 * 10 + 1;
+	}
+	public int pageEndPointCalcul(int pivot) {
+		if(pivot%10 == 0)
+			return ((pivot-1)/10 + 1) * 10;
+		return (pivot/10 + 1) * 10;
+	}	
+	
+	
 	public List<Bill> getBillList(String token, String type, String s_date, String e_date){
 		List<Bill> list = new ArrayList<Bill>();		
 		RestTemplate restTemplate = new RestTemplate();
@@ -222,7 +235,7 @@ public class AnalysisService {
 
 		         //
 		         //response.getBody() 대신 jsonObj.get("Users").toString()을 넣어보자
-		         List<CustomerBill> someClassList = objectMapper.readValue(jsonObj.get("lists").toString(), typeFactory.constructCollectionType(List.class, CustomerBill.class));//response.getBody()
+		         List<CustomerBill> someClassList = objectMapper.readValue(jsonObj.get("list").toString(), typeFactory.constructCollectionType(List.class, CustomerBill.class));//response.getBody()
 		         String to_count = jsonObj.get("total_pages").toString();
 
 
