@@ -349,13 +349,13 @@
     
     function pageStartPointCalcul(pivot) {
 		if(pivot%10 == 0)
-			return (pivot-1)/10 * 10 + 1;
-		return pivot/10 * 10 + 1;
+			return parseInt((pivot-1)/10) * 10 + 1;
+		return parseInt(pivot/10) * 10 + 1;
 	}
 	function pageEndPointCalcul(pivot) {
 		if(pivot%10 == 0)
-			return ((pivot-1)/10 + 1) * 10;
-		return (pivot/10 + 1) * 10;
+			return (parseInt((pivot-1)/10) + 1) * 10;
+		return (parseInt(pivot/10) + 1) * 10;
 	}
 	
     function detail_user_info(s_d, e_d, u_i, u_name, total_price, total_dc, page){
@@ -457,23 +457,23 @@
        				
        				
        				paging_html += "<li class='page-item'>";
-       				paging_html += "<a class='page-link' onclick='detail_user_info(\'" + s_d + "\', \'" + e_d + "\', \'" + u_i + "\', \'" + u_name + "\', \'" + total_price + "\', \'" + total_dc +"\', " +(pageStartPointCalcul(NOW_PAGE) - 1)+ ")' href='#' aria-label='Previous'>";
+       				paging_html += "<a class='page-link' onclick=\"detail_user_info(\'" + s_d + "\', \'" + e_d + "\', \'" + u_i + "\', \'" + u_name + "\', \'" + total_price + "\', \'" + total_dc +"\', " +(pageStartPointCalcul(NOW_PAGE) - 1)+ ")\" href='#' aria-label='Previous'>";
        				paging_html += "<span aria-hidden='true'>&laquo;</span>";
        				paging_html += "<span class='sr-only'>Previous</span>";
        				paging_html += "</a>";
        				paging_html += "</li>";       				
        			}
-       			
-       			for(var i = (pageStartPointCalcul(NOW_PAGE) - 1); i < (pageEndPointCalcul(NOW_PAGE)-1); i++){
+       			//alert("s : " + (pageStartPointCalcul(NOW_PAGE) - 1) + ", e : " + (pageEndPointCalcul(NOW_PAGE)-1));
+       			for(var i = (pageStartPointCalcul(NOW_PAGE)); i < (pageEndPointCalcul(NOW_PAGE)); i++){
        				//alert(pageStartPointCalcul(NOW_PAGE) + "  " + pageEndPointCalcul(NOW_PAGE));
        				if(i == NOW_PAGE){
        					//alert("1 = " + NOW_PAGE);
-       					paging_html += "<li class='page-item active'><a class='page-link'  onclick='detail_user_info(\'" + s_d + "\', \'" + e_d + "\', \'" + u_i + "\', \'" + u_name + "\', \'" + total_price + "\', \'" + total_dc +"\', " +i+ ")'  href='#'>"+i+"</a></li>";
+       					paging_html += "<li class='page-item active'><a class='page-link'  onclick=\"detail_user_info(\'" + s_d + "\', \'" + e_d + "\', \'" + u_i + "\', \'" + u_name + "\', \'" + total_price + "\', \'" + total_dc +"\', " +i+ ")\"  href='#'>"+i+"</a></li>";
        				}
 
        				else{
        					//alert("3 = " + NOW_PAGE);
-       					paging_html += "<li class='page-item'><a class='page-link'  onclick='detail_user_info(\'" + s_d + "\', \'" + e_d + "\', \'" + u_i + "\', \'" + u_name + "\', \'" + total_price + "\', \'" + total_dc +"\', " +i+ ")'  href='#'>"+i+"</a></li>";
+       					paging_html += "<li class='page-item'><a class='page-link'  onclick=\"detail_user_info(\'" + s_d + "\', \'" + e_d + "\', \'" + u_i + "\', \'" + u_name + "\', \'" + total_price + "\', \'" + total_dc +"\', " +i+ ")\"  href='#'>"+i+"</a></li>";
        				}
        				
        				if(i >= total_pages){
@@ -490,7 +490,7 @@
        			}
        			else{
        				paging_html += "<li class='page-item'>";
-       				paging_html += "<a class='page-link'  onclick='detail_user_info(\'" + s_d + "\', \'" + e_d + "\', \'" + u_i + "\', \'" + u_name + "\', \'" + total_price + "\', \'" + total_dc +"\', " +(pageEndPointCalcul(NOW_PAGE) + 1)+ ")'  href='#' aria-label='Next'>";
+       				paging_html += "<a class='page-link'  onclick=\"detail_user_info(\'" + s_d + "\', \'" + e_d + "\', \'" + u_i + "\', \'" + u_name + "\', \'" + total_price + "\', \'" + total_dc +"\', " +(pageEndPointCalcul(NOW_PAGE) + 1)+ ")\"  href='#' aria-label='Next'>";
        				paging_html += "<span aria-hidden='true'>&raquo;</span>";
        				paging_html += "<span class='sr-only'>Next</span>";
                     
@@ -504,7 +504,7 @@
         		$("#detail_data_area").html(table_html);
         		$("#detail_paging_area").html(paging_html);
         		
-            	alert(paging_html);
+            	//alert(paging_html);
             	
             }
         });

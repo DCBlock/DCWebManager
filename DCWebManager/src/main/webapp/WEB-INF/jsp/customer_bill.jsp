@@ -161,6 +161,16 @@
 	                                <!-- 테이블 샘플 -->
                                 <div class="single-table">
                                     <div class="table-responsive">
+                                    	<b>총 금액 </b> : ${total_price}<br>
+                                    	<b>총 구매가격 </b> : ${total_purchase_price}<br>
+                                    	<b>총 취소요청 가격 </b> : ${total_cancel_price}<br>
+                                    	<b>총 취소완료 가격 </b> : ${total_canceled_price}<br>
+                                    	<b>총 갯수 </b> : ${total_count}<br>
+                                    	<b>총 구매 갯수 </b> : ${total_purchase_count}<br>
+                                    	<b>총 취소요청 갯수 </b> : ${total_cancel_count}<br>
+                                    	<b>총 취소완료 갯수 </b> : ${total_canceled_count}<br>
+                                    	<hr>
+                                    	
                                         <table class="table text-center">
 											<thead class="bg-light text-capitalize">
 	                                            <tr>
@@ -177,7 +187,7 @@
 	                                                <th scope="col">처리상태</th>
 	                                                <th scope="col">구매날짜</th>	 
 	                                                <th scope="col">취소요청날짜</th>
-  	                                                <!-- th scope="col">취소승인날짜</th-->
+  	                                                <th scope="col">취소승인날짜</th>
 	                                            </tr>
 	                                        </thead>
 	                                        <tbody>
@@ -203,11 +213,13 @@
 			                                            	</c:when>			                                            	
 			                                            	
 			                                            	<c:otherwise>
+			                                            		-
 														    </c:otherwise>
 		                                            	</c:choose>
 		                                                </td>
 		                                                <td>${customer_bill_list.purchase_date}</td>
 		                                                <td>${customer_bill_list.cancel_date}</td>
+		                                                <td>${customer_bill_list.canceled_date}</td>
 		                                            </tr>
 												</c:forEach>
 

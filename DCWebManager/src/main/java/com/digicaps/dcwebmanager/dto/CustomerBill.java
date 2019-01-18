@@ -19,6 +19,7 @@ public class CustomerBill {
 	private String receipt_status;
 	private String purchase_date;
 	private String cancel_date;
+	private String canceled_date;
 	private String purchase_type;
 	
 	private String total_pages;
@@ -120,6 +121,13 @@ public class CustomerBill {
 		this.cancel_date = cancel_date;
 	}
 
+	public String getCanceled_date() {
+		return this.canceled_date;
+	}
+
+	public void setCanceled_date(String canceled_date) {
+		this.canceled_date = canceled_date;
+	}
 	public String getPurchase_type() {
 		return purchase_type;
 	}
@@ -161,6 +169,7 @@ public class CustomerBill {
 			@JsonProperty("receipt_status") String receipt_status,
 			@JsonProperty("purchase_date") String purchase_date,
 			@JsonProperty("cancel_date") String cancel_date,
+			@JsonProperty("canceled_date") String canceled_date,			
 			@JsonProperty("purchase_type") String purchase_type
 			
 			) {
@@ -179,6 +188,7 @@ public class CustomerBill {
 		this.receipt_status = receipt_status;
 		this.purchase_date = purchase_date;
 		this.cancel_date = cancel_date;
+		this.canceled_date = canceled_date;
 		this.purchase_type = purchase_type;
 
 	}
