@@ -136,7 +136,7 @@ public class AnalysisController {
 		int total_c  = 0;
 		if(customer_bill_list.size() != 0)
 			total_c = Integer.parseInt(customer_bill_list.get(0).getTotal_pages());
-		model.addAttribute("total_count", total_c);
+		model.addAttribute("total_count2", total_c);
 		model.addAttribute("customer_bill_list", customer_bill_list);
 
 		String name_tmp = "손님";

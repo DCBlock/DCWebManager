@@ -261,7 +261,7 @@
 				                                	        <li class="page-item active"><a class="page-link" href="/customer_bill?page=${page_counter}">${page_counter}</a></li>
 													    </c:when>
 													    
-													    <c:when test="${page_counter gt total_count}">
+													    <c:when test="${page_counter gt total_count2}">
 				                                	    	<c:set var="is_last_page_navi" value="1" />
 													    </c:when>
 	
