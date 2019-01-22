@@ -418,8 +418,8 @@
             		if(data.purchases[i].receipt_status == 1){
             			sta = "<span class='badge badge-pill badge-warning'>취소승인 대기중</span>";
             		}
-            		else if(data.purchases[i].receipt_status == 1){
-            			sta = "<span class='badge badge-pill badge-success'>취소승인 완료</span>";
+            		else if(data.purchases[i].receipt_status == 2){
+            			sta = "<span class='badge badge-pill badge-danger'>취소승인 완료</span>";
             		}
             		else{
             			sta = "-";

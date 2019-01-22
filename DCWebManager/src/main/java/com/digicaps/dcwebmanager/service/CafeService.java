@@ -101,7 +101,7 @@ public class CafeService {
 		String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/purchases/purchase/search?before="+s_date+"&after="+e_date+"&filter=3&page="+page+"&per_page="+per_page;
 		//String reqUrl = CAFE_API_SERVER_ADDRESS + "/api/caffe/purchases/purchase/search?before=1545004800&after=1545058800&filter=3";
 		
-		
+		System.out.println("dd" + reqUrl);
 		/*
 		String testJSON = "[\r\n" + 
 				"    {\r\n" + 
