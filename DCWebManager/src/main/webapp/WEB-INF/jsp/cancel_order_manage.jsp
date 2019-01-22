@@ -261,7 +261,7 @@
 	
 												    <c:otherwise>
 				                                        <li class="page-item">
-				                                            <a class="page-link" href="/cancel_order_manage?page=${pageStartPointCalcul - 1}" aria-label="Previous">
+				                                            <a class="page-link" href="/cancel_order_manage?start_date=${start_date}&end_date=${end_date}&page=${pageStartPointCalcul - 1}" aria-label="Previous">
 				                                                <span aria-hidden="true">&laquo;</span>
 				                                                <span class="sr-only">Previous</span>
 				                                            </a>
@@ -275,7 +275,7 @@
 
 
 													    <c:when test="${page_counter eq page}">
-				                                	        <li class="page-item active"><a class="page-link" href="/cancel_order_manage?page=${page_counter}">${page_counter}</a></li>
+				                                	        <li class="page-item active"><a class="page-link" href="/cancel_order_manage?start_date=${start_date}&end_date=${end_date}&page=${page_counter}">${page_counter}</a></li>
 													    </c:when>
 													    
 													    <c:when test="${page_counter gt total_count}">
@@ -283,7 +283,7 @@
 													    </c:when>
 	
 													    <c:otherwise>
-				                                	        <li class="page-item"><a class="page-link" href="/cancel_order_manage?page=${page_counter}">${page_counter}</a></li>
+				                                	        <li class="page-item"><a class="page-link" href="/cancel_order_manage?start_date=${start_date}&end_date=${end_date}&page=${page_counter}">${page_counter}</a></li>
 													    </c:otherwise>
 													</c:choose>					
 												</c:forEach>
@@ -295,7 +295,7 @@
 	
 													    <c:otherwise>
 					                                        <li class="page-item">
-					                                            <a class="page-link" href="/cancel_order_manage?page=${pageEndPointCalcul + 1}" aria-label="Next">
+					                                            <a class="page-link" href="/cancel_order_manage?start_date=${start_date}&end_date=${end_date}&page=${pageEndPointCalcul + 1}" aria-label="Next">
 					                                                <span aria-hidden="true">&raquo;</span>
 					                                                <span class="sr-only">Next</span>
 					                                            </a>
