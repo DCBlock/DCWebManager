@@ -455,6 +455,10 @@
 		//company_name
 		//user_name
 		//user_email
+		if($("#user_email").val() == "" || $("#rfcard_id").val() == ""){
+			alert("RFID 또는 이메일이 입력란이 비어있습니다.");
+			return;
+		}
         $.ajax({
             url: "/user_regist_request",
             type: "post",
@@ -476,7 +480,17 @@
                 	alert("사용자 등록에 성공하였습니다.");
                 	location.href="/user_regist";
                 
-                }else{
+                }
+                else if(data.result == '-100') {
+                	alert("RFID 또는 이메일이 입력란이 비어있습니다.");
+                
+                }
+                else if(data.result == '-200') {
+                	alert("입력한 RFID 또는 이메일이 이미 존재합니다.");
+                
+                }
+                
+                else{
                 	alert("서버 응답이 올바르지 않습니다.");	                	
                 }
             }

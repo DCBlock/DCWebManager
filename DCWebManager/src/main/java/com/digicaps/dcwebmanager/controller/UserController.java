@@ -83,11 +83,17 @@ public class UserController {
 		else
 			resultPage = "login";
 		*/
+		String total_page = "1";
 		user_list = userService.UserList(page);
+		model.addAttribute("", "");
+		if(user_list.size() > 0) {
+			total_page = user_list.get(0).get("total_pages");
+		}
 		model.addAttribute("user_list", user_list);
 		model.addAttribute("pageStartPointCalcul", userService.pageStartPointCalcul(Integer.parseInt(page)));
 		model.addAttribute("pageEndPointCalcul", userService.pageEndPointCalcul(Integer.parseInt(page)));
 		model.addAttribute("page",page);
+		model.addAttribute("total_pages",total_page);
 		model.addAttribute("user_name",session.getAttribute("user_id").toString());
 		mav.setViewName(resultPage);		
 		
@@ -110,6 +116,11 @@ public class UserController {
     	
     	if(res == 1)
     		retMap.put("result", "success");
+    	else if(res == -100)
+    		retMap.put("result", "-100");
+    	else if(res == -200)
+    		retMap.put("result", "-200");
+    	
     	else
     		retMap.put("result", "fail");
     	

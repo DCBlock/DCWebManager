@@ -189,11 +189,13 @@
 				                                        </li>
 		                                            </c:otherwise>
 												</c:choose>				
-
+												<c:set var="is_page_over" value="0" />
 		                                        <c:forEach var="page_counter" begin="${pageStartPointCalcul + 0}" end="${pageEndPointCalcul + 0}" step="1">
   	                                                <c:choose>
 
-
+													    <c:when test="${page_counter gt total_pages}">
+				                                	        <c:set var="is_page_over" value="1" />
+													    </c:when>
 
 													    <c:when test="${page_counter eq page}">
 				                                	        <li class="page-item active"><a class="page-link" href="/user_manage?page=${page_counter}">${page_counter}</a></li>
@@ -204,14 +206,21 @@
 													    </c:otherwise>
 													</c:choose>					
 												</c:forEach>
+												<c:choose>
+			                                        <c:when test="${is_page_over eq '1'}">
+					                                	
+													</c:when>
+													<c:otherwise>
+				                                		<li class="page-item">
+				                                            <a class="page-link" href="/user_manage?page=${pageEndPointCalcul + 1}" aria-label="Next">
+				                                                <span aria-hidden="true">&raquo;</span>
+				                                                <span class="sr-only">Next</span>
+				                                            </a>
+		                                        		</li>
+													</c:otherwise>													    
+												</c:choose>
+												                                    
 
-		                                                                                
-		                                        <li class="page-item">
-		                                            <a class="page-link" href="/user_manage?page=${pageEndPointCalcul + 1}" aria-label="Next">
-		                                                <span aria-hidden="true">&raquo;</span>
-		                                                <span class="sr-only">Next</span>
-		                                            </a>
-		                                        </li>
 		                                    </ul>
 		                                </nav>
 	                                </div>

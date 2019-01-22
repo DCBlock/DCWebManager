@@ -12,12 +12,13 @@ public class User {
 	private String leave;
 	private String regdate;
 	private String updatedate;
+	private String total_pages;
 
 	public User(){
 		
 	}
 	
-	public User(@JsonProperty("index") String uindex, 
+	public User(@JsonProperty("index") String uindex,
 			@JsonProperty("email") String email,
 			@JsonProperty("rfid") String rfid,
 			@JsonProperty("name") String name,
@@ -35,12 +36,18 @@ public class User {
 		this.regdate = regdate;
 		this.updatedate = updatedate;
 	}
-
+	public String getTotal_pages() {
+		return total_pages;
+	}
+	public void setTotal_pages(String total_pages) {
+		this.total_pages = total_pages;
+	}
+	
 	public String getUindex() {
 		return uindex;
 	}
 	public void setUindex(String index) {
-		this.uindex = uindex;
+		this.uindex = index;
 	}
 
 	public String getEmail() {

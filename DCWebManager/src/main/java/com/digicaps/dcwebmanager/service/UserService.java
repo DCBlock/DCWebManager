@@ -85,6 +85,12 @@ public class UserService {
 		if(map.get("code").toString().equals("200")) {
 			result = 1;
 		}		
+		else if(map.get("code").toString().equals("-100")) {
+			result = -100;
+		}		
+		else if(map.get("code").toString().equals("-200")) {
+			result = -200;
+		}		
 		
 		return result;
 	}
@@ -243,7 +249,8 @@ public class UserService {
 		    System.out.println("=====Users=====");
 		    
 		    try {
-				List<User> someClassList = objectMapper.readValue(jsonObj.get("Users").toString(), typeFactory.constructCollectionType(List.class, User.class));
+		    	String total_page = jsonObj.get("total_pages").toString();
+				List<User> someClassList = objectMapper.readValue(jsonObj.get("lists").toString(), typeFactory.constructCollectionType(List.class, User.class));
 				for(int i = 0; i < someClassList.size(); i++) {
 					//System.out.println("이게 돼나? 지금은 " + i + "번째");
 					if(null == someClassList.get(i))
@@ -258,7 +265,7 @@ public class UserService {
 					someClassList.get(i).setUpdatedate(date3);
 					*/
 					
-					list.add(addUserObjectList(someClassList.get(i)));
+					list.add(addUserObjectList(someClassList.get(i), total_page));
 					
 				}
 			} catch (IOException e) {
@@ -329,7 +336,7 @@ public class UserService {
 		return (pivot/10 + 1) * 10;
 	}	
 	
-    public static HashMap<String, String> addUserObjectList(User item){
+    public static HashMap<String, String> addUserObjectList(User item, String total){
     	
 		HashMap<String, String> mapTMP = new HashMap<String, String>();
 		/*
@@ -355,7 +362,7 @@ public class UserService {
 		mapTMP.put("regdate", item.getRegdate().toString());
 		mapTMP.put("rfid", item.getRfid().toString());
 		mapTMP.put("updatedate", item.getupdatedate().toString());
-		
+		mapTMP.put("total_pages", total);
 
 		System.out.println("test:" + item.getCompany() + ", " + item.getRfid().toString());
 		
