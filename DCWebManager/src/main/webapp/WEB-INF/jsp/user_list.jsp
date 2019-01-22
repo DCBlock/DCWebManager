@@ -400,7 +400,7 @@
     }
     function convert_date2(timestamp){
     	//var timestamp = 1293683278;
-    	alert(timestamp);
+    	//alert(timestamp);
 	    var myDate = new Date(timestamp * 1);
 	    //document.write(myDate.toGMTString()+"<br>"+myDate.toLocaleString());
     	return myDate.toLocaleString();
@@ -415,8 +415,8 @@
     	//$("#modify_user_company_name").val(u_company_name);
     	$("#modify_user_email").val(u_email);
     	$("#modify_user_leave").val(u_leave);
-    	$("#modify_user_regdate").val(u_regdate);
-    	$("#modify_user_updatedate").val(u_updatedate);
+    	$("#modify_user_regdate").val(convert_date2(u_regdate));
+    	$("#modify_user_updatedate").val(convert_date2(u_updatedate));
     	if(u_company_name == 'DigiCAP' || u_company_name == 'digicap')
 	    	$("#modify_user_company_name").val("DigiCAP").prop("selected", true);
     	else
