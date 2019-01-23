@@ -35,7 +35,7 @@ public class UserController {
     public ModelAndView userRegist(ModelMap model, HttpServletRequest request){
 		String resultPage = "user_regist";
 		HttpSession session = request.getSession(true);
-		
+		model.addAttribute("page_name",resultPage);
 		/*
 		HttpSession session = request.getSession(true);
 		String user_id;
@@ -61,6 +61,7 @@ public class UserController {
 	@RequestMapping(value = "/user_manage", method = RequestMethod.GET)
     public ModelAndView userManage(ModelMap model, HttpServletRequest request){
 		String resultPage = "user_list";
+		model.addAttribute("page_name",resultPage);
 		ArrayList<HashMap<String, String>> user_list;
 		String page = "1";
 		HttpSession session = request.getSession(true);

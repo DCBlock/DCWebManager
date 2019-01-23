@@ -1,5 +1,6 @@
 package com.digicaps.dcwebmanager.controller;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class AnalysisController {
 	@RequestMapping(value = "/customer_bill", method = RequestMethod.GET)
     public ModelAndView customerBillList(ModelMap model, HttpServletRequest request) throws Exception{
 		String resultPage = "customer_bill";
+		model.addAttribute("page_name",resultPage);
 		/*
 		HttpSession session = request.getSession(true);
 		String user_id;
@@ -147,10 +149,10 @@ public class AnalysisController {
 		}
 		model.addAttribute("name",name_tmp);
 		model.addAttribute("email",email_tmp);
-		model.addAttribute("total_price",customer_order_calcul.get("total_price"));
-		model.addAttribute("total_purchase_price",customer_order_calcul.get("total_purchase_price"));
-		model.addAttribute("total_cancel_price",customer_order_calcul.get("total_cancel_price"));
-		model.addAttribute("total_canceled_price",customer_order_calcul.get("total_canceled_price"));
+		model.addAttribute("total_price",toNumFormat(customer_order_calcul.get("total_price")));
+		model.addAttribute("total_purchase_price",toNumFormat(customer_order_calcul.get("total_purchase_price")));
+		model.addAttribute("total_cancel_price",toNumFormat(customer_order_calcul.get("total_cancel_price")));
+		model.addAttribute("total_canceled_price",toNumFormat(customer_order_calcul.get("total_canceled_price")));
 		model.addAttribute("total_count",customer_order_calcul.get("total_count"));
 		model.addAttribute("total_purchase_count",customer_order_calcul.get("total_purchase_count"));
 		model.addAttribute("total_cancel_count",customer_order_calcul.get("total_cancel_count"));
@@ -184,6 +186,7 @@ public class AnalysisController {
 	@RequestMapping(value = "/bill", method = RequestMethod.GET)
     public ModelAndView userManage(ModelMap model, HttpServletRequest request) throws Exception{
 		String resultPage = "bill";
+		model.addAttribute("page_name",resultPage);
 		HttpSession session = request.getSession(true);
 		model.addAttribute("user_name",session.getAttribute("user_id").toString());
 		/*
@@ -351,6 +354,13 @@ public class AnalysisController {
     	
         return analysisService.getBillOneUserList(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(), s_date, e_date, request.getParameter("user_index").toString(),  request.getParameter("page").toString());
     }
+    
+	public static String toNumFormat(String num) {
+		int num2 = Integer.parseInt(num);
+		DecimalFormat df = new DecimalFormat("#,###");
+		return df.format(num2);
+	}
+	
     
     
 }

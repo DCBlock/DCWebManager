@@ -399,7 +399,7 @@
             	table_html += 	"<div class='table-responsive'>";
             	table_html +=		"<table class='table table-striped text-center'>";
             	table_html +=			"<thead class='text-uppercase'>";
-           		table_html +=				"<th>날짜</th><th>구매일</th><th>취소일</th><th>영수ID</th><th>품목</th><th>가격</th><th>할인가</th><th>TYPE</th><th>SIZE</th><th>갯수</th><th>상태</th><th>타입</th>";
+           		table_html +=				"<th>날짜</th><th>구매일</th><th>업데이트일</th><th>영수ID</th><th>품목</th><th>가격</th><th>할인가</th><th>TYPE</th><th>SIZE</th><th>갯수</th><th>상태</th><th>타입</th>";
         		table_html +=			"</thead>";
         		table_html +=		    "<tbody>";		
 				

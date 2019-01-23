@@ -23,7 +23,7 @@ public class CustomerBill {
 	private String purchase_type;
 	
 	private String total_pages;
-	
+
 	
 	public String getDate() {
 		return date;
@@ -179,8 +179,8 @@ public class CustomerBill {
 		this.receipt_id = receipt_id;
 		this.name = name;
 		this.menu_name_kr = menu_name_kr;
-		this.price = price;
-		this.dc_price = dc_price;
+		this.price = toNumFormat(price);
+		this.dc_price = toNumFormat(dc_price);
 		this.type = type;
 
 		this.size = size;

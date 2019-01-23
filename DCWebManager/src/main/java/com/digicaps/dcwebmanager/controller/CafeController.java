@@ -53,6 +53,7 @@ public class CafeController {
 	@RequestMapping(value = "/menu_manage")
     public ModelAndView userRegist(ModelMap model, HttpServletRequest request){
 		String resultPage = "menu_manage";
+		model.addAttribute("page_name", resultPage);
 		HttpSession session = request.getSession(true);
 		
 		List<Category> cate = cafeSevice.getCategoryList(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString());
