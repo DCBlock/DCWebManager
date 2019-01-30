@@ -108,12 +108,18 @@ public class UserController {
     public ResponseEntity RegistUserInfo(HttpServletRequest request) throws Exception{
     	HttpSession session = request.getSession(true);
     	Map<String, Object> retMap = new HashMap<String, Object>();
-    	int res = userService.RegistUserInfo(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(),
+    	int res = 0;
+    	
+    	try {
+    		res = userService.RegistUserInfo(session.getAttribute("access_token").toString(), session.getAttribute("token_type").toString(),
     			request.getParameter("email"), 
     			request.getParameter("rfid"), 
     			request.getParameter("name"), 
     			request.getParameter("company"), 
     			request.getParameter("leave"));
+    	} catch (Exception e) {
+    		res = 0;
+    	}
     	
     	if(res == 1)
     		retMap.put("result", "success");

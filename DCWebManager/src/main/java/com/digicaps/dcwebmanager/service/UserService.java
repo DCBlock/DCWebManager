@@ -39,7 +39,7 @@ public class UserService {
 	@Value("${user_api_server.address}")
 	String API_SERVER_ADDRESS;
 	
-	public int RegistUserInfo(String token, String type, String email, String rfid, String name, String company, String leave) {
+	public int RegistUserInfo(String token, String type, String email, String rfid, String name, String company, String leave) throws Exception{
 		int result = 0;
 		
 		RestTemplate restTemplate = new RestTemplate();
