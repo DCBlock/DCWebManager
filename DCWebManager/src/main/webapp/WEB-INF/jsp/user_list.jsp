@@ -451,7 +451,8 @@
   					location.href="/user_manage";
                 
                 }else{
-  					alert("서버 응답이 올바르지 않습니다.");	                	
+  					alert("서버 응답이 올바르지 않습니다. 다시 로그인 해주세요.");
+  					location.href="/";
                 }
             }
         });
@@ -480,7 +481,8 @@
   					location.href="/user_manage";
                 
                 }else{
-  					alert("서버 응답이 올바르지 않습니다.");	                	
+  					alert("서버 응답이 올바르지 않습니다. 다시 로그인해 주세요.");	  
+  					location.href="/";
                 }
             }
         });

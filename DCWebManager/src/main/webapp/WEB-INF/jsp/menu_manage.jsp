@@ -682,8 +682,10 @@
             		alert("카테고리 수정이 완료되었습니다.");
             		location.href="/menu_manage";
             	}
-            	else
-            		alert("카테고리 변경에 실패하였습니다.");
+            	else{
+            		alert("카테고리 변경에 실패하였습니다. 다시 로그인 해주세요.");
+            		location.href="/";
+            	}
             }
         });
     }
@@ -704,8 +706,10 @@
             		alert("카테고리 삭제가 완료되었습니다.");
             		location.href="/menu_manage";
             	}
-            	else
-            		alert("카테고리 삭제에 실패하였습니다.");
+            	else{
+            		alert("카테고리 삭제에 실패하였습니다. 다시 로그인 해주세요.");
+	            	location.href="/";
+            	}
             }
         });
     }
@@ -725,8 +729,10 @@
             		alert("카테고리 추가가 완료되었습니다.");
             		location.href="/menu_manage";
             	}
-            	else
-            		alert("카테고리 추가에 실패하였습니다.");
+            	else{
+            		alert("카테고리 추가에 실패하였습니다. 다시 로그인 해주세요.");
+            		location.href="/";
+            	}
             }
         });
     }
@@ -792,8 +798,10 @@
             		alert("메뉴 수정이 완료되었습니다.");
             		location.href="/menu_manage";
             	}
-            	else
-            		alert("메뉴 변경에 실패하였습니다.");
+            	else{
+            		alert("메뉴 변경에 실패하였습니다. 다시 로그인 해주세요.");
+            		location.href="/";
+            	}
             }
         });
     	
@@ -817,8 +825,10 @@
             		alert("메뉴 삭제가 완료되었습니다.");
             		location.href="/menu_manage";
             	}
-            	else
-            		alert("메뉴 삭제에 실패하였습니다.");
+            	else{
+            		alert("메뉴 삭제에 실패하였습니다. 다시 로그인 해주세요.");
+            		location.href="/";
+            	}
             }
         });
     }
@@ -852,8 +862,10 @@
             		alert("메뉴 추가가 완료되었습니다.");
             		location.href="/menu_manage";
             	}
-            	else
-            		alert("메뉴 추가에 실패하였습니다.");
+            	else{
+            		alert("메뉴 추가에 실패하였습니다. 다시 로그인 해주세요.");
+            		location.href="/";
+            	}
             }
         });
     }

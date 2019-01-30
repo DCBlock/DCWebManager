@@ -69,6 +69,8 @@ public class UserService {
 		HttpEntity<String> entity = new HttpEntity<String>(tokenToJson, headers);
 
 		ResponseEntity<String> response = restTemplate.exchange(reqUrl, HttpMethod.POST, entity, String.class);		
+		System.out.println("*유저 등록시 응답 " + response);
+		System.out.println("*유저 등록시 응답2 " + response.getBody());
 		
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> map = new HashMap<String, Object>(); 
@@ -155,14 +157,13 @@ public class UserService {
 			e.printStackTrace();
 		}
 		
-		System.out.println("으디 ? : " + tokenToJson);
+		//System.out.println("tokenToJson : " + tokenToJson);
 		tokenToJson = "{\"index\" : " + index + ", ";
 		tokenToJson += "\"email\" : \"" + email + "\", ";
 		tokenToJson += "\"rfid\" : \"" + rfid + "\", ";
 		tokenToJson += "\"name\" : \"" + name + "\", ";
 		tokenToJson += "\"company\" : \"" + company + "\", ";
 		tokenToJson += "\"leave\" : \"" + leave + "\"}";
-		System.out.println("으디 22? : " + tokenToJson);
 		
 		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
 		//ClientHttpRequestFactory httpRequestFactory =  new HttpComponentsClientHttpRequestFactory();

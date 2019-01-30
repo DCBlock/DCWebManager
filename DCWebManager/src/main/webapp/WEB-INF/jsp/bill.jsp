@@ -378,7 +378,8 @@
             },
             dataType: "json",
             error: function(xhr, ajaxOptions, thrownError){
-
+            	alert("에러가 발생하였습니다. 다시 로그인 해주세요.");
+            	location.href="/";
             },
             success: function(data){
 

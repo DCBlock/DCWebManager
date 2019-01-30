@@ -118,8 +118,15 @@ public class UserController {
     			request.getParameter("company"), 
     			request.getParameter("leave"));
     	} catch (Exception e) {
-    		res = 0;
+    		res = -999;
+    		System.out.println("Error : -999");
     	}
+    	
+    	if(session.getAttribute("access_token") == null) {
+    		System.out.println("Error : -999, 세션값이 없습니다.");
+    		
+    	}
+    	
     	
     	if(res == 1)
     		retMap.put("result", "success");
@@ -127,7 +134,8 @@ public class UserController {
     		retMap.put("result", "-100");
     	else if(res == -200)
     		retMap.put("result", "-200");
-    	
+    	else if(res == -999)
+    		retMap.put("result", "-999");
     	else
     		retMap.put("result", "fail");
     	

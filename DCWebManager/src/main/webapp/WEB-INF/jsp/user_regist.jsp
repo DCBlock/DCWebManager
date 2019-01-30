@@ -489,9 +489,13 @@
                 	alert("입력한 RFID 또는 이메일이 이미 존재합니다.");
                 
                 }
-                
+                else if(data.result == '-999') {
+                	alert("서버 세션이 종료되었습니다. 다시 로그인해 주세요.");
+                	location.href="/";
+                }                
                 else{
-                	alert("서버 응답이 올바르지 않습니다.");	                	
+                	alert("서버 응답이 올바르지 않습니다. 다시 로그인해 주세요.");	     
+                	location.href="/";
                 }
             }
         });
