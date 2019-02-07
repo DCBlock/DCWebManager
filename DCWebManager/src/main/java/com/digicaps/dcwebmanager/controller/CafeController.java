@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -118,7 +119,8 @@ public class CafeController {
 		}
 		else {
 			//날짜 계산
-			Calendar calendar = Calendar.getInstance();
+			Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
+			//calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
 			String today = "";
 			String today_end = "";
 			
